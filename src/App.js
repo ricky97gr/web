@@ -3,7 +3,7 @@ import Router  from './router/index.tsx';
 import './App.css'
 
 
-const App: React.FC = () => (
+const App= () => (
   <div className="App">
     <Router />
   </div>
