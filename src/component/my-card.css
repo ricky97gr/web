@@ -1,0 +1,42 @@
+.card-left {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    float: left;
+    padding: 0;
+    
+
+}
+:where(.css-dev-only-do-not-override-amq5gd).ant-card .ant-card-body {
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+}
+.card-right {
+    width: 750px;
+    float: right;
+    padding: 0;
+    text-align: left;
+
+}
+
+.userField{
+    font-size: 12px;
+    color: #909399;
+}
+
+.right-top {
+    height: 30px;
+
+}
+
+.right-center {
+    height: 50px;
+    margin-top: 15px;
+    margin-left: 20px;
+    
+}
+
+.right-buttom {
+    height: 30px;
+    
+}
