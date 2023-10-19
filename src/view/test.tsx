@@ -1,7 +1,7 @@
 import React from "react";
-import CustomCard from "../component/my-card.tsx";
-import CustomTextArea from "../component/my-textarea.tsx";
-import CustomNav from "../component/my-nav.tsx";
+import CustomCard from "../component/my-card";
+import CustomTextArea from "../component/my-textarea";
+import CustomNav from "../component/my-nav";
 import './test.css'
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import Router  from './router/index.tsx';
+import Router  from './router/index';
 import './App.css'
 
 
-const App: React.FC = () => (
+const App= () => (
   <div className="App">
     <Router />
   </div>
