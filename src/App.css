@@ -1,14 +1,18 @@
-#root{
+#root {
   height: 100%;
-  width:100%;
+  width: 100%;
+  overflow: hidden;
 
 }
+
 .App {
   text-align: center;
-  background-color: #F6F6F6;
+  /* background-color: #F6F6F6; */
+  background-color: #ddd;
   /* 正文 #555 */
   height: 100%;
   width: 100%;
-  
-  
+  overflow: auto;
+
+
 }

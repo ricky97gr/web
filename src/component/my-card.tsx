@@ -4,7 +4,7 @@ import './my-card.css'
 
 const CustomCard = ({ author, level, ip, createTime, children }) => {
     return (
-        <Card style={{ width: 850, height: 150, margin:5}}>
+        <Card style={{ width: 850, height: 280, margin: 5 }}>
             <div className='card-left'>
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" style={{ cursor: "pointer", width: "100%", height: "100%" }} />
             </div>
@@ -25,9 +25,9 @@ const CustomCard = ({ author, level, ip, createTime, children }) => {
                 </div>
                 <div className='right-center'>{children}</div>
                 <div className='right-buttom'>
-                    <span style={{margin:4}}>回复</span>
-                    <span style={{margin:4}}>👍赞</span>
-                    <span style={{margin:4}}>👎踩</span>
+                    <span style={{ margin: 4 }}>回复</span>
+                    <span style={{ margin: 4 }}>👍赞</span>
+                    <span style={{ margin: 4 }}>👎踩</span>
                 </div>
             </div>
 

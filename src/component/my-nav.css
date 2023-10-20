@@ -1,6 +1,66 @@
-.header-nav{
+.header-nav {
     height: 60px;
-    border: 1px solid #ccc;
-    width: 100%;
+    /* border: 1px solid #ccc; */
+    /* width: 100%; */
     background-color: white;
+    /* display: flex; */
+    /* align-items: center; */
+}
+
+.logo {
+    width: 120px;
+    height: 100%;
+    margin-left: 10px;
+    float: left;
+}
+
+.nav-menu {
+    font-size: 15px;
+    color: #909399;
+    /* display: inline; */
+    margin: 0 0 0 50px;
+    padding: 0;
+    width: 700px;
+    height: 100%;
+    float: left;
+
+
+    /* float: left; */
+
+}
+
+.search-box {
+    float: right;
+    margin: 10px 100px 10px 5px;
+}
+
+.notice {
+    float: right;
+    width: 40px;
+    height: 40px;
+    margin: 10px 5px 10px 5px;
+}
+
+.login-down {
+    float: inline-end;
+    width: 40px;
+    height: 40px;
+    margin: 10px 5px 10px 5px;
+}
+
+li {
+    list-style-type: none;
+    height: 100%;
+    float: left;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    /* float: left; */
+
+}
+
+a {
+    text-decoration: none;
+    color: #71777c;
+    padding: 5px;
 }
