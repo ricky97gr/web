@@ -1,16 +1,13 @@
 import React from "react";
-import CustomCard from "../../component/my-card";
-import CustomTextArea from "../../component/my-textarea";
-import CustomNav from "../../component/my-nav";
+import CustomCard from "../../component/base/my-card";
+import CustomTextArea from "../../component/base/my-textarea";
+import CustomNav from "../../component/base/my-nav";
 import './comment.css'
 
 
 const Test = () => (
-    <div className="quanzi" >
-        <div className="quanzi-header">
-            <CustomNav></CustomNav>
-        </div>
-
+    <>
+        <CustomNav></CustomNav>
         <div className="quanzi-body">
             <CustomTextArea></CustomTextArea>
             <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
@@ -29,11 +26,7 @@ const Test = () => (
                 <span style={{ fontSize: 15 }}>测试数据</span>
             </CustomCard>
         </div>
-
-    </div>
-
-
-
+    </>
 
 )
 

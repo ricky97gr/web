@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from './router/index';
 import './App.css'
-import CustomDropDown from './component/my-dropdown';
+import CustomDropDown from './component/base/my-dropdown';
 
 
 const App = () => (

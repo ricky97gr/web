@@ -4,6 +4,7 @@ import Login from "../view/system/login";
 import Register from "../view/system/register";
 import Test from "../view/test";
 import Comment from "../view/comment/comment"
+import CurrentUser from "../view/user/home";
 
 class Router extends Component {
   render() {
@@ -15,6 +16,7 @@ class Router extends Component {
           <Route path="/register" Component={Register}></Route>
           <Route path="/test" Component={Test}></Route>
           <Route path="/comment" Component={Comment}></Route>
+          <Route path="/currentUser" Component={CurrentUser}></Route>
         </Routes>
       </BrowserRouter>
     );

@@ -4,6 +4,10 @@ import "./my-nav.css"
 import CustomSearch from "./my-search"
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import CustomDropDown from "./my-dropdown";
+import NoticeDropDwon from "../notice-dropdown";
+import UserDropDwon from "../user/user-dropdown";
+import { Button } from "antd";
+import NewArticleDropDwon from "../article/article-menu";
 
 const CustomNav = () => (
     <div className="header-nav">
@@ -56,20 +60,25 @@ const CustomNav = () => (
             </li>
         </ul>
 
+        <div className="login-down">
+            <UserDropDwon>
+                <UserOutlined />
+            </UserDropDwon>
+        </div>
+        <div className="notice">
+            <NoticeDropDwon>
+                <BellOutlined />
+            </NoticeDropDwon>
+
+        </div>
         <div className="search-box">
             <CustomSearch></CustomSearch>
         </div>
+        <div style={{ float: "right", marginTop: 10 }}>
+            <NewArticleDropDwon>
+                <Button type="primary" size="large">创作</Button>
+            </NewArticleDropDwon>
 
-        <div className="notice">
-            <CustomDropDown>
-                <BellOutlined />
-            </CustomDropDown>
-
-        </div>
-        <div className="login-down">
-            <a href="/login">
-                <UserOutlined />
-            </a>
         </div>
     </div>
 

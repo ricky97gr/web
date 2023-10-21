@@ -1,40 +1,18 @@
 import React from "react";
-import CustomCard from "../component/my-card";
-import CustomTextArea from "../component/my-textarea";
-import CustomNav from "../component/my-nav";
+import CustomNav from "../component/base/my-nav";
 import './test.css'
+import { Col, Row, Avatar, Tag, Tabs } from "antd";
+import type { TabsProps } from "antd"
 
 
-const Test = () => (
-    <div className="quanzi" >
-        <div className="quanzi-header">
-            <CustomNav></CustomNav>
-        </div>
-
-        <div className="quanzi-body">
-            <CustomTextArea></CustomTextArea>
-            <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
-                <span style={{ fontSize: 15 }}>测试数据</span>
-            </CustomCard>
-            <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
-                <span style={{ fontSize: 15 }}>测试数据</span>
-            </CustomCard>
-            <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
-                <span style={{ fontSize: 15 }}>测试数据</span>
-            </CustomCard>
-            <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
-                <span style={{ fontSize: 15 }}>测试数据</span>
-            </CustomCard>
-            <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
-                <span style={{ fontSize: 15 }}>测试数据</span>
-            </CustomCard>
-        </div>
-
-    </div>
 
 
+
+const CurrentUser = () => (
+    <>
+        </>
 
 
 )
 
-export default Test;
+export default CurrentUser;

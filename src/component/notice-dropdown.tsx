@@ -1,9 +1,6 @@
-
 import React from "react";
-
-import { Dropdown, Space } from "antd";
-import type { MenuProps } from 'antd';
-
+import CustomDropDown from "./base/my-dropdown";
+import type { MenuProps } from "antd";
 
 const items: MenuProps['items'] = [
     {
@@ -13,7 +10,6 @@ const items: MenuProps['items'] = [
             <a href="" >系统通知</a>
 
         ),
-
     },
     {
         key: '1',
@@ -52,15 +48,7 @@ const items: MenuProps['items'] = [
 
 ];
 
-
-const CustomDropDown = ({ children }) => (
-    <Dropdown menu={{ items }} placement="bottomRight" overlayStyle={{ backgroundColor: "white", padding: 0, }}>
-        <a onClick={(e) => e.preventDefault()}>
-            <Space>
-                {children}
-            </Space>
-        </a>
-    </Dropdown>
+const NoticeDropDwon = ({children}) =>(
+    <CustomDropDown items={items} children={children} ></CustomDropDown>
 )
-
-export default CustomDropDown
+export default NoticeDropDwon
