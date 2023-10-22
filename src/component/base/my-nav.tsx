@@ -16,13 +16,13 @@ const CustomNav = () => (
         </div>
 
         <ul className="nav-menu">
-            {/* <li>
+        <li>
                 <span>
-                    <a href="/login">
-                        login
+                    <a href="/test">
+                        首页
                     </a>
                 </span>
-            </li> */}
+            </li>
             <li>
                 <span>
                     <a href="/comment">

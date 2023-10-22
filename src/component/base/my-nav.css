@@ -15,12 +15,12 @@
 }
 
 .nav-menu {
-    font-size: 15px;
+    font-size: 14px;
     color: #909399;
     /* display: inline; */
-    margin: 0 0 0 50px;
+    margin: 0 0 0 10px;
     padding: 0;
-    width: 700px;
+    width: 30%;
     height: 100%;
     float: left;
 

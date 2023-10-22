@@ -37,7 +37,7 @@ const UserInfoForm =
         <Form.Item label="简介">
             <TextArea placeholder="介绍一下自己吧"></TextArea>
         </Form.Item>
-        <Button size="large" type="primary">保存</Button>
+        <Button size="large" type="primary" style={{float:"right", marginTop:"50px", marginRight:"50px"}}>保存</Button>
     </Form>
 </div>
     

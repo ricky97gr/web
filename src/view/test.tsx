@@ -3,6 +3,7 @@ import CustomNav from "../component/base/my-nav";
 import './test.css'
 import { Col, Row, Avatar, Tag, Tabs } from "antd";
 import type { TabsProps } from "antd"
+import ArticleInfo from "../component/article/article-info";
 
 
 
@@ -10,6 +11,7 @@ import type { TabsProps } from "antd"
 
 const CurrentUser = () => (
     <>
+    <ArticleInfo></ArticleInfo>
         </>
 
 
