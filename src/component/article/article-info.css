@@ -1,20 +1,27 @@
-.article-title{
+.article-title {
     width: 100%;
     height: 30px;
     text-align: left;
 
 }
 
-.article-abstract{
+.article-abstract {
     margin-bottom: 25px;
     text-align: left;
     margin-top: 15px;
 }
 
-.article-info{
+.article-info {
     width: 100%;
     height: 40px;
     margin-top: 15px;
-    
-    
+
+
+}
+
+.article-button-info {
+    list-style-type: none;
+    height: 100%;
+    float: left;
+    padding: 0 10px 0 0;
 }

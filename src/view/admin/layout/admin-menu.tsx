@@ -32,9 +32,9 @@ const items: MenuItem[] = [
   getItem(<a href='/admin/tags'>标签管理</a>, 'sub3'),
   getItem(<a href='/admin/category'>分类管理</a>, 'sub4'),
   getItem(<a href="/admin/article">文章管理</a>, 'sub5'),
-  getItem('日志管理', 'sub6',null,[
+  getItem('日志管理', 'sub6', null, [
     getItem(<a href='/admin/operationlog'>操作日志</a>, "1"),
-    getItem(<a href='/admin/systemlog'>系统日志</a>,"2"),]),
+    getItem(<a href='/admin/systemlog'>系统日志</a>, "2"),]),
 
 ]
 
@@ -61,7 +61,7 @@ const AdminMenu = () => {
       mode="inline"
       openKeys={openKeys}
       onOpenChange={onOpenChange}
-      style={{ width: 256, height: "100%" }}
+      style={{ width: "100%", height: "100%" }}
       items={items}
     />
   )

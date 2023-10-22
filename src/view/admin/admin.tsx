@@ -5,39 +5,21 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import AdminMenu from './layout/admin-menu';
 import CustomNav from '../../component/base/my-nav';
 import AdminRouter from '../../router/admin-index';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminArticleView from './article/article';
+import AdminCategoryView from './category/category';
+import AdminOperationLogView from './log/operation-log';
+import AdminSystemLogView from './log/systemlog';
+import AdminTagView from './tag/tag';
+import AdminUserView from './user/user-view';
+import AdminLayout from './layout/layout';
 
-
-const { Header, Content, Sider, Footer } = Layout;
 
 
 const Admin = () => {
-    const {
-        token: { colorBgContainer },
-      } = theme.useToken();
-    return (<>
-    <Layout>
-    <Header style={{}}>
-        {/* <div className="demo-logo" /> */}
-        {/* <CustomNav></CustomNav> */}
-      </Header>
-    </Layout>
-    
-    <Layout>
-        <Sider width={256} style={{ background: colorBgContainer }}>
-          <AdminMenu></AdminMenu>
-        </Sider>
-        <Layout style={{ padding: '10px' }}>
-          <Breadcrumb style={{ margin: '10px' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <Footer style={{ textAlign: 'center', fontSize:16}}>Family ©2023 Created by fogocode</Footer>
-        </Layout>
-      </Layout>
-    
-    </>
-    );
+  return (
+    <AdminLayout><></></AdminLayout>
+  )
 }
 
 export default Admin

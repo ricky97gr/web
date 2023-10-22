@@ -1,5 +1,7 @@
 import { Button, Table } from "antd";
 import React, { Component } from "react";
+import AdminLayout from "../layout/layout";
+import './../style/table-layout.css'
 const colums = [
     {
         title: "标签名",
@@ -30,18 +32,18 @@ const colums = [
 
 const dataResource = [
     {
-        id:1,
-        name:"go",
-        who:"admin",
-        createTime:"2023-10-22 11:06:11",
-        usedByArticle:10
+        id: 1,
+        name: "go",
+        who: "admin",
+        createTime: "2023-10-22 11:06:11",
+        usedByArticle: 10
     },
     {
-        id:2,
-        name:"mysql",
-        who:"admin",
-        createTime:"2023-10-22 11:06:11",
-        usedByArticle:0
+        id: 2,
+        name: "mysql",
+        who: "admin",
+        createTime: "2023-10-22 11:06:11",
+        usedByArticle: 0
     },
 ]
 
@@ -49,10 +51,14 @@ class AdminTagView extends Component {
 
     render(): React.ReactNode {
         return (
-            <>
-                <div><Button>新增标签</Button></div>
-                <div><Table columns={colums} dataSource={dataResource}></Table></div>
-            </>
+            <AdminLayout>
+                <div className="table-context-body">
+                    <div className="table-add-button"><Button size="large">新增标签</Button></div>
+                    <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+                </div>
+
+
+            </AdminLayout>
         )
     }
 }

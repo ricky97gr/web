@@ -67,7 +67,7 @@ const items: TabsProps['items'] = [
     key: '11',
     label: "修改密码",
     children: <div className="custom-empty"><CustomEmpty context="好空，加点东西?"></CustomEmpty></div>
-  
+
 
   },
 ]
@@ -86,33 +86,30 @@ class UserInfoDrawer extends Component<UserInfoDrawerProps>{
 
     return (
       <ConfigProvider theme={{
-        token:{
-          paddingLG:0,
-          
+        token: {
+          paddingLG: 0,
+
         }
       }
       }>
         <Drawer placement="right" onClose={this.updateParent} open={isOpen} width={640} closable={false}>
-        <div className="tag-is-left">
-          <ConfigProvider
-            theme={{
-              components: {
-                Tabs: {
-                  cardBg: "#ddd",
-                  inkBarColor:"grey",
-                  paddingLG:24,
-                }
-              },
-             
-            }}>
-            <Tabs tabPosition="left" items={items}  style={{height:"100%"}}></Tabs>
-          </ConfigProvider>
-        </div>
-      </Drawer>
+          <div className="tag-is-left">
+            <ConfigProvider
+              theme={{
+                components: {
+                  Tabs: {
+                    cardBg: "#ddd",
+                    inkBarColor: "grey",
+                    paddingLG: 24,
+                  }
+                },
+
+              }}>
+              <Tabs tabPosition="left" items={items} style={{ height: "100%" }}></Tabs>
+            </ConfigProvider>
+          </div>
+        </Drawer>
       </ConfigProvider>
-      
-
-
 
     )
   }

@@ -1,0 +1,18 @@
+.table-context-body {
+    height: 100%
+}
+
+.table-add-button {
+    height: 4%;
+    float: right;
+    margin-right: 120px;
+    margin-bottom: 10;
+    margin-top: 10
+}
+
+.table-body {
+    width:95%;
+    margin:auto;
+    margin-top:20px
+
+}

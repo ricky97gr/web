@@ -29,29 +29,29 @@ interface UserDropDwonProps {
     children?: any
 }
 
-class UserDropDwon extends Component <UserDropDwonProps>{
-   state={
-    isOpen: false,
-   }
-    
+class UserDropDwon extends Component<UserDropDwonProps>{
+    state = {
+        isOpen: false,
+    }
+
     onclick = ({ key }) => {
         console.log(key)
         if (key === '2') {
-            this.setState(()=>({
-                isOpen :true
+            this.setState(() => ({
+                isOpen: true
             }));
         }
     }
-    udpateIsOpen=(open)=>{
-        this.setState(()=>({
-            isOpen :open
-        }));}
-        
+    udpateIsOpen = (open) => {
+        this.setState(() => ({
+            isOpen: open
+        }));
+    }
 
-    render(){
+    render() {
         return (
             <>
-                <CustomDropDown items={items} children={this.props.children } onClick={this.onclick}></CustomDropDown>
+                <CustomDropDown items={items} children={this.props.children} onClick={this.onclick}></CustomDropDown>
                 <UserInfoDrawer isOpen={this.state.isOpen} UpdateValue={this.udpateIsOpen}></UserInfoDrawer>
             </>
 

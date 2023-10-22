@@ -2,16 +2,16 @@
 import { Empty } from "antd";
 import React, { Component } from "react";
 
-interface CustomEmptyProps{
-    image ?:string
-    context ?: string
+interface CustomEmptyProps {
+    image?: string
+    context?: string
 }
 
 class CustomEmpty extends Component<CustomEmptyProps>{
     render(): React.ReactNode {
-        return(
+        return (
             <Empty image={this.props.image}
-            description={this.props.context}></Empty>
+                description={this.props.context}></Empty>
         )
     }
 }

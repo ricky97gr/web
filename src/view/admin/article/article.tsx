@@ -1,7 +1,10 @@
 import { Button, Table } from "antd";
 import React, { Component } from "react";
+import AdminLayout from "../layout/layout";
+import './../style/table-layout.css'
 const colums = [
-    {   title:"标题",
+    {
+        title: "标题",
         dataIndex: "name",
         key: "name"
     },
@@ -39,21 +42,21 @@ const colums = [
 
 const dataResource = [
     {
-        id:1,
-        name:"go的基本常识",
-        author:"admin",
-        createTime:"2023-10-22 11:06:11",
-        status:"已发布",
-        tags:["go","编程"],
+        id: 1,
+        name: "go的基本常识",
+        author: "admin",
+        createTime: "2023-10-22 11:06:11",
+        status: "已发布",
+        tags: ["go", "编程"],
         category: "后端开发"
     },
     {
-        id:2,
-        name:"go的基本常识",
-        author:"admin",
-        createTime:"2023-10-22 11:06:11",
-        status:"已发布",
-        tags:["go","编程"],
+        id: 2,
+        name: "go的基本常识",
+        author: "admin",
+        createTime: "2023-10-22 11:06:11",
+        status: "已发布",
+        tags: ["go", "编程"],
         category: "后端开发"
     },
 ]
@@ -62,9 +65,16 @@ class AdminArticleView extends Component {
 
     render(): React.ReactNode {
         return (
-            <>
-                <div><Table columns={colums} dataSource={dataResource}></Table></div>
-            </>
+            <AdminLayout>
+                <div className="table-context-body">
+                    <div className="table-body">
+                        <Table columns={colums} dataSource={dataResource}></Table>
+                    </div>
+                </div>
+
+            </AdminLayout>
+
+
         )
     }
 }

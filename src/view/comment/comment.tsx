@@ -5,9 +5,12 @@ import CustomNav from "../../component/base/my-nav";
 import './comment.css'
 
 
-const Test = () => (
+const Comment = () => (
     <>
-        <CustomNav></CustomNav>
+        <div style={{ height: "5%" }}>
+            <CustomNav></CustomNav>
+        </div>
+
         <div className="quanzi-body">
             <CustomTextArea></CustomTextArea>
             <CustomCard author="Tom" level="摸鱼高手" ip="江苏省" createTime={"一天前"}>
@@ -30,4 +33,4 @@ const Test = () => (
 
 )
 
-export default Test;
+export default Comment;

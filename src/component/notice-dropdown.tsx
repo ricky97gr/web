@@ -46,9 +46,11 @@ const items: MenuProps['items'] = [
 
     },
 
-];
+]
 
-const NoticeDropDwon = ({children}) =>(
-    <CustomDropDown items={items} children={children} ></CustomDropDown>
-)
+const NoticeDropDwon = ({ children }) => {
+    return (
+        <CustomDropDown items={items} children={children} ></CustomDropDown>
+    )
+}
 export default NoticeDropDwon

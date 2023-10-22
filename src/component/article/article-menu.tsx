@@ -30,31 +30,32 @@ interface NewArticleDropDwonProps {
     children?: any
 }
 
-class NewArticleDropDwon extends Component <NewArticleDropDwonProps>{
-   state={
-    isOpen: false,
-   }
-    
+class NewArticleDropDwon extends Component<NewArticleDropDwonProps>{
+    state = {
+        isOpen: false,
+    }
+
     onclick = ({ key }) => {
         console.log(key)
         if (key === '1') {
-            this.setState(()=>({
-                isOpen :true
+            this.setState(() => ({
+                isOpen: true
             }));
         }
     }
-    udpateIsOpen=(open)=>{
-        this.setState(()=>({
-            isOpen :open
-        }));}
-        
+    udpateIsOpen = (open) => {
+        this.setState(() => ({
+            isOpen: open
+        }));
+    }
 
-    render(){
+
+    render() {
         return (
             <>
-                <CustomDropDown items={items} children={this.props.children } onClick={this.onclick}></CustomDropDown>
+                <CustomDropDown items={items} children={this.props.children} onClick={this.onclick}></CustomDropDown>
                 <NewArticleDrawer isOpen={this.state.isOpen} UpdateValue={this.udpateIsOpen}></NewArticleDrawer>
-                
+
             </>
 
         )

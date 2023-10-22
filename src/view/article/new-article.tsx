@@ -90,7 +90,7 @@ class NewArticleDrawer extends Component<NewArticleDrawerProps>{
                 </Form>
                 <div style={{ float: "right" }}>
                     <Button onClick={this.updateParent} size="large" style={{ margin: 10 }}>取消</Button>
-                    <Button size="large" style={{ margin: 10 , backgroundColor:"#909399"}} >保存草稿</Button>
+                    <Button size="large" style={{ margin: 10, backgroundColor: "#909399" }} >保存草稿</Button>
                     <Button size="large" style={{ margin: 10 }} type="primary">提交审核</Button>
                 </div>
 
