@@ -51,7 +51,7 @@ const addParamsToUrl = (url, params) => {
 const createTimeoutPromise = (ms) =>
   new Promise((_, reject) => setTimeout(() => reject("timeout"), ms));
 
-const myFetch =async ({
+export const myFetch =async ({
   url,
   options,
   timeout = 0,
