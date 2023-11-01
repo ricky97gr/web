@@ -1,5 +1,5 @@
 const config = {
-  apiPath: "/api/",
+  apiPath: "",
   networkErrorCode: 1000,
   isErrorResponse: (res, body) => res.ok,
   exceptionData: (res, body) => body,
@@ -51,11 +51,11 @@ const addParamsToUrl = (url, params) => {
 const createTimeoutPromise = (ms) =>
   new Promise((_, reject) => setTimeout(() => reject("timeout"), ms));
 
-export const myFetch =async ({
+export const myFetch = async ({
   url,
   options,
   timeout = 0,
-  params,
+  params = null,
   dataFormat = (_) => _,
   apiPath = "",
 }) => {

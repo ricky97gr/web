@@ -1,10 +1,19 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import './login.css'
+import { myFetch } from '../../utils/fetch';
 
 const onFinish = (values: any) => {
-  console.log('Success:', values);
+
+  myFetch({ url: "/login", options: { body: values, method: "POST" } }).then((data) => {
+    if (data.body.code !== 200) {
+      message.error("😒 " + data.body.msg + " 😒")
+      return
+    }
+    message.success("😊 登录成功 😊")
+
+  })
 };
 
 const onFinishFailed = (errorInfo: any) => {
@@ -13,7 +22,7 @@ const onFinishFailed = (errorInfo: any) => {
 
 
 type FieldType = {
-  username?: string;
+  phone?: string;
   password?: string;
 };
 
@@ -32,11 +41,11 @@ const Login = () => (
         autoComplete="off"
       >
         <Form.Item<FieldType>
-          label="用户名"
-          name="username"
-          rules={[{ required: true, message: '请输入用户名' }]}
+          label="手机号"
+          name="phone"
+          rules={[{ required: true, message: '请输入手机号' }]}
         >
-          <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+          <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='PhoneNumber' />
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -49,7 +58,7 @@ const Login = () => (
 
 
         <Form.Item style={{ marginLeft: "120px", width: "100%" }}>
-          <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+          <Button type="primary" htmlType="submit" style={{ width: "100%" }} >
             登录
           </Button>
         </Form.Item>

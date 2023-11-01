@@ -19,18 +19,18 @@ import AdminRouter from "./admin-index";
 class Router extends Component {
   render() {
     return (
-     
-        <Routes>
-          <Route path="/" Component={Comment} ></Route>
-          <Route path="/login" Component={Login}></Route>
-          <Route path="/register" Component={Register}></Route>
-          <Route path="/test" Component={Test}></Route>
-          <Route path="/comment" Component={Comment}></Route>
-          <Route path="/currentUser" Component={CurrentUser}></Route>
-          <Route path="/admin" Component={Admin}></Route>
-          
-        </Routes>
-   
+
+      <Routes>
+        <Route path="/" Component={Comment} ></Route>
+        <Route path="/login" Component={Login}></Route>
+        <Route path="/register" Component={Register}></Route>
+        <Route path="/test" Component={Test}></Route>
+        <Route path="/comment" Component={Comment}></Route>
+        <Route path="/currentUser" Component={CurrentUser}></Route>
+        <Route path="/admin" Component={Admin}></Route>
+
+      </Routes>
+
     );
   }
 }

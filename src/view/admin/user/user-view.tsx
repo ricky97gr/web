@@ -2,6 +2,7 @@ import { Button, Table } from "antd";
 import React, { Component } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css'
+import { myFetch } from "../../../utils/fetch";
 const colums = [
     {
         title: "姓名",
@@ -53,10 +54,25 @@ const dataResource = [
         lastOnLineTime: "2023-10-22 11:06:11"
     }
 ]
+type Page = {
+    page: number,
+    limit: number
+
+}
+
+const getAllUser = () => {
+    var p = new Object()
+    p["page"] = 1
+    p["limit"] = 10
+    myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
+        console.log(data)
+    })
+}
 
 class AdminUserView extends Component {
 
     render(): React.ReactNode {
+        getAllUser()
         return (
             <AdminLayout>
                 <div className="table-context-body">
