@@ -2,6 +2,8 @@ import { Button, Table } from "antd";
 import React, { Component } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css'
+import MyQuery from "../../../utils/query";
+import { myFetch } from "../../../utils/fetch";
 const colums = [
     {
         title: "时间",
@@ -36,19 +38,22 @@ const dataResource = [
     }
 ]
 
-class AdminSystemLogView extends Component {
+const AdminSystemLogView = () => {
+    let param = MyQuery({ page: 1, pageSize: 20 })
 
-    render(): React.ReactNode {
-        return (
+    const getSysLog = () => {
 
-            <AdminLayout>
-                <div className="table-context-body">
-                    <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
-                </div>
-            </AdminLayout>
-
-        )
     }
+
+    return (
+        <AdminLayout>
+            <div className="table-context-body">
+                <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+            </div>
+        </AdminLayout>
+
+    )
+
 }
 
 export default AdminSystemLogView

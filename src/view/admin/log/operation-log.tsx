@@ -1,11 +1,13 @@
 import { Button, Table } from "antd";
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
+import MyQuery from "../../../utils/query";
+import { myFetch } from "../../../utils/fetch";
 const colums = [
     {
         title: "时间",
-        dataIndex: "time",
-        key: "time"
+        dataIndex: "createTime",
+        key: "createTime"
     },
     {
         title: "操作者",
@@ -25,36 +27,33 @@ const colums = [
 
 ]
 
-const dataResource = [
-    {
-        id: 1,
-        time: "2023-10-22 11:06:11",
-        user: "admin",
-        module: "系统模块",
-        msg: "admin用户登录成功"
-    },
-    {
-        id: 2,
-        time: "2023-10-22 11:06:11",
-        user: "admin",
-        module: "标签模块",
-        msg: "admin用户创建标签'go"
+const AdminOperationLogView = () => {
+    let param = MyQuery({ page: 1, pageSize: 20 })
+
+    const [dataResource, setDataResource] = useState()
+    useEffect(() => {
+        getOperationLog()
+    }, [])
+
+    const getOperationLog = () => {
+        myFetch({ url: "/admin/operationLog", options: {}, params: param }).then((data) => {
+            console.log(data)
+            setDataResource(data.body.result)
+        })
     }
-]
-
-class AdminOperationLogView extends Component {
-
-    render(): React.ReactNode {
-        return (
-            <AdminLayout>
-                <div className="table-context-body">
-                    <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
-                </div>
-            </AdminLayout>
 
 
-        )
-    }
+
+    return (
+        <AdminLayout>
+            <div className="table-context-body">
+                <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+            </div>
+        </AdminLayout>
+
+
+    )
+
 }
 
 export default AdminOperationLogView

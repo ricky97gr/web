@@ -60,43 +60,6 @@ type Page = {
 
 }
 
-
-
-// class AdminUserView extends Component {
-//     state = { dataResource: [] }
-
-//     getAllUser = () => {
-//         var p = new Object()
-//         p["page"] = 1
-//         p["pageSize"] = 10
-//         myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
-//             if (data.body.code !== 200) {
-//                 return
-//             }
-//             console.log(dataResource[0].nickName)
-//             console.log(data.body.result[0].nickName)
-//             dataResource = data.body.result
-//             console.log(data)
-//             this.setState(data.body.result)
-//         })
-//     }
-//     componentDidMount(): void {
-//         this.getAllUser()
-//     }
-
-
-//     render(): React.ReactNode {
-//         return (
-//             <AdminLayout>
-//                 <div className="table-context-body">
-//                     <div className="table-add-button"><Button size="large">新增用户</Button></div>
-//                     <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
-//                 </div>
-//             </AdminLayout>
-//         )
-//     }
-// }
-
 const AdminUserView = () => {
     const [dataRes, setDataRes] = useState()
 
