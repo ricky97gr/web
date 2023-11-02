@@ -1,7 +1,9 @@
-import { Button, Table } from "antd";
-import React, { Component } from "react";
+import { Button, Form, Input, Switch, Table } from "antd";
+import React, { useState } from "react";
 import AdminLayout from "../layout/layout";
-import './../style/table-layout.css'
+import './../style/table-layout.css';
+
+import CustomDrawer from "../../../component/base/my-drawer";
 const colums = [
     {
         title: "标签名",
@@ -47,20 +49,38 @@ const dataResource = [
     },
 ]
 
-class AdminTagView extends Component {
-
-    render(): React.ReactNode {
-        return (
-            <AdminLayout>
-                <div className="table-context-body">
-                    <div className="table-add-button"><Button size="large">新增标签</Button></div>
-                    <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
-                </div>
 
 
-            </AdminLayout>
-        )
+const AdminTagView = () => {
+    const [isshow, setShow] = useState<boolean>(false)
+    const open = () => {
+        setShow(true)
     }
+    const close = () => {
+        setShow(false)
+    }
+
+
+    return (
+        <AdminLayout>
+            <div className="table-context-body">
+                <div className="table-add-button"><Button size="large" onClick={open}>新增</Button></div>
+                <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+            </div>
+            <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
+                <Form>
+                    <Form.Item label="名称">
+                        <Input></Input>
+                    </Form.Item>
+                    <Form.Item label="启用">
+                        <Switch defaultChecked></Switch>
+                    </Form.Item>
+                    <Button onClick={close}>取消</Button>
+                </Form>
+            </CustomDrawer>
+        </AdminLayout>
+    )
 }
+
 
 export default AdminTagView

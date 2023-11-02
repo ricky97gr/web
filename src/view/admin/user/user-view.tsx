@@ -1,13 +1,13 @@
 import { Button, Table } from "antd";
-import React, { Component } from "react";
-import AdminLayout from "../layout/layout";
-import './../style/table-layout.css'
+import React, { Component, useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
+import AdminLayout from "../layout/layout";
+import './../style/table-layout.css';
 const colums = [
     {
         title: "姓名",
-        dataIndex: "name",
-        key: "name"
+        dataIndex: "nickName",
+        key: "nickName"
     },
     {
         title: "状态",
@@ -36,10 +36,10 @@ const colums = [
     },
 ]
 
-const dataResource = [
+let dataResource = [
     {
         id: 1,
-        name: "admin",
+        nickName: "admin",
         sex: "男",
         status: "在线",
         createTime: "2023-10-22 11:06:11",
@@ -47,7 +47,7 @@ const dataResource = [
     },
     {
         id: 2,
-        name: "test",
+        nickName: "test",
         sex: "男",
         status: "离线",
         createTime: "2023-10-22 11:06:11",
@@ -60,28 +60,75 @@ type Page = {
 
 }
 
-const getAllUser = () => {
-    var p = new Object()
-    p["page"] = 1
-    p["limit"] = 10
-    myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
-        console.log(data)
-    })
-}
 
-class AdminUserView extends Component {
 
-    render(): React.ReactNode {
-        getAllUser()
-        return (
-            <AdminLayout>
-                <div className="table-context-body">
-                    <div className="table-add-button"><Button size="large">新增用户</Button></div>
-                    <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
-                </div>
-            </AdminLayout>
-        )
+// class AdminUserView extends Component {
+//     state = { dataResource: [] }
+
+//     getAllUser = () => {
+//         var p = new Object()
+//         p["page"] = 1
+//         p["pageSize"] = 10
+//         myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
+//             if (data.body.code !== 200) {
+//                 return
+//             }
+//             console.log(dataResource[0].nickName)
+//             console.log(data.body.result[0].nickName)
+//             dataResource = data.body.result
+//             console.log(data)
+//             this.setState(data.body.result)
+//         })
+//     }
+//     componentDidMount(): void {
+//         this.getAllUser()
+//     }
+
+
+//     render(): React.ReactNode {
+//         return (
+//             <AdminLayout>
+//                 <div className="table-context-body">
+//                     <div className="table-add-button"><Button size="large">新增用户</Button></div>
+//                     <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+//                 </div>
+//             </AdminLayout>
+//         )
+//     }
+// }
+
+const AdminUserView = () => {
+    const [dataRes, setDataRes] = useState()
+
+
+    const getAllUser = () => {
+        var p = new Object()
+        p["page"] = 1
+        p["pageSize"] = 10
+        myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
+            if (data.body.code !== 200) {
+                return
+            }
+            console.log(dataResource[0].nickName)
+            console.log(data.body.result[0].nickName)
+            setDataRes(data.body.result)
+            // dataResource = data.body.result
+            console.log(data)
+            console.log(dataResource)
+            return
+        })
     }
+    useEffect(() => {
+        getAllUser()
+    }, [])
+    return (
+        <AdminLayout>
+            <div className="table-context-body">
+                <div className="table-add-button"><Button size="large">新增用户</Button></div>
+                <div className="table-body"><Table columns={colums} dataSource={dataRes}></Table></div>
+            </div>
+        </AdminLayout>
+    )
 }
 
 export default AdminUserView
