@@ -6,6 +6,12 @@ import Login from "../view/system/login";
 import Register from "../view/system/register";
 import Test from "../view/test";
 import CurrentUser from "../view/user/home";
+import AdminArticleView from "../view/admin/article/article";
+import AdminCategoryView from "../view/admin/category/category";
+import AdminOperationLogView from "../view/admin/log/operation-log";
+import AdminSystemLogView from "../view/admin/log/systemlog";
+import AdminTagView from "../view/admin/tag/tag";
+import AdminUserView from "../view/admin/user/user-view";
 
 
 
@@ -20,7 +26,7 @@ class Router extends Component {
         <Route path="/test" Component={Test}></Route>
         <Route path="/comment" Component={Comment}></Route>
         <Route path="/currentUser" Component={CurrentUser}></Route>
-        <Route path="/admin" Component={Admin}></Route>
+
 
       </Routes>
 

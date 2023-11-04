@@ -1,9 +1,11 @@
-import { Button, Form, Input, Switch, Table } from "antd";
-import React, { useState } from "react";
+import { Button, Form, Input, Switch, Table, message } from "antd";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css';
 
 import CustomDrawer from "../../../component/base/my-drawer";
+import { myFetch } from "../../../utils/fetch";
+import MyQuery from "../../../utils/query";
 const colums = [
     {
         title: "标签名",
@@ -49,6 +51,11 @@ const dataResource = [
     },
 ]
 
+type NewTag = {
+    name: string
+    isShow: boolean
+}
+
 
 
 const AdminTagView = () => {
@@ -60,25 +67,53 @@ const AdminTagView = () => {
         setShow(false)
     }
 
+    const [dataResource, setDataResource] = useState()
+    const addTag = (values: any) => {
+        console.log(values)
+        myFetch({ url: "/admin/tags", options: { body: values, method: "POST" } }).then((data) => {
+            if (data.body.code !== 200) {
+                message.error("新建标签失败")
+                return
+            }
+            message.success("成功新建标签")
+            close()
+            getAllTag()
+        })
 
+    }
+
+    const getAllTag = () => {
+        let param = MyQuery({})
+        myFetch({ url: "/admin/tags", options: { method: "GET" }, params: param }).then(
+            (data) => {
+                console.log(data.body.result)
+                setDataResource(data.body.result)
+            }
+        )
+    }
+
+    useEffect(() => {
+        getAllTag()
+    }, [])
     return (
-        <AdminLayout>
+        <>
             <div className="table-context-body">
                 <div className="table-add-button"><Button size="large" onClick={open}>新增</Button></div>
                 <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
             </div>
             <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
-                <Form>
-                    <Form.Item label="名称">
+                <Form onFinish={addTag}>
+                    <Form.Item<NewTag> label="名称" name="name" rules={[{ required: true, message: "请输入标签名称" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item label="启用">
+                    <Form.Item<NewTag> label="启用" name="isShow">
                         <Switch defaultChecked></Switch>
                     </Form.Item>
+                    <Button htmlType="submit">确定</Button>
                     <Button onClick={close}>取消</Button>
                 </Form>
             </CustomDrawer>
-        </AdminLayout>
+        </>
     )
 }
 

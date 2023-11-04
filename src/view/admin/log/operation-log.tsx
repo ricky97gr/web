@@ -45,11 +45,11 @@ const AdminOperationLogView = () => {
 
 
     return (
-        <AdminLayout>
+        <>
             <div className="table-context-body">
                 <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
             </div>
-        </AdminLayout>
+        </>
 
 
     )

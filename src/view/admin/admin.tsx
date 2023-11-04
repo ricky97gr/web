@@ -18,7 +18,7 @@ import AdminLayout from './layout/layout';
 
 const Admin = () => {
   return (
-    <AdminLayout><></></AdminLayout>
+    <AdminLayout></AdminLayout>
   )
 }
 

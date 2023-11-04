@@ -1,9 +1,10 @@
-import { Button, Form, Input, Switch, Table } from "antd";
-import React, { Component, useState } from "react";
+import { Button, Form, Input, Switch, Table, message } from "antd";
+import React, { Component, useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css'
 import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
+import MyQuery from "../../../utils/query";
 const colums = [
     {
         title: "分类名",
@@ -17,8 +18,8 @@ const colums = [
     },
     {
         title: "添加者",
-        dataIndex: "who",
-        key: "who"
+        dataIndex: "creator",
+        key: "creator"
     },
     {
         title: "文章数量",
@@ -28,33 +29,11 @@ const colums = [
     {
         title: "操作",
         dataIndex: "action",
-        key: "action"
+        key: "action",
     },
 ]
 
-const dataResource = [
-    {
-        id: 1,
-        name: "后端开发",
-        who: "admin",
-        createTime: "2023-10-22 11:06:11",
-        usedByArticle: 10
-    },
-    {
-        id: 2,
-        name: "数据库",
-        who: "admin",
-        createTime: "2023-10-22 11:06:11",
-        usedByArticle: 0
-    },
-    {
-        id: 3,
-        name: "Kubernetes",
-        who: "admin",
-        createTime: "2023-10-22 11:06:11",
-        usedByArticle: 3
-    },
-]
+
 
 type NewCategory = {
     name: string
@@ -69,26 +48,45 @@ const AdminCategoryView = () => {
     const close = () => {
         setShow(false)
     }
+    const [dataResource, setDataResource] = useState()
 
     const addCategory = (values: any) => {
         console.log(values)
-        myFetch({ url: "/admin/category", options: { body: values, method: "POST" } }).then(
-            (data) => {
-                console.log(data)
+        myFetch({ url: "/admin/category", options: { body: values, method: "POST" } }).then((data) => {
+            console.log(data)
+            if (data.body.code !== 200) {
+                message.error("新建分类失败")
+                return
             }
-        )
-        close()
+            message.success("成功新建分类")
+            close()
+            getAllCategory()
+        })
+
     }
 
+    const getAllCategory = () => {
+        let param = MyQuery({})
+        myFetch({ url: "/admin/category", options: { method: "GET" }, params: param }).then(
+            (data) => {
+                setDataResource(data.body.result)
+            }
+        )
+    }
+
+    useEffect(() => {
+        getAllCategory()
+    }, [])
+
     return (
-        <AdminLayout>
+        <>
             <div className="table-context-body">
                 <div className="table-add-button"><Button size="large" onClick={open}>新增分类</Button></div>
                 <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
             </div>
             <CustomDrawer title="新增分类" isOpen={isshow} UpdateValue={open}>
                 <Form onFinish={addCategory}>
-                    <Form.Item<NewCategory> label="名称" name="name">
+                    <Form.Item<NewCategory> label="名称" name="name" rules={[{ required: true, message: "请输入类别名称" }]}>
                         <Input></Input>
                     </Form.Item>
                     <Form.Item<NewCategory> label="启用" name="isShow">
@@ -98,7 +96,9 @@ const AdminCategoryView = () => {
                     <Button onClick={close}>取消</Button>
                 </Form>
             </CustomDrawer>
-        </AdminLayout>
+        </>
+
+
 
 
     )

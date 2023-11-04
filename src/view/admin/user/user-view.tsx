@@ -85,12 +85,12 @@ const AdminUserView = () => {
         getAllUser()
     }, [])
     return (
-        <AdminLayout>
+        <>
             <div className="table-context-body">
                 <div className="table-add-button"><Button size="large">新增用户</Button></div>
                 <div className="table-body"><Table columns={colums} dataSource={dataRes}></Table></div>
             </div>
-        </AdminLayout>
+        </>
     )
 }
 

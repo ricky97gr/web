@@ -5,6 +5,8 @@ import CustomDropDown from './component/base/my-dropdown';
 
 import { BrowserRouter } from 'react-router-dom';
 import AdminRouter from './router/admin-index';
+import AdminLayout from './view/admin/layout/layout';
+import Admin from './view/admin/admin';
 
 
 const App = () => (
@@ -13,10 +15,8 @@ const App = () => (
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-
     <BrowserRouter>
-      <AdminRouter />
-
+      <AdminRouter></AdminRouter>
     </BrowserRouter>
 
   </div>
