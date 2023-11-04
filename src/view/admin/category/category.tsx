@@ -1,37 +1,12 @@
-import { Button, Form, Input, Switch, Table, message } from "antd";
+import { Button, Form, Input, Space, Switch, Table, message } from "antd";
 import React, { Component, useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css'
 import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
-const colums = [
-    {
-        title: "分类名",
-        dataIndex: "name",
-        key: "name"
-    },
-    {
-        title: "加入时间",
-        dataIndex: "createTime",
-        key: "createTime"
-    },
-    {
-        title: "添加者",
-        dataIndex: "creator",
-        key: "creator"
-    },
-    {
-        title: "文章数量",
-        dataIndex: "usedByArticle",
-        key: "usedByArticle"
-    },
-    {
-        title: "操作",
-        dataIndex: "action",
-        key: "action",
-    },
-]
+import CustomModal from "../../../component/base/my-modal";
+
 
 
 
@@ -41,6 +16,71 @@ type NewCategory = {
 }
 
 const AdminCategoryView = () => {
+    const colums = [
+        {
+            title: "分类名",
+            dataIndex: "name",
+            key: "name"
+        },
+        {
+            title: "加入时间",
+            dataIndex: "createTime",
+            key: "createTime"
+        },
+        {
+            title: "添加者",
+            dataIndex: "creator",
+            key: "creator"
+        },
+        {
+            title: "文章数量",
+            dataIndex: "usedByArticle",
+            key: "usedByArticle"
+        },
+        {
+            title: "状态",
+            dataIndex: "isShow",
+            key: "isShow",
+            render: (_, { isShow }) => {
+                console.log(isShow)
+                return <>
+                    <Switch checked={isShow}></Switch>
+                </>
+            }
+        },
+        {
+            title: "操作",
+            key: "action",
+            render: (_, record) => {
+                const getInfo = () => {
+                    console.log(record)
+                }
+
+                const del = () => {
+                    console.log("del")
+                    setIsModalOpen(true)
+                }
+
+                const print = () => {
+                    console.log(111)
+                }
+                return (<>
+                    <Space size="middle">
+                        <a onClick={getInfo}>详情</a>
+                        <a onClick={del}>删除</a>
+
+                    </Space>
+                    <CustomModal title="" sendFetch={print} open={isOpenModal} updateParent={setIsModalOpen}>
+                        <span>确认要删除分类 "{record.name}" 吗？</span>
+                    </CustomModal >
+                </>
+                )
+            }
+        },
+    ]
+
+
+    const [isOpenModal, setIsModalOpen] = useState<boolean>(false)
     const [isshow, setShow] = useState<boolean>(false)
     const open = () => {
         setShow(true)
@@ -82,7 +122,7 @@ const AdminCategoryView = () => {
         <>
             <div className="table-context-body">
                 <div className="table-add-button"><Button size="large" onClick={open}>新增分类</Button></div>
-                <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
+                <div className="table-body"><Table columns={colums} dataSource={dataResource} bordered={true}></Table></div>
             </div>
             <CustomDrawer title="新增分类" isOpen={isshow} UpdateValue={open}>
                 <Form onFinish={addCategory}>

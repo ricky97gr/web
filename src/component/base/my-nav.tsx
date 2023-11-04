@@ -70,9 +70,9 @@ const CustomNav = () => {
             <div className="search-box">
                 <CustomSearch></CustomSearch>
             </div>
-            <div style={{ float: "right", marginTop: 10, width: "5%" }}>
+            <div style={{ float: "right", marginTop: 0, width: "5%" }}>
                 <NewArticleDropDwon>
-                    <Button size="large">创作</Button>
+                    <Button size="large" style={{ margin: 0 }}>创作</Button>
                 </NewArticleDropDwon>
 
             </div>

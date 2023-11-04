@@ -1,4 +1,4 @@
-import { Button, Form, Input, Switch, Table, message } from "antd";
+import { Button, Form, Input, Space, Switch, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css';
@@ -6,60 +6,85 @@ import './../style/table-layout.css';
 import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
-const colums = [
-    {
-        title: "标签名",
-        dataIndex: "name",
-        key: "name"
-    },
-    {
-        title: "加入时间",
-        dataIndex: "createTime",
-        key: "createTime"
-    },
-    {
-        title: "添加者",
-        dataIndex: "who",
-        key: "who"
-    },
-    {
-        title: "文章使用数量",
-        dataIndex: "usedByArticle",
-        key: "usedByArticle"
-    },
-    {
-        title: "操作",
-        dataIndex: "action",
-        key: "action"
-    },
-]
+import CustomModal from "../../../component/base/my-modal";
 
-const dataResource = [
-    {
-        id: 1,
-        name: "go",
-        who: "admin",
-        createTime: "2023-10-22 11:06:11",
-        usedByArticle: 10
-    },
-    {
-        id: 2,
-        name: "mysql",
-        who: "admin",
-        createTime: "2023-10-22 11:06:11",
-        usedByArticle: 0
-    },
-]
 
-type NewTag = {
-    name: string
-    isShow: boolean
-}
 
 
 
 const AdminTagView = () => {
+    const colums = [
+        {
+            title: "标签名",
+            dataIndex: "name",
+            key: "name"
+        },
+        {
+            title: "加入时间",
+            dataIndex: "createTime",
+            key: "createTime"
+        },
+        {
+            title: "添加者",
+            dataIndex: "creator",
+            key: "creator"
+        },
+        {
+            title: "文章使用数量",
+            dataIndex: "usedByArticle",
+            key: "usedByArticle"
+        },
+        {
+            title: "状态",
+            dataIndex: "isShow",
+            key: "isShow",
+            render: (_, { isShow }) => {
+                console.log(isShow)
+                return <>
+                    <Switch checked={isShow}></Switch>
+                </>
+            }
+        },
+        {
+            title: "操作",
+            key: "action",
+            render: (_, record) => {
+                const getInfo = () => {
+                    console.log(record)
+                }
+
+                const del = () => {
+                    console.log("del")
+                    setIsModalOpen(true)
+                }
+
+                const print = () => {
+                    console.log(111)
+                }
+                return (<>
+                    <Space size="middle">
+                        <a onClick={getInfo}>详情</a>
+                        <a onClick={del}>删除</a>
+
+                    </Space>
+                    <CustomModal title="" sendFetch={print} open={isOpenModal} updateParent={setIsModalOpen}>
+                        <span>确认要删除标签 "{record.name}" 吗？</span>
+                    </CustomModal >
+                </>
+                )
+            }
+        },
+    ]
+
+
+    type NewTag = {
+        name: string
+        isShow: boolean
+    }
+
+
     const [isshow, setShow] = useState<boolean>(false)
+    const [isOpenModal, setIsModalOpen] = useState<boolean>(false)
     const open = () => {
         setShow(true)
     }

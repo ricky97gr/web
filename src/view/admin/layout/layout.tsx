@@ -19,8 +19,8 @@ const AdminLayout = () => {
     return (
         <>
             <Layout style={{ height: "5%" }}>
-                <Header>
-                    {/* <AdminHeader></AdminHeader> */}
+                <Header style={{ backgroundColor: "white" }}>
+                    <AdminHeader></AdminHeader>
                 </Header>
             </Layout>
 

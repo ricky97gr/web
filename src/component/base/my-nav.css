@@ -14,10 +14,9 @@
 .nav-menu {
     font-size: 14px;
     color: #909399;
-    margin: 20px 0 0 10px;
+
     padding: 0;
-    width: 30%;
-    height: 50%;
+
     float: left;
 
 
@@ -26,28 +25,28 @@
 .search-box {
     float: right;
     width: 20%;
-    margin: 10px 5px 10px 15px;
+    /* margin: 10px 5px 10px 15px; */
 }
 
 .notice {
     float: right;
     width: 40px;
     height: 40px;
-    margin: 15px 5px 5px 5px;
+    /* margin: 15px 5px 5px 5px; */
 }
 
 .login-down {
     float: inline-end;
     width: 40px;
     height: 40px;
-    margin: 15px 100px 5px 5px;
+    /* margin: 15px 100px 5px 5px; */
 }
 
 .nav-menu-li {
     list-style-type: none;
     height: 100%;
     float: left;
-    padding: 0 10px;
+    padding: 0 5px 0 5px;
 
 }
 
