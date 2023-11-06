@@ -15,22 +15,20 @@ import AdminUserView from "../view/admin/user/user-view";
 
 
 
-class Router extends Component {
-  render() {
+const CommonRouter = () => {
+
     return (
 
-      <Routes>
-        <Route path="/" Component={Comment} ></Route>
-
-        <Route path="/test" Component={Test}></Route>
-        <Route path="/comment" Component={Comment}></Route>
-        <Route path="/currentUser" Component={CurrentUser}></Route>
+        <Routes>
+            <Route path="/login" Component={Login}></Route>
+            <Route path="/register" Component={Register}></Route>
 
 
-      </Routes>
 
-    );
-  }
+        </Routes>
+
+    )
+
 }
 
-export default Router;
+export default CommonRouter
