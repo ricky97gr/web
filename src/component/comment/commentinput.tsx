@@ -12,15 +12,15 @@ const CommentInput = ({ display, updateParent }) => {
     return (
         <div style={{ display: display }}>
             <div>
-                <TextArea showCount maxLength={120} style={{ height: 120, marginBottom: 24, width: 700, float: "right" }}
+                <TextArea showCount maxLength={120} style={{ height: 120, marginBottom: 24, width: "90%", float: "right" }}
                     onChange={onChange}
-                    placeholder="分享你的新鲜事吧"
+
                 />
             </div>
 
             <div style={{}}>
-                <Button size="small" type="primary" style={{ marginRight: 5, marginBottom: 10 }} onClick={closeInput}>取消评论</Button>
-                <Button size="small" type="primary" style={{ marginRight: 5, marginBottom: 10, }} onClick={closeInput}>发表评论</Button>
+                <Button size="small" type="primary" style={{ marginRight: 10, marginBottom: 5, float: "right" }} onClick={closeInput}>取消评论</Button>
+                <Button size="small" type="primary" style={{ marginRight: 10, marginBottom: 5, float: "right" }} onClick={closeInput}>发表评论</Button>
             </div>
         </div>
     )
