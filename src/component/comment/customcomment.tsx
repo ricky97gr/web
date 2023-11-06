@@ -2,11 +2,29 @@ import { Card } from "antd"
 import React, { useState } from "react"
 import './customcomment.css'
 import CommentInput from "./commentinput"
+import CustomRecover from "./revover"
 
-const CustomComment = ({ author, level, ip, createTime, children }) => {
+const CustomComment = ({ author, level, ip, createTime, child, children }) => {
     const [display, setDisplay] = useState<string>("none")
     const show = () => {
         setDisplay("")
+    }
+    const getComment = (item) => {
+        console.log(item)
+        return
+        switch (item.type) {
+            case 1:
+                return (
+                    <>
+
+                    </>
+                )
+            case 2:
+                return <CustomRecover author={item.author} level={item.level} ip={item.ip} createTime={item.creaTime}>
+                    <span style={{ fontSize: 15 }}>{item.context}</span>
+                </CustomRecover>
+        }
+
     }
     return (
         <Card style={{ width: 850, margin: 8 }}>
@@ -36,6 +54,7 @@ const CustomComment = ({ author, level, ip, createTime, children }) => {
                 </div>
             </div>
             <CommentInput display={display} updateParent={setDisplay}></CommentInput>
+            {getComment(child)}
 
         </Card>
     )

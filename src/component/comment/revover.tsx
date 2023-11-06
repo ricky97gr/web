@@ -1,4 +1,5 @@
 import React from "react";
+import './customcomment.css'
 
 const CustomRecover = ({ author, level, ip, createTime, children }) => {
     return (
