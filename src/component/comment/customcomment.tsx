@@ -4,6 +4,7 @@ import './customcomment.css'
 import CommentInput from "./commentinput"
 import CustomRecover from "./revover"
 import { kMaxLength } from "buffer"
+import SecondCommentMenu from "./second_comment_menu"
 
 const CustomComment = (item) => {
     const [display, setDisplay] = useState<string>("none")
@@ -70,40 +71,22 @@ const CustomComment = (item) => {
                                         </div>
                                         <div className='right-center'>{second.context} <br /><br /></div>
                                         <div className='right-buttom'>
-                                            <a><span style={{ margin: 4 }} onClick={show}>回复</span></a>
-                                            <span style={{ margin: 4 }}>举报</span>
-                                            <span style={{ margin: 4 }}>👍赞</span>
-                                            <span style={{ margin: 4 }}>👎踩</span>
+                                            <SecondCommentMenu></SecondCommentMenu>
                                         </div>
-                                        <CommentInput display={display} updateParent={setDisplay}></CommentInput>
+
                                     </div>
                                     {/* 三级评论 */}
                                     <div style={{ width: "100%", float: "right" }}>
                                         {second.child.map((third) => {
                                             return (
                                                 <>
-                                                    {/* <div className='card-left'>
-                                                        <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" style={{ cursor: "pointer", width: "100%", height: "100%" }} />
-                                                    </div> */}
                                                     <div className='card-right'>
-                                                        {/* <div className='right-top'>
-                                                            <a >
-                                                                <span style={{ margin: 10 }}>{third.author}</span>
-                                                            </a>
 
-                                                            <span className='userField' style={{ margin: 5 }}>{third.level}</span>
-                                                            <span className='userField' style={{ margin: 5 }}>ip属地:{ }</span>
-                                                            <span className='userField' style={{ margin: 5 }}>{ }</span>
-
-                                                        </div> */}
                                                         <div className='right-center'>{third.author}@<a>{third.replayTo}</a>: {third.context}<br /><br /></div>
                                                         <div className='right-buttom'>
-                                                            <a><span style={{ margin: 4 }} onClick={show}>回复</span></a>
-                                                            <span style={{ margin: 4 }}>举报</span>
-                                                            <span style={{ margin: 4 }}>👍赞</span>
-                                                            <span style={{ margin: 4 }}>👎踩</span>
+                                                            <SecondCommentMenu></SecondCommentMenu>
                                                         </div>
-                                                        <CommentInput display={display} updateParent={setDisplay}></CommentInput>
+
                                                     </div>
                                                 </>
                                             )

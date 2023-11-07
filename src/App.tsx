@@ -14,19 +14,16 @@ const App = () => {
   return (
     <div className="App">
 
+
       <BrowserRouter>
+        <CommonRouter></CommonRouter>
         <Router />
       </BrowserRouter>
 
       <BrowserRouter>
-        <AdminRouter />
+        <AdminLayout></AdminLayout>
       </BrowserRouter>
 
-
-
-
-
-      {/* <Router /> */}
 
     </div>
 

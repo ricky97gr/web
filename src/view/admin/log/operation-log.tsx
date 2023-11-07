@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 import AdminLayout from "../layout/layout";
 import MyQuery from "../../../utils/query";
 import { myFetch } from "../../../utils/fetch";
+import HandleTime from "../../../utils/time";
 const colums = [
     {
         title: "时间",
@@ -38,6 +39,9 @@ const AdminOperationLogView = () => {
     const getOperationLog = () => {
         myFetch({ url: "/admin/operationLog", options: {}, params: param }).then((data) => {
             console.log(data)
+            for (let i = 0; i < (data.body.result).length; i++) {
+                data.body.result[i].createTime = HandleTime.MillTime2Date(data.body.result[i].createTime)
+            }
             setDataResource(data.body.result)
         })
     }

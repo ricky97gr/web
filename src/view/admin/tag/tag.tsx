@@ -7,6 +7,7 @@ import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
+import HandleTime from "../../../utils/time";
 
 
 
@@ -112,6 +113,9 @@ const AdminTagView = () => {
         myFetch({ url: "/admin/tags", options: { method: "GET" }, params: param }).then(
             (data) => {
                 console.log(data.body.result)
+                for (let i = 0; i < (data.body.result).length; i++) {
+                    data.body.result[i].createTime = HandleTime.MillTime2Date(data.body.result[i].createTime)
+                }
                 setDataResource(data.body.result)
             }
         )

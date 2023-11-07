@@ -29,9 +29,7 @@ type FieldType = {
 }
 const tagsoptions = [{ value: 'gold' }, { value: 'lime' }, { value: 'green' }, { value: 'cyan' }];
 class NewArticleDrawer extends Component<NewArticleDrawerProps>{
-    state: {
-        isShow: false
-    }
+
     updateParent = () => {
         this.props.UpdateValue(false)
     }

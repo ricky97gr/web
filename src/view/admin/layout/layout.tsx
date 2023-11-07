@@ -25,17 +25,17 @@ const AdminLayout = () => {
             </Layout>
 
             <Layout style={{ height: "95%" }}>
-                <Sider width={240} style={{ background: colorBgContainer }}>
+                <Sider width={256} style={{ background: colorBgContainer }}>
                     <AdminMenu></AdminMenu>
                 </Sider>
-                <Layout style={{ padding: '10px' }}>
-                    <Breadcrumb style={{ margin: '10px' }}>
+                <Layout style={{ padding: '8px' }}>
+                    <Breadcrumb style={{ margin: '5px', width: "80%" }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content>
-
+                        <AdminRouter></AdminRouter>
                     </Content>
 
                     {/* <Footer style={{

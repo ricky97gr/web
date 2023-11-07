@@ -6,6 +6,7 @@ import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
+import HandleTime from "../../../utils/time";
 
 
 
@@ -109,6 +110,9 @@ const AdminCategoryView = () => {
         let param = MyQuery({})
         myFetch({ url: "/admin/category", options: { method: "GET" }, params: param }).then(
             (data) => {
+                for (let i = 0; i < (data.body.result).length; i++) {
+                    data.body.result[i].createTime = HandleTime.MillTime2Date(data.body.result[i].createTime)
+                }
                 setDataResource(data.body.result)
             }
         )
@@ -121,7 +125,7 @@ const AdminCategoryView = () => {
     return (
         <>
             <div className="table-context-body">
-                <div className="table-add-button"><Button size="large" onClick={open}>新增分类</Button></div>
+                <div className="table-add-button"><Button size="large" onClick={open}>新增</Button></div>
                 <div className="table-body"><Table columns={colums} dataSource={dataResource} bordered={true}></Table></div>
             </div>
             <CustomDrawer title="新增分类" isOpen={isshow} UpdateValue={open}>

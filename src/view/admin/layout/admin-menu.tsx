@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import AdminLayout from './layout';
+import AdminTagView from '../tag/tag';
+import AdminUserView from '../user/user-view';
+import Admin from '../admin';
+import { useNavigate } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -22,49 +27,48 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  // getItem('首页', 'sub1', <MailOutlined />, [
-  //     getItem('Option 1', '1'),
-  //     getItem('Option 2', '2'),
-  //     getItem('Option 3', '3'),
-  //     getItem('Option 4', '4'),])
-  getItem(<a href='/admin/home'>首页</a>, 'sub1'),
-  getItem(<a href='/admin/user'>用户管理</a>, 'sub2'),
-  getItem(<a href='/admin/tags'>标签管理</a>, 'sub3'),
-  getItem(<a href='/admin/category'>分类管理</a>, 'sub4'),
-  getItem(<a href="/admin/article">文章管理</a>, 'sub5'),
-  getItem('日志管理', 'sub6', null, [
-    getItem(<a href='/admin/operationlog'>操作日志</a>, "1"),
-    getItem(<a href='/admin/systemlog'>系统日志</a>, "2"),]),
+  getItem('首页', '/admin',),
+  getItem('用户管理', '/admin/user',),
+  getItem('标签管理', '/admin/tags',),
+  getItem('分类管理', '/admin/category'),
+  getItem('文章管理', '/admin/article'),
+  getItem('日志管理', 'log', null, [
+    getItem('操作日志', "/admin/operationlog"),
+    getItem('系统日志', "/admin/systemlog"),]),
 
 ]
 
-const rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6'];
+
 
 const AdminMenu = () => {
-  const [openKeys, setOpenKeys] = useState(['sub1']);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-    }
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
   };
-  const [current, setCurrent] = useState('sub1');
-
-  const onClick: MenuProps["onClick"] = (e) => {
-    setCurrent(e.key)
+  const navigate = useNavigate()
+  const onclick = (e) => {
+    console.log(e)
+    navigate(e.key, { replace: true })
   }
+
+
+
   return (
-    <Menu
-      mode="inline"
-      openKeys={openKeys}
-      onOpenChange={onOpenChange}
-      style={{ width: "100%", height: "100%" }}
-      items={items}
-    />
-  )
+    <div style={{ width: "100%" }}>
+
+      <Menu
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['1']}
+        mode="inline"
+
+        inlineCollapsed={collapsed}
+        style={{ width: "100%", height: "100%" }}
+        items={items}
+        onClick={onclick}
+      />
+    </div>
+  );
 }
 
 export default AdminMenu;
