@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomComment from "../../component/comment/customcomment";
 import CustomTextArea from "../../component/base/my-textarea";
 import CustomNav from "../../component/base/my-nav";
 import './comment.css'
 import { isTemplateMiddle } from "typescript";
 import CustomRecover from "../../component/comment/revover";
+import { myFetch } from "../../utils/fetch";
 
 type CommentInfo = {
     id: string,
@@ -19,7 +20,7 @@ type CommentInfo = {
 
 
 const Comment = () => {
-    var info = [
+    const [info, setinfo] = useState([
         {
             author: "Tom", id: "1", parentID: "", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "", type: 1, child: [
                 { author: "Tom2", id: "2", parentID: "1", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "Tom", type: 2, child: [] },
@@ -32,7 +33,19 @@ const Comment = () => {
             ]
         },
         { author: "Tom6", id: "6", parentID: "", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "", type: 1, child: [] },
-    ]
+    ])
+
+    const getComment = () => {
+        myFetch({ url: "/normalUser/comment", options: { method: "GET" } }).then((data) => {
+            setinfo(data.body.result)
+        })
+    }
+
+
+
+    useEffect(() => {
+        getComment()
+    }, [])
     return (
         <>
             <div style={{ height: "5%" }}>
