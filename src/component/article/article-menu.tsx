@@ -1,5 +1,5 @@
 import type { MenuProps } from "antd";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import NewArticleDrawer from "../../view/article/new-article";
 import CustomDropDown from "../base/my-dropdown";
 
@@ -26,39 +26,22 @@ const items: MenuProps['items'] = [
     },
 ];
 
-interface NewArticleDropDwonProps {
-    children?: any
+
+
+const NewArticleDropDwon = ({ children }) => {
+    const [isOpen, setIsOpen] = useState<boolean>()
+    const onclick = () => {
+        setIsOpen(true)
+    }
+
+    return (
+        <>
+            <CustomDropDown items={items} onClick={onclick} children={children}></CustomDropDown>
+            <NewArticleDrawer isOpen={isOpen} setIsOpen={setIsOpen}></NewArticleDrawer>
+
+        </>
+
+    )
 }
 
-class NewArticleDropDwon extends Component<NewArticleDropDwonProps>{
-    state = {
-        isOpen: false,
-    }
-
-    onclick = ({ key }) => {
-        console.log(key)
-        if (key === '1') {
-            this.setState(() => ({
-                isOpen: true
-            }));
-        }
-    }
-    udpateIsOpen = (open) => {
-        this.setState(() => ({
-            isOpen: open
-        }));
-    }
-
-
-    render() {
-        return (
-            <>
-                <CustomDropDown items={items} children={this.props.children} onClick={this.onclick}></CustomDropDown>
-                <NewArticleDrawer isOpen={this.state.isOpen} UpdateValue={this.udpateIsOpen}></NewArticleDrawer>
-
-            </>
-
-        )
-    }
-}
 export default NewArticleDropDwon

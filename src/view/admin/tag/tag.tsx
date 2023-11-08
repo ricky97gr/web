@@ -9,10 +9,6 @@ import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
 import HandleTime from "../../../utils/time";
 
-
-
-
-
 const AdminTagView = () => {
 
     const colums = [
@@ -55,8 +51,6 @@ const AdminTagView = () => {
                     }
                     message.success("标签已关闭")
 
-
-
                 }
                 return <>
                     <Switch defaultChecked={isShow} onChange={onchange}></Switch>
@@ -73,8 +67,20 @@ const AdminTagView = () => {
 
                 const del = () => {
                     console.log("del")
-                    // setIsModalOpen(true)
-                    getAllTag()
+                    console.log("del")
+                    let body = {
+                        "uuid": record.uuid,
+                        "name": record.name
+                    }
+                    myFetch({ url: "/admin/tags", options: { body: body, method: "DELETE" } }).then((data) => {
+                        if (data.body.code !== 200) {
+                            message.error("删除标签失败")
+                            return
+                        }
+                        message.success("标签删除成功")
+                        getAllTag()
+                    })
+
                 }
 
                 const print = () => {
@@ -153,7 +159,7 @@ const AdminTagView = () => {
                     <Form.Item<NewTag> label="名称" name="name" rules={[{ required: true, message: "请输入标签名称" }]}>
                         <Input></Input>
                     </Form.Item>
-                    <Form.Item<NewTag> label="启用" name="isShow">
+                    <Form.Item<NewTag> label="启用" name="isShow" valuePropName="checked">
                         <Switch defaultChecked></Switch>
                     </Form.Item>
                     <Button htmlType="submit">确定</Button>
