@@ -7,6 +7,8 @@ import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
 import HandleTime from "../../../utils/time";
+import { error } from "console";
+import { Recoverable } from "repl";
 
 
 
@@ -17,6 +19,14 @@ type NewCategory = {
 }
 
 const AdminCategoryView = () => {
+    const onchange = (checked) => {
+        if (checked) {
+            message.success("分类启用成功")
+            return
+        }
+        message.success("分类已关闭")
+
+    }
     const colums = [
         {
             title: "分类名",
@@ -42,10 +52,24 @@ const AdminCategoryView = () => {
             title: "状态",
             dataIndex: "isShow",
             key: "isShow",
-            render: (_, { isShow }) => {
-                console.log(isShow)
+            render: (_, { uuid, isShow }) => {
+                const onchange = (checked) => {
+                    let body = {
+                        "uuid": uuid,
+                        "isShow": checked
+                    }
+                    myFetch({ url: "/admin/category", options: { body: body, method: "PUT" } })
+                    getAllCategory()
+                    if (checked) {
+                        message.success("分类启用成功")
+                        return
+                    }
+                    message.success("分类已关闭")
+
+
+                }
                 return <>
-                    <Switch checked={isShow}></Switch>
+                    <Switch defaultChecked={isShow} onChange={onchange}></Switch>
                 </>
             }
         },
@@ -59,7 +83,19 @@ const AdminCategoryView = () => {
 
                 const del = () => {
                     console.log("del")
-                    setIsModalOpen(true)
+                    let body = {
+                        "uuid": record.uuid,
+                        "name": record.name
+                    }
+                    myFetch({ url: "/admin/category", options: { body: body, method: "DELETE" } }).then((data) => {
+                        if (data.body.code !== 200) {
+                            message.error("删除分类失败")
+                            return
+                        }
+                        message.success("分类删除成功")
+                        getAllCategory()
+                    })
+                    //setIsModalOpen(true)
                 }
 
                 const print = () => {

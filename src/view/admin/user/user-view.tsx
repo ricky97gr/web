@@ -25,9 +25,9 @@ const colums = [
         key: "createTime"
     },
     {
-        title: "上次在线时间",
-        dataIndex: "lastOnLineTime",
-        key: "lastOnLineTime"
+        title: "上次登陆时间",
+        dataIndex: "lastLoginTime",
+        key: "lastLoginTime"
     },
     {
         title: "操作",
@@ -43,7 +43,7 @@ let dataResource = [
         sex: "男",
         status: "在线",
         createTime: "2023-10-22 11:06:11",
-        lastOnLineTime: "2023-10-22 11:06:11"
+        lastLoginTime: "2023-10-22 11:06:11"
     },
     {
         id: 2,
@@ -51,7 +51,7 @@ let dataResource = [
         sex: "男",
         status: "离线",
         createTime: "2023-10-22 11:06:11",
-        lastOnLineTime: "2023-10-22 11:06:11"
+        lastLoginTime: "2023-10-22 11:06:11"
     }
 ]
 type Page = {

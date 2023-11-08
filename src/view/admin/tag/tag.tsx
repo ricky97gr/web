@@ -14,6 +14,7 @@ import HandleTime from "../../../utils/time";
 
 
 const AdminTagView = () => {
+
     const colums = [
         {
             title: "标签名",
@@ -39,10 +40,26 @@ const AdminTagView = () => {
             title: "状态",
             dataIndex: "isShow",
             key: "isShow",
-            render: (_, { isShow }) => {
-                console.log(isShow)
+            render: (_, { uuid, isShow }) => {
+                const onchange = (checked) => {
+                    let body = {
+                        "uuid": uuid,
+                        "isShow": checked
+                    }
+                    myFetch({ url: "/admin/tags", options: { body: body, method: "PUT" } })
+
+                    getAllTag()
+                    if (checked) {
+                        message.success("标签启用成功")
+                        return
+                    }
+                    message.success("标签已关闭")
+
+
+
+                }
                 return <>
-                    <Switch checked={isShow}></Switch>
+                    <Switch defaultChecked={isShow} onChange={onchange}></Switch>
                 </>
             }
         },
@@ -56,7 +73,8 @@ const AdminTagView = () => {
 
                 const del = () => {
                     console.log("del")
-                    setIsModalOpen(true)
+                    // setIsModalOpen(true)
+                    getAllTag()
                 }
 
                 const print = () => {
