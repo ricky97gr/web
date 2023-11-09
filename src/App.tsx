@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import { Menu } from 'antd';
@@ -7,21 +7,25 @@ import AdminRouter from './router/admin-index';
 import CommonRouter from './router/comm-index';
 import AdminLayout from './view/admin/layout/layout';
 import Router from './router';
+import CustomNav from './component/base/my-nav';
 
 
 const App = () => {
+  const [loadAdminRouter, setLoadAdminRouter] = useState(false)
 
   return (
     <div className="App">
-
-
       <BrowserRouter>
+
         <CommonRouter></CommonRouter>
-        <Router />
       </BrowserRouter>
 
+      <CustomNav showAdmin={setLoadAdminRouter}></CustomNav>
+
       <BrowserRouter>
-        <AdminLayout></AdminLayout>
+        {/* {loadAdminRouter === false ? <Router></Router> : <AdminLayout></AdminLayout>} */}
+        <Router></Router>
+
       </BrowserRouter>
 
 

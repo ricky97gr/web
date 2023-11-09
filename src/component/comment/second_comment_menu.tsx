@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommentInput from "./commentinput";
 
-const SecondCommentMenu = () => {
+const SecondCommentMenu = ({ topCommentID, parentID, replayTo = "" }) => {
     const [display, setDisplay] = useState<string>("none")
     const show = () => {
         setDisplay("")
@@ -12,7 +12,7 @@ const SecondCommentMenu = () => {
             <span style={{ margin: 4 }}>举报</span>
             <span style={{ margin: 4 }}>👍赞</span>
             <span style={{ margin: 4 }}>👎踩</span>
-            <CommentInput display={display} updateParent={setDisplay}></CommentInput>
+            <CommentInput topCommentID={topCommentID} parentID={parentID} replayTo={replayTo} display={display} updateParent={setDisplay}></CommentInput>
         </>
     )
 }

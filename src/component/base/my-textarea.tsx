@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, message } from "antd";
+import { Form, Input, message } from "antd";
 import { Card, Button } from 'antd';
 import { myFetch } from "../../utils/fetch";
 
@@ -25,20 +25,25 @@ const CustomTextArea = () => {
         setValue(e.target.value)
     }
     return (
-        <Card style={{ width: 850, height: 260 }}>
+        <Card style={{ width: 850, }}>
             <div>
-                <TextArea showCount maxLength={120} style={{ height: 160, marginBottom: 24, width: 800, }}
-                    onChange={onChange}
-                    placeholder="分享你的新鲜事吧"
-                />
+                <Form onFinish={addComment}>
+                    <Form.Item rules={[{ required: true, message: "请输入评论" }]} name="context" >
+                        <TextArea showCount maxLength={120} style={{ height: 160, marginBottom: 10, width: 800, }}
+                            onChange={onChange}
+                            placeholder="分享你的新鲜事吧"
+                        />
+                    </Form.Item>
+
+                    <Button size="large" type="primary" style={{ float: "right", marginRight: 5, marginBottom: 5 }} htmlType="submit">发表动态</Button>
+
+                </Form>
+
             </div>
 
-            <div>
-                <Button size="large" type="primary" style={{ float: "right", marginRight: 5, marginBottom: 10 }} onClick={addComment}>发表动态</Button>
-            </div>
 
 
-        </Card>
+        </Card >
     )
 }
 

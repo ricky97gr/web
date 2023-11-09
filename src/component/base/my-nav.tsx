@@ -8,7 +8,10 @@ import UserDropDwon from "../user/user-dropdown";
 import { Button } from "antd";
 import NewArticleDropDwon from "../article/article-menu";
 
-const CustomNav = () => {
+const CustomNav = ({ showAdmin }) => {
+    const click = () => {
+        showAdmin(true)
+    }
     return (
         <div className="header-nav">
             <div className="logo">
@@ -47,8 +50,8 @@ const CustomNav = () => {
                     </li>
                     <li className="nav-menu-li">
                         <span>
-                            <a href="/test">
-                                测试按钮
+                            <a href="/admin" onClick={click}>
+                                管理员页面
                             </a>
                         </span>
                     </li>

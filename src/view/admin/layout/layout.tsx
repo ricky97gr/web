@@ -18,11 +18,11 @@ const AdminLayout = () => {
     } = theme.useToken();
     return (
         <>
-            <Layout style={{ height: "5%" }}>
+            {/* <Layout style={{ height: "5%" }}>
                 <Header style={{ backgroundColor: "white" }}>
                     <AdminHeader></AdminHeader>
                 </Header>
-            </Layout>
+            </Layout> */}
 
             <Layout style={{ height: "95%" }}>
                 <Sider width={256} style={{ background: colorBgContainer }}>

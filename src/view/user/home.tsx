@@ -36,9 +36,9 @@ const items: TabsProps['items'] = [
 
 const CurrentUser = () => (
     <>
-        <div style={{ height: "5%" }}>
+        {/* <div style={{ height: "5%" }}>
             <CustomNav></CustomNav>
-        </div>
+        </div> */}
 
         <div className="user-body">
             <div className="user-info">

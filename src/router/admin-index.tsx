@@ -19,7 +19,7 @@ const AdminRouter = () => {
 
     return (
         <Routes>
-            <Route path="/admin" Component={AdminHome}></Route>
+            <Route path="/admin/home" Component={AdminHome}></Route>
             <Route path="/admin/user" Component={AdminUserView} ></Route>
             <Route path="/admin/tags" Component={AdminTagView}></Route>
             <Route path="/admin/category" Component={AdminCategoryView}></Route>
