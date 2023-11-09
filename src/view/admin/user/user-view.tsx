@@ -3,57 +3,10 @@ import React, { Component, useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css';
-const colums = [
-    {
-        title: "姓名",
-        dataIndex: "nickName",
-        key: "nickName"
-    },
-    {
-        title: "状态",
-        dataIndex: "status",
-        key: "status"
-    },
-    {
-        title: "性别",
-        dataIndex: "sex",
-        key: "sex"
-    },
-    {
-        title: "加入时间",
-        dataIndex: "createTime",
-        key: "createTime"
-    },
-    {
-        title: "上次登陆时间",
-        dataIndex: "lastLoginTime",
-        key: "lastLoginTime"
-    },
-    {
-        title: "操作",
-        dataIndex: "action",
-        key: "action"
-    },
-]
+import HandleTime from "../../../utils/time";
 
-let dataResource = [
-    {
-        id: 1,
-        nickName: "admin",
-        sex: "男",
-        status: "在线",
-        createTime: "2023-10-22 11:06:11",
-        lastLoginTime: "2023-10-22 11:06:11"
-    },
-    {
-        id: 2,
-        nickName: "test",
-        sex: "男",
-        status: "离线",
-        createTime: "2023-10-22 11:06:11",
-        lastLoginTime: "2023-10-22 11:06:11"
-    }
-]
+
+
 type Page = {
     page: number,
     limit: number
@@ -61,7 +14,41 @@ type Page = {
 }
 
 const AdminUserView = () => {
-    const [dataRes, setDataRes] = useState()
+    const colums = [
+        {
+            title: "姓名",
+            dataIndex: "nickName",
+            key: "nickName"
+        },
+        {
+            title: "状态",
+            dataIndex: "status",
+            key: "status"
+        },
+        {
+            title: "邮箱",
+            dataIndex: "email",
+            key: "email"
+        },
+        {
+            title: "加入时间",
+            dataIndex: "createTime",
+            key: "createTime"
+        },
+        {
+            title: "上次登陆时间",
+            dataIndex: "lastLoginTime",
+            key: "lastLoginTime"
+        },
+        {
+            title: "操作",
+            dataIndex: "action",
+            key: "action"
+        },
+    ]
+
+
+    const [dataResource, setDataResource] = useState()
 
 
     const getAllUser = () => {
@@ -72,12 +59,13 @@ const AdminUserView = () => {
             if (data.body.code !== 200) {
                 return
             }
-            console.log(dataResource[0].nickName)
-            console.log(data.body.result[0].nickName)
-            setDataRes(data.body.result)
-            // dataResource = data.body.result
-            console.log(data)
-            console.log(dataResource)
+
+            for (let i = 0; i < (data.body.result).length; i++) {
+                data.body.result[i].status = data.body.result[i].status === 0 ? "正常" : "异常"
+                data.body.result[i].createTime = HandleTime.MillTime2Date(data.body.result[i].createTime)
+                data.body.result[i].lastLoginTime = HandleTime.MillTime2Date(data.body.result[i].lastLoginTime)
+            }
+            setDataResource(data.body.result)
             return
         })
     }
@@ -88,7 +76,7 @@ const AdminUserView = () => {
         <>
             <div className="table-context-body">
                 <div className="table-add-button"><Button size="large">新增用户</Button></div>
-                <div className="table-body"><Table columns={colums} dataSource={dataRes}></Table></div>
+                <div className="table-body"><Table columns={colums} dataSource={dataResource}></Table></div>
             </div>
         </>
     )

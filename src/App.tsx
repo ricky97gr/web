@@ -11,7 +11,7 @@ import CustomNav from './component/base/my-nav';
 
 
 const App = () => {
-  const [loadAdminRouter, setLoadAdminRouter] = useState(false)
+
 
   return (
     <div className="App">
@@ -20,11 +20,12 @@ const App = () => {
         <CommonRouter></CommonRouter>
       </BrowserRouter>
 
-      <CustomNav showAdmin={setLoadAdminRouter}></CustomNav>
+      <CustomNav></CustomNav>
 
       <BrowserRouter>
-        {/* {loadAdminRouter === false ? <Router></Router> : <AdminLayout></AdminLayout>} */}
+
         <Router></Router>
+        <AdminLayout></AdminLayout>
 
       </BrowserRouter>
 
