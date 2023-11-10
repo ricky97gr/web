@@ -29,11 +29,11 @@ const AdminLayout = () => {
                     <AdminMenu></AdminMenu>
                 </Sider>
                 <Layout style={{ padding: '8px' }}>
-                    <Breadcrumb style={{ margin: '5px', width: "80%" }}>
+                    {/* <Breadcrumb style={{ margin: '5px', width: "80%" }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
+                    </Breadcrumb> */}
                     <Content>
                         <AdminRouter></AdminRouter>
                     </Content>

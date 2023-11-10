@@ -29,8 +29,8 @@ const AdminTopicView = () => {
         },
         {
             title: "评论使用数量",
-            dataIndex: "usedByArticle",
-            key: "usedByArticle"
+            dataIndex: "usedCount",
+            key: "usedCount"
         },
         {
             title: "状态",

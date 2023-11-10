@@ -4,14 +4,9 @@ import { myFetch } from "../../../utils/fetch";
 import AdminLayout from "../layout/layout";
 import './../style/table-layout.css';
 import HandleTime from "../../../utils/time";
+import MyQuery from "../../../utils/query";
 
 
-
-type Page = {
-    page: number,
-    limit: number
-
-}
 
 const AdminUserView = () => {
     const colums = [
@@ -52,16 +47,16 @@ const AdminUserView = () => {
 
 
     const getAllUser = () => {
-        var p = new Object()
-        p["page"] = 1
-        p["pageSize"] = 10
-        myFetch({ url: "/admin/user", options: {}, params: p }).then((data) => {
+        let param = MyQuery({})
+        param["page"] = 1
+        param["pageSize"] = 10
+        myFetch({ url: "/admin/user", options: {}, params: param }).then((data) => {
             if (data.body.code !== 200) {
                 return
             }
 
             for (let i = 0; i < (data.body.result).length; i++) {
-                data.body.result[i].status = data.body.result[i].status === 0 ? "正常" : "异常"
+                // data.body.result[i].status = data.body.result[i].status === 0 ? "正常" : "异常"
                 data.body.result[i].createTime = HandleTime.MillTime2Date(data.body.result[i].createTime)
                 data.body.result[i].lastLoginTime = HandleTime.MillTime2Date(data.body.result[i].lastLoginTime)
             }

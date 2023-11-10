@@ -5,13 +5,13 @@ import { myFetch } from "../../utils/fetch";
 
 const { TextArea } = Input;
 
-type FieldType = {
-    context: string
-    topic: string
-}
+
 const CustomTextArea = () => {
-    const [value, setValue] = useState('')
     const [topicoptions, settags] = useState<any>()
+    type FieldType = {
+        context: string
+        topic: string
+    }
 
     const gettopic = () => {
         myFetch({ url: "/normalUser/topic", options: { method: "GET" } }).then((data) => {
@@ -26,12 +26,9 @@ const CustomTextArea = () => {
 
         })
     }
-    const addComment = () => {
-        let body = {
-            context: value,
-            // topic:topic
-        }
-        myFetch({ url: "/normalUser/comment", options: { body: body, method: "POST" } }).then((data) => {
+    const addComment = (value: any) => {
+
+        myFetch({ url: "/normalUser/comment", options: { body: value, method: "POST" } }).then((data) => {
             if (data.body.code != 200) {
                 message.error("发表评论失败")
                 return
@@ -41,7 +38,7 @@ const CustomTextArea = () => {
         })
     }
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(e.target.value)
+
     }
     return (
         <Card style={{ width: 850, }}>
@@ -53,8 +50,8 @@ const CustomTextArea = () => {
                             placeholder="分享你的新鲜事吧"
                         />
                     </Form.Item>
-                    <Form.Item<FieldType> label="话题" name="topic" rules={[{ required: true }]} style={{ width: "25%", float: "left" }}>
-                        <Select mode="multiple" options={topicoptions} placeholder="请选择话题" onClick={gettopic}></Select>
+                    <Form.Item<FieldType> label="话题" name="topic" rules={[{ required: true, message: "请选择话题" }]} style={{ width: "25%", float: "left" }}>
+                        <Select options={topicoptions} placeholder="请选择话题" onClick={gettopic}></Select>
                     </Form.Item>
 
                     <Button size="large" type="primary" style={{ float: "right", marginRight: 5, marginBottom: 5 }} htmlType="submit">发表动态</Button>

@@ -44,9 +44,9 @@ const AdminCategoryView = () => {
             key: "creator"
         },
         {
-            title: "文章数量",
-            dataIndex: "usedByArticle",
-            key: "usedByArticle"
+            title: "文章引用数量",
+            dataIndex: "usedCount",
+            key: "usedCount"
         },
         {
             title: "状态",

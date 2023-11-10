@@ -27,7 +27,7 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('首页', '/admin',),
+  getItem('首页', '/admin/home',),
   getItem('用户管理', '/admin/user',),
   getItem('标签管理', '/admin/tags',),
   getItem('分类管理', '/admin/category'),
