@@ -1,16 +1,35 @@
+import { Button, Card, Form, Input, Select, message } from "antd";
 import React, { useState } from "react";
-import { Form, Input, message } from "antd";
-import { Card, Button } from 'antd';
 import { myFetch } from "../../utils/fetch";
 
 
 const { TextArea } = Input;
+
+type FieldType = {
+    context: string
+    topic: string
+}
 const CustomTextArea = () => {
     const [value, setValue] = useState('')
+    const [topicoptions, settags] = useState<any>()
+
+    const gettopic = () => {
+        myFetch({ url: "/normalUser/topic", options: { method: "GET" } }).then((data) => {
+            if (data.body.code !== 200) {
+                return
+            }
+            let tags = []
+            for (let i = 0; i < (data.body.result).length; i++) {
+                tags.push({ "value": data.body.result[i].name })
+            }
+            settags(tags)
+
+        })
+    }
     const addComment = () => {
         let body = {
             context: value,
-            // topic:""
+            // topic:topic
         }
         myFetch({ url: "/normalUser/comment", options: { body: body, method: "POST" } }).then((data) => {
             if (data.body.code != 200) {
@@ -33,6 +52,9 @@ const CustomTextArea = () => {
                             onChange={onChange}
                             placeholder="分享你的新鲜事吧"
                         />
+                    </Form.Item>
+                    <Form.Item<FieldType> label="话题" name="topic" rules={[{ required: true }]} style={{ width: "25%", float: "left" }}>
+                        <Select mode="multiple" options={topicoptions} placeholder="请选择话题" onClick={gettopic}></Select>
                     </Form.Item>
 
                     <Button size="large" type="primary" style={{ float: "right", marginRight: 5, marginBottom: 5 }} htmlType="submit">发表动态</Button>

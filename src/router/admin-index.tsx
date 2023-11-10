@@ -10,6 +10,7 @@ import AdminOperationLogView from "../view/admin/log/operation-log";
 import AdminSystemLogView from "../view/admin/log/systemlog";
 import AdminTagView from "../view/admin/tag/tag";
 import AdminHome from "../view/admin/admin";
+import AdminTopicView from "../view/admin/topic/topic";
 
 
 
@@ -26,6 +27,7 @@ const AdminRouter = () => {
             <Route path="/admin/article" Component={AdminArticleView}></Route>
             <Route path="/admin/operationlog" Component={AdminOperationLogView}></Route>
             <Route path="/admin/systemlog" Component={AdminSystemLogView}></Route>
+            <Route path="/admin/topic" Component={AdminTopicView}></Route>
         </Routes>
 
     );

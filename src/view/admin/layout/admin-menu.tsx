@@ -31,6 +31,7 @@ const items: MenuItem[] = [
   getItem('用户管理', '/admin/user',),
   getItem('标签管理', '/admin/tags',),
   getItem('分类管理', '/admin/category'),
+  getItem('话题管理', '/admin/topic'),
   getItem('文章管理', '/admin/article'),
   getItem('日志管理', 'log', null, [
     getItem('操作日志', "/admin/operationlog"),
