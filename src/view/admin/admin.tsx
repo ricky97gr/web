@@ -1,8 +1,9 @@
-import { TagOutlined } from '@ant-design/icons';
-import { Card, Col, Divider, List, Row, Table } from 'antd';
-import React from 'react';
+import { AudioOutlined, ContainerOutlined, FileTextOutlined, TagOutlined, TagsOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { Card, Col, Divider, List, Row, Statistic, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Column, Line, Pie } from '@ant-design/plots';
 import { Bar } from '@ant-design/charts';
+import { myFetch } from '../../utils/fetch';
 
 
 
@@ -141,6 +142,22 @@ const AdminHome = () => {
   };
 
 
+  const [statisticCounts, setStatisticCounts] = useState<any>()
+  const getCounts = () => {
+    myFetch({ url: "/admin/statistic/counts", options: { method: "GET" } }).then((data) => {
+      console.log(data.body.result)
+      setStatisticCounts(data.body.result)
+      console.log(statisticCounts)
+    })
+  }
+  useEffect(
+    () => {
+      getCounts()
+    }
+    , [])
+
+
+
   return (
     <>
       <Row style={{ padding: 5 }}>
@@ -148,39 +165,26 @@ const AdminHome = () => {
           <Card style={{ height: 100 }} bordered={false}>
             <Row>
               <Col span={6}>
-                <span style={{ fontSize: 18 }}><TagOutlined />标签总数</span>
-                <br />
-                <span style={{}}>0</span>
+                <Statistic title="标签总数" value={0} prefix={<TagsOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <span style={{ fontSize: 18 }}>类别总数</span>
-                <br />
-
-                <span style={{}}>0</span>
+                <Statistic title="类别总数" value={0} prefix={<UnorderedListOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <span style={{ fontSize: 18 }}>话题总数</span>
-                <br />
-
-                <span style={{}}>0</span>
+                <Statistic title="话题总数" value={0} prefix={<AudioOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <span style={{ fontSize: 18 }}>短评总数</span>
-                <br />
-
-                <span style={{}}>0</span>
+                <Statistic title="短评总数" value={0} prefix={<ContainerOutlined />}></Statistic>
               </Col>
             </Row>
           </Card>
         </Col>
         <Col span={6} style={{ padding: 5 }}>
           <Card style={{ height: 100 }}>
-            <span style={{ fontSize: 18 }}>文章总数</span>
-            <br />
-            <span style={{}}>0</span>
+            <Statistic title=" 文章总数" value={0} prefix={<FileTextOutlined />}></Statistic>
           </Card>
         </Col>
       </Row>
