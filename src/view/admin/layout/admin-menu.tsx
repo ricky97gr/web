@@ -55,7 +55,7 @@ const AdminMenu = () => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Menu
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["1"]}

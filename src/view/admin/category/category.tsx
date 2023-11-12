@@ -5,9 +5,9 @@ import CustomDrawer from "../../../component/base/my-drawer";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
-import HandleTime from "../../../utils/time";
 import { error } from "console";
 import { Recoverable } from "repl";
+import { MillTime2Date } from "../../../utils/time";
 
 type NewCategory = {
   name: string;
@@ -157,7 +157,7 @@ const AdminCategoryView = () => {
       params: param,
     }).then((data) => {
       for (let i = 0; i < data.body.result.length; i++) {
-        data.body.result[i].createTime = HandleTime.MillTime2Date(
+        data.body.result[i].createTime = MillTime2Date(
           data.body.result[i].createTime
         );
       }

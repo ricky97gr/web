@@ -8,15 +8,20 @@ import AdminArticleView from "../view/admin/article/article";
 import AdminOperationLogView from "../view/admin/log/operation-log";
 import AdminSystemLogView from "../view/admin/log/systemlog";
 import AdminTopicView from "../view/admin/topic/topic";
-import { Button } from "antd";
-import { Aboout, Log, ToursitHome, Comment } from "../view/will_be_delete/test";
+
 import { Admin } from "../view/admin/home";
+import Comment from "../view/comment/comment";
+import Test from "../view/test";
+import Register from "../view/system/register";
+import ChatHome from "../view/chat/chat";
+
 
 export const touristRoutes = [
-  <Route path="home" Component={ToursitHome}></Route>,
+  <Route path="home" Component={Test}></Route>,
   <Route path="comment" Component={Comment}></Route>,
-  <Route path="log" Component={Log}></Route>,
-  <Route path="about" Component={Aboout}></Route>,
+  <Route path="log" Component={Register}></Route>,
+  <Route path="about" Component={Register}></Route>,
+  <Route path="chat" Component={ChatHome}></Route>
 ];
 
 export const adminRouters = (

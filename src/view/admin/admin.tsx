@@ -6,21 +6,87 @@ import { Bar } from '@ant-design/charts';
 import { myFetch } from '../../utils/fetch';
 
 
+type statisticCountInfo = {
+  tagTotal: number
+  topicTotal: number
+  categoryTotal: number
+  articleTotal: number
+  shortCommentTotal: number
+}
 
 
 const AdminHome = () => {
-  const topicTopData = [
-    { name: "name", count: 2 },
-    { name: "name1", count: 2 },
-    { name: "name2", count: 2 },
-    { name: "name3", count: 2 },
-    { name: "name4", count: 2 },
 
-  ]
+  const [statisticCounts, setStatisticCounts] = useState<statisticCountInfo>({ tagTotal: 0, topicTotal: 0, categoryTotal: 0, articleTotal: 0, shortCommentTotal: 0 })
+  const getCounts = () => {
+    myFetch({
+      url: "/admin/statistic/counts",
+      options: { method: "GET" }
+    }).then((data) => {
+      setStatisticCounts(data.body.result)
+    })
+  }
+  useEffect(() => {
+    getCounts();
+    getUserTrend();
+    getArticleTrend();
+    getTagTop5();
+    getTopicTop5()
+    getCategoryTop5()
+  }, [])
+
+  const [statisticUserTrend, setStatisticUserTrend] = useState([])
+  const [statisticArticleTrend, setStatisticArticleTrend] = useState([])
+
+  const getUserTrend = () => {
+    myFetch({
+      url: "/admin/statistic/usertrend",
+      options: { method: "GET" }
+    }).then((data) => {
+      setStatisticUserTrend(data.body.result)
+    })
+  }
+
+  const getArticleTrend = () => {
+    myFetch({
+      url: "/admin/statistic/articletrend",
+      options: { method: "GET" }
+    }).then((data) => {
+      setStatisticArticleTrend(data.body.result)
+    })
+  }
+  const getTagTop5 = () => {
+    myFetch({
+      url: "/admin/statistic/tagtop5",
+      options: { method: "GET" }
+    }).then((data) => {
+
+      setTagTopData(data.body.result)
+    })
+  }
+  const getTopicTop5 = () => {
+    myFetch({
+      url: "/admin/statistic/topictop5",
+      options: { method: "GET" }
+    }).then((data) => {
+
+      setTopicTopData(data.body.result)
+    })
+  }
+  const getCategoryTop5 = () => {
+    myFetch({
+      url: "/admin/statistic/categorytop5",
+      options: { method: "GET" }
+    }).then((data) => {
+      setCategoryTopData(data.body.result)
+    })
+  }
+
+  const [topicTopData, setTopicTopData] = useState([])
   const topicTopConfig = {
     data: topicTopData,
     xField: 'name',
-    yField: 'count',
+    yField: 'usedCount',
     xAxis: {
       label: {
         autoHide: true,
@@ -31,24 +97,56 @@ const AdminHome = () => {
       name: {
         alias: "话题名"
       },
-      count: {
+      usedCount: {
         alias: "短评引用数"
       }
     }
   }
 
-  const weekNewUserData = [
-    { date: "一天前", count: 2 },
-    { date: "name1", count: 2 },
-    { date: "name2", count: 5 },
-    { date: "name3", count: 1 },
-    { date: "name4", count: 2 },
-    { date: "一天前1", count: 7 },
-    { date: "一天前2", count: 15 },
+  const [tagTopData, setTagTopData] = useState([])
+  const tagTopConfig = {
+    data: tagTopData,
+    xField: 'name',
+    yField: 'usedCount',
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      name: {
+        alias: "标签名"
+      },
+      usedCount: {
+        alias: "文章引用数"
+      }
+    }
+  }
 
-  ]
+  const [categoryTopData, setCategoryTopData] = useState([])
+  const categoryTopConfig = {
+    data: categoryTopData,
+    xField: 'name',
+    yField: 'usedCount',
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      name: {
+        alias: "分类名"
+      },
+      usedCount: {
+        alias: "文章引用数"
+      }
+    }
+  }
+
   const weekNewUserConfig = {
-    data: weekNewUserData,
+    data: statisticUserTrend,
     xField: 'date',
     yField: 'count',
     xAxis: {
@@ -59,10 +157,30 @@ const AdminHome = () => {
     },
     meta: {
       name: {
-        alias: "话题名"
+        alias: "时间"
       },
       count: {
-        alias: "短评引用数"
+        alias: "新增用户数"
+      }
+    }
+  }
+
+  const weekNewArticleConfig = {
+    data: statisticArticleTrend,
+    xField: 'date',
+    yField: 'count',
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      name: {
+        alias: "时间"
+      },
+      count: {
+        alias: "新增文章数"
       }
     }
   }
@@ -142,19 +260,7 @@ const AdminHome = () => {
   };
 
 
-  const [statisticCounts, setStatisticCounts] = useState<any>()
-  const getCounts = () => {
-    myFetch({ url: "/admin/statistic/counts", options: { method: "GET" } }).then((data) => {
-      console.log(data.body.result)
-      setStatisticCounts(data.body.result)
-      console.log(statisticCounts)
-    })
-  }
-  useEffect(
-    () => {
-      getCounts()
-    }
-    , [])
+
 
 
 
@@ -165,26 +271,26 @@ const AdminHome = () => {
           <Card style={{ height: 100 }} bordered={false}>
             <Row>
               <Col span={6}>
-                <Statistic title="标签总数" value={0} prefix={<TagsOutlined />}></Statistic>
+                <Statistic title="标签总数" value={statisticCounts.tagTotal} prefix={<TagsOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <Statistic title="类别总数" value={0} prefix={<UnorderedListOutlined />}></Statistic>
+                <Statistic title="类别总数" value={statisticCounts.categoryTotal} prefix={<UnorderedListOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <Statistic title="话题总数" value={0} prefix={<AudioOutlined />}></Statistic>
+                <Statistic title="话题总数" value={statisticCounts.topicTotal} prefix={<AudioOutlined />}></Statistic>
               </Col>
 
               <Col span={6}>
-                <Statistic title="短评总数" value={0} prefix={<ContainerOutlined />}></Statistic>
+                <Statistic title="短评总数" value={statisticCounts.shortCommentTotal} prefix={<ContainerOutlined />}></Statistic>
               </Col>
             </Row>
           </Card>
         </Col>
         <Col span={6} style={{ padding: 5 }}>
           <Card style={{ height: 100 }}>
-            <Statistic title=" 文章总数" value={0} prefix={<FileTextOutlined />}></Statistic>
+            <Statistic title=" 文章总数" value={statisticCounts.articleTotal} prefix={<FileTextOutlined />}></Statistic>
           </Card>
         </Col>
       </Row>
@@ -193,11 +299,11 @@ const AdminHome = () => {
         <Col style={{ padding: 5, }} span={12}>
           <Card title="近一周用户新增趋势">
             <Line {...weekNewUserConfig} style={{ height: 160 }}></Line>
-          </Card>
+          </Card>``
         </Col>
         <Col style={{ padding: 5, }} span={12}>
           <Card title="近一周文章新增趋势">
-            <Line {...weekNewUserConfig} style={{ height: 160 }}></Line>
+            <Line {...weekNewArticleConfig} style={{ height: 160 }}></Line>
           </Card>
         </Col>
       </Row>
@@ -211,12 +317,12 @@ const AdminHome = () => {
         </Col>
         <Col span={8} style={{ padding: 5 }}>
           <Card title="文章分类TOP5">
-            <Column {...topicTopConfig} style={{ height: 160 }} />
+            <Column {...categoryTopConfig} style={{ height: 160 }} />
           </Card>
         </Col>
         <Col span={8} style={{ padding: 5 }}>
           <Card title="标签使用频率TOP5">
-            <Column {...topicTopConfig} style={{ height: 160 }} />
+            <Column {...tagTopConfig} style={{ height: 160 }} />
           </Card>
         </Col>
       </Row>

@@ -2,7 +2,8 @@ import { Button, Table } from "antd";
 import React, { Component, useEffect, useState } from "react";
 import MyQuery from "../../../utils/query";
 import { myFetch } from "../../../utils/fetch";
-import HandleTime from "../../../utils/time";
+import { MillTime2Date } from "../../../utils/time";
+
 const colums = [
   {
     title: "时间",
@@ -39,7 +40,7 @@ const AdminOperationLogView = () => {
       (data) => {
         console.log(data);
         for (let i = 0; i < data.body.result.length; i++) {
-          data.body.result[i].createTime = HandleTime.MillTime2Date(
+          data.body.result[i].createTime = MillTime2Date(
             data.body.result[i].createTime
           );
         }
