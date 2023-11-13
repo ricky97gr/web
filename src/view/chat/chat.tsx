@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import './chat.css'
-import { Button, Card, ConfigProvider, Divider, Input, Tabs, TabsProps } from "antd";
+import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps } from "antd";
 import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
 
+const ws = new WebSocket("ws://localhost:8800/normalUser/ws");
 const ChatHome = () => {
-    const onChange = (key: string) => {
-        console.log(key);
-    };
+
+    const [message, setMessage] = useState<MessageInfo>({ context: "" });
+
+    const startWebSocket = () => {
+
+        ws.onmessage = (e) => {
+            console.log(e.data)
+            setMessage(e.data)
+        }
+        return () => { ws.close() }
+    }
+
+
+
+    type MessageInfo = {
+        context: string
+    }
+
+
+
+    const sendMessage = (e) => {
+        console.log(e.context)
+        ws.send(JSON.stringify(e))
+    }
+    useEffect(startWebSocket, [])
 
     const items: TabsProps['items'] = [
         {
@@ -45,7 +68,7 @@ const ChatHome = () => {
                                 }
                             }
                         }}>
-                            <Tabs defaultActiveKey="1" items={items} onChange={onChange} size="large" centered style={{ height: "100%", width: "100%" }} />
+                            <Tabs defaultActiveKey="1" items={items} size="large" centered style={{ height: "100%", width: "100%" }} />
                         </ConfigProvider>
 
                     </div>
@@ -71,15 +94,23 @@ const ChatHome = () => {
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
+                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={message.context}></ChatMessage>
+
                         </ul>
 
 
 
                     </div>
                     <div style={{ height: "22%", position: "relative" }}>
-                        <Input.TextArea bordered={false}>
-                        </Input.TextArea>
-                        <Button size="middle" style={{ position: "absolute", bottom: 10, right: 10 }}>发送</Button>
+                        <Form<MessageInfo> onFinish={sendMessage}>
+                            <Form.Item<MessageInfo> name="context">
+                                <Input.TextArea bordered={false}>
+                                </Input.TextArea>
+                            </Form.Item>
+                            <Button size="middle" style={{ position: "absolute", bottom: 10, right: 10 }} htmlType="submit">发送</Button>
+                        </Form>
+
+
                     </div>
                 </div>
 
