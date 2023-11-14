@@ -68,7 +68,7 @@ const SessionList = () => {
 
     return (
         <>
-            <div id="scrollableDiv"
+            <div id="scrollableDivSession"
                 style={{
                     height: 400,
                     overflow: 'auto',
@@ -82,7 +82,7 @@ const SessionList = () => {
                     hasMore={false}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>只能加载10条最新会话哦 😀</Divider>}
-                    scrollableTarget="scrollableDiv"
+                    scrollableTarget="scrollableDivSession"
                 >
                     <List
                         itemLayout="horizontal"

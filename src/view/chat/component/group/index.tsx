@@ -77,7 +77,7 @@ const GroupList = () => {
     }, []);
     return (
         <>
-            <div id="scrollableDiv"
+            <div id="scrollableDivGroup"
                 style={{
                     height: 400,
                     overflow: 'auto',
@@ -91,7 +91,7 @@ const GroupList = () => {
                     hasMore={data.length == 5}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>群组列表到底了 🤐</Divider>}
-                    scrollableTarget="scrollableDiv"
+                    scrollableTarget="scrollableDivGroup"
                 >
                     <List
                         itemLayout="horizontal"

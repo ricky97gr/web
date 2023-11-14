@@ -1,45 +1,50 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import './chat.css'
-import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps } from "antd";
+import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message } from "antd";
 import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
-import { socket } from "./component/socket/io";
+import { json } from "stream/consumers";
+import { MyWebSocket } from "./component/socket/io";
+import { send } from "process";
 
-// const ws = new WebSocket("ws://localhost:8800/normalUser/ws");
+
+
 const ChatHome = () => {
-    const [isConnected, setIsConnected] = useState(socket.connected);
-
-
-
 
     type MessageInfo = {
         context: string
     }
-    const sendMessage = () => {
-    }
-    const onConneted = () => {
-        console.log("connect successfully")
-        setIsConnected(true)
-    }
-    const onDisConneted = () => {
-        console.log("disconnect successfully")
-        setIsConnected(false)
+    const [messages, setMessages] = useState<MessageInfo[]>([
+        { context: "你好啊" }
+    ])
+
+
+
+
+    const scrollToButtom = () => {
+        let chat = document.getElementById("chat-msg-contex")
+        chat.scrollTop = chat.scrollHeight
     }
 
-    useEffect(() => {
-        console.log("start to connect")
-        socket.connect()
-        socket.on("conneted", onConneted)
-        socket.on("disconneted", onDisConneted)
-        return () => {
-            console.log("start to disconnect")
-            socket.off("conneted", onConneted)
-            socket.off("disconneted", onDisConneted)
-            // socket.disconnect()
+    const sendMessage = (e) => {
+        if (e.context === undefined || e.context === "") {
+            message.warning("请输入聊天内容哦")
+            return
         }
-    },)
+        console.log(e)
+        // ws.send(JSON.stringify(e))
+        let tmpmsg = [...messages, e]
+        setMessages(tmpmsg)
+        setTimeout(scrollToButtom, 50)
+    }
+
+
+
+    useEffect(() => {
+        const sendmsssgae = MyWebSocket
+    }, [])
 
 
 
@@ -65,8 +70,8 @@ const ChatHome = () => {
     return (
 
         <div className="chat-body">
-            <div style={{ height: 650, width: 850, marginTop: 120, backgroundColor: "white" }}>
-                <div style={{ width: "30%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
+            <div style={{ height: "100%", width: "100%", backgroundColor: "white" }}>
+                <div style={{ width: "25%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
                     <div style={{ height: "12%", borderBottomStyle: "solid", boxSizing: "border-box" }}></div>
                     <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}>
                         <Input style={{ height: "100%", width: "100%", backgroundColor: "#eee" }} size="large" bordered={false} placeholder="请输入查找内容"></Input>
@@ -84,7 +89,7 @@ const ChatHome = () => {
 
                     </div>
                 </div>
-                <div style={{ width: "70%", height: "100%", float: "right", backgroundColor: "white" }}>
+                <div style={{ width: "75%", height: "100%", float: "right", backgroundColor: "white" }}>
                     <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}>title</div>
                     <div id="chat-msg-contex" style={{ height: "70%", borderBottomStyle: "solid", boxSizing: "border-box", overflowY: "scroll" }}>
                         <ConfigProvider
@@ -98,13 +103,18 @@ const ChatHome = () => {
                         </ConfigProvider>
 
                         <ul>
+                            {messages.map((item) => (
+                                <>
+                                    <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={item.context}></ChatMessage>
+                                </>
+                            ))}
+                            {/* <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
+                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage> */}
                             {/* <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={message.context}></ChatMessage> */}
 
                         </ul>

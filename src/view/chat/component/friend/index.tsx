@@ -94,7 +94,7 @@ const FrientList = () => {
     }, []);
     return (
         <>
-            <div id="scrollableDiv"
+            <div id="scrollableDivFriend"
                 style={{
                     height: 400,
                     overflow: 'auto',
@@ -109,10 +109,10 @@ const FrientList = () => {
                 <InfiniteScroll
                     dataLength={data.length}
                     next={loadMoreData}
-                    hasMore={data.length == 10}
+                    hasMore={data.length === 10}
                     loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                     endMessage={<Divider plain>好友列表到底了 🤐</Divider>}
-                    scrollableTarget="scrollableDiv"
+                    scrollableTarget="scrollableDivFriend"
                 >
                     <List
                         itemLayout="horizontal"

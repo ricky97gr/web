@@ -24,7 +24,7 @@ const ChatMessage = ({ msgid, userid, userName, level, sex, ip, lastLoginTime, c
                 <div className="msg-context" style={{ float: "left", backgroundColor: "#a6c6f7", borderRadius: 5, padding: 8, marginTop: 15, marginBottom: 10 }}>
                     <div className="arrow"></div>
                     <p>
-                        <span style={{ fontSize: 16 }}>{context}</span>
+                        <span style={{ fontSize: 14 }}>{context}</span>
                     </p>
 
                 </div>

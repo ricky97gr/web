@@ -1,8 +1,31 @@
-import { io } from 'socket.io-client';
+import { send } from "process";
+import React, { useEffect } from "react";
+import { json } from "stream/consumers";
 
-//  "undefined" means the URL will be computed from the `window.location` object
+export const MyWebSocket = ({ url, parentMessage, updateParentMessage }) => {
+  const ws = new WebSocket("ws://localhost:8800/normalUser/ws");
 
-// const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:4000';
 
-const URL = 'http://localhost:8800'
-export const socket = io(URL, { autoConnect: false, path: "/normalUser/ws", transports: [], });
+  const receiveMessage = (data) => {
+    console.log(data)
+  }
+  const start = () => {
+    console.log("start successfully")
+  }
+  const stop = () => {
+    ws && ws.close()
+  }
+  const sendMessage = (e) => {
+    ws.send(JSON.stringify(e))
+  }
+
+  useEffect(() => {
+    ws.onmessage = receiveMessage
+    ws.onopen = start
+    return () => {
+      stop()
+    }
+  })
+
+  return (sendMessage)
+}
