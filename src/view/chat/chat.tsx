@@ -5,34 +5,45 @@ import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
+import { socket } from "./component/socket/io";
 
-const ws = new WebSocket("ws://localhost:8800/normalUser/ws");
+// const ws = new WebSocket("ws://localhost:8800/normalUser/ws");
 const ChatHome = () => {
+    const [isConnected, setIsConnected] = useState(socket.connected);
 
-    const [message, setMessage] = useState<MessageInfo>({ context: "" });
-
-    const startWebSocket = () => {
-
-        ws.onmessage = (e) => {
-            console.log(e.data)
-            setMessage(e.data)
-        }
-        return () => { ws.close() }
-    }
 
 
 
     type MessageInfo = {
         context: string
     }
-
-
-
-    const sendMessage = (e) => {
-        console.log(e.context)
-        ws.send(JSON.stringify(e))
+    const sendMessage = () => {
     }
-    useEffect(startWebSocket, [])
+    const onConneted = () => {
+        console.log("connect successfully")
+        setIsConnected(true)
+    }
+    const onDisConneted = () => {
+        console.log("disconnect successfully")
+        setIsConnected(false)
+    }
+
+    useEffect(() => {
+        console.log("start to connect")
+        socket.connect()
+        socket.on("conneted", onConneted)
+        socket.on("disconneted", onDisConneted)
+        return () => {
+            console.log("start to disconnect")
+            socket.off("conneted", onConneted)
+            socket.off("disconneted", onDisConneted)
+            // socket.disconnect()
+        }
+    },)
+
+
+
+
 
     const items: TabsProps['items'] = [
         {
@@ -94,7 +105,7 @@ const ChatHome = () => {
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
                             <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={message.context}></ChatMessage>
+                            {/* <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={message.context}></ChatMessage> */}
 
                         </ul>
 
