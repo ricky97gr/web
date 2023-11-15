@@ -1,25 +1,34 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import './chat.css'
-import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message } from "antd";
+import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message, notification } from "antd";
 import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 
 
+let allMessage = []
 
 const ChatHome = () => {
     const ws = useRef<WebSocket>()
     useEffect(() => {
-        ws.current = new WebSocket("ws://10.182.34.112:8800/normalUser/ws");
+        ws.current = new WebSocket("ws://localhost:8800/normalUser/ws");
     }, [ws])
 
-    let allMessage = []
+
 
     type MessageInfo = {
         context: string
+        fromUID: string
+        toUID: string
+        fromName: string
+        time: number
+        type: number
+        groupID: string
     }
+
     const [messages, setMessages] = useState<MessageInfo[]>([])
 
 
@@ -37,10 +46,9 @@ const ChatHome = () => {
         }
         allMessage = messages
         allMessage = [...allMessage, e]
-        setMessages(allMessage)
-        ws.current.send(JSON.stringify(e))
-        console.log(allMessage)
 
+        ws.current.send(JSON.stringify(e))
+        setMessages(allMessage)
         setTimeout(scrollToButtom, 50)
     }
 
@@ -53,7 +61,14 @@ const ChatHome = () => {
 
     const receiveMessage = (e) => {
         let msg = JSON.parse(e.data)
-        console.log(e.data)
+        if (msg.type === 1) {
+            notification.info({
+                placement: "bottomRight",
+                message: msg.context,
+                style: { width: 'calc(30vh - 10px)', float: "right", right: 0 },
+            })
+            return
+        }
         allMessage = [...allMessage, msg]
         setMessages(allMessage)
         setTimeout(scrollToButtom, 50)
@@ -68,8 +83,6 @@ const ChatHome = () => {
         const stop = () => {
             ws && ws.current?.close()
         }
-
-
         ws.current.onmessage = receiveMessage
         ws.current.onopen = start
         return () => {
@@ -139,14 +152,6 @@ const ChatHome = () => {
                                     <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={item.context}></ChatMessage>
                                 </>
                             ))}
-                            {/* <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage>
-                            <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={"测试聊天消息"}></ChatMessage> */}
-                            {/* <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={message.context}></ChatMessage> */}
 
                         </ul>
 

@@ -14,15 +14,21 @@ import { useNavigate } from "react-router-dom";
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
+  //标题
   label: React.ReactNode,
+  //唯一标识
   key: React.Key,
+  //图标
   icon?: React.ReactNode,
+  disabled?: boolean,
   children?: MenuItem[],
-  type?: "group"
+  type?: "group",
+
 ): MenuItem {
   return {
     key,
     icon,
+    disabled,
     children,
     label,
     type,
@@ -36,9 +42,10 @@ const items: MenuItem[] = [
   getItem("分类管理", "/admin/category"),
   getItem("话题管理", "/admin/topic"),
   getItem("文章管理", "/admin/article"),
-  getItem("日志管理", "log", null, [
+  getItem("系统管理", "log", null, true),
+  getItem("日志管理", "log", null, false, [
     getItem("操作日志", "/admin/operationlog"),
-    getItem("系统日志", "/admin/systemlog"),
+    getItem("系统日志", "/admin/systemlog", "", true),
   ]),
 ];
 
@@ -64,6 +71,7 @@ const AdminMenu = () => {
         style={{ width: "100%", height: "100%" }}
         items={items}
         onClick={onclick}
+
       />
     </div>
   );

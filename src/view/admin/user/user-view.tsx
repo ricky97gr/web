@@ -88,11 +88,12 @@ const AdminUserView = () => {
   }, []);
 
   type NewUser = {
-    name: string
-    sex: string
+    nickName: string
+    sex: number
     role: number
     phone: string
     email: string
+    password: string
   }
   const [isshow, setShow] = useState<boolean>(false);
 
@@ -107,7 +108,6 @@ const AdminUserView = () => {
 
     console.log(values);
 
-    return
     myFetch({
       url: "/admin/user",
       options: { body: values, method: "POST" },
@@ -141,7 +141,7 @@ const AdminUserView = () => {
           <Form onFinish={addUser}>
             <Form.Item<NewUser>
               label="昵称"
-              name="name"
+              name="nickName"
               rules={[{ required: true, message: "请输入用户昵称" }]}
             >
               <Input></Input>
@@ -181,6 +181,13 @@ const AdminUserView = () => {
               label="邮箱"
               name="email"
               rules={[{ required: true, message: "请输入邮箱" }]}
+            >
+              <Input></Input>
+            </Form.Item>
+            <Form.Item<NewUser>
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: "请设置密码" }]}
             >
               <Input></Input>
             </Form.Item>
