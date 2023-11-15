@@ -14,6 +14,8 @@ import Comment from "../view/comment/comment";
 import Test from "../view/test";
 import Register from "../view/system/register";
 import ChatHome from "../view/chat/chat";
+import CurrentUser from "../view/user/home";
+import { SystemInfo } from "../view/admin/system";
 
 
 export const touristRoutes = [
@@ -21,7 +23,8 @@ export const touristRoutes = [
   <Route path="comment" Component={Comment}></Route>,
   <Route path="log" Component={Register}></Route>,
   <Route path="about" Component={Register}></Route>,
-  <Route path="chat" Component={ChatHome}></Route>
+  <Route path="chat" Component={ChatHome}></Route>,
+  <Route path="currentUser" Component={CurrentUser}></Route>
 ];
 
 export const adminRouters = (
@@ -36,6 +39,7 @@ export const adminRouters = (
       <Route path="operationlog" Component={AdminOperationLogView}></Route>
       <Route path="systemlog" Component={AdminSystemLogView}></Route>
       <Route path="topic" Component={AdminTopicView}></Route>
+      <Route path="systeminfo" Component={SystemInfo}></Route>
     </Route>
   </>
 );

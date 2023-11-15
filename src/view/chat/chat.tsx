@@ -1,24 +1,26 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import './chat.css'
 import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message } from "antd";
 import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
-import { json } from "stream/consumers";
-import { MyWebSocket } from "./component/socket/io";
-import { send } from "process";
+
 
 
 
 const ChatHome = () => {
+    const ws = useRef<WebSocket>()
+    useEffect(() => {
+        ws.current = new WebSocket("ws://10.182.34.112:8800/normalUser/ws");
+    }, [ws])
+
+    let allMessage = []
 
     type MessageInfo = {
         context: string
     }
-    const [messages, setMessages] = useState<MessageInfo[]>([
-        { context: "你好啊" }
-    ])
+    const [messages, setMessages] = useState<MessageInfo[]>([])
 
 
 
@@ -33,17 +35,46 @@ const ChatHome = () => {
             message.warning("请输入聊天内容哦")
             return
         }
-        console.log(e)
-        // ws.send(JSON.stringify(e))
-        let tmpmsg = [...messages, e]
-        setMessages(tmpmsg)
+        allMessage = messages
+        allMessage = [...allMessage, e]
+        setMessages(allMessage)
+        ws.current.send(JSON.stringify(e))
+        console.log(allMessage)
+
         setTimeout(scrollToButtom, 50)
     }
 
+    const showMoreMessage = () => {
+        let moreMessages = [{ context: "oldmsg1" }, { context: "oldmsg2" }]
+        allMessage = [...moreMessages, ...allMessage]
+        setMessages(allMessage)
 
+    }
+
+    const receiveMessage = (e) => {
+        let msg = JSON.parse(e.data)
+        console.log(e.data)
+        allMessage = [...allMessage, msg]
+        setMessages(allMessage)
+        setTimeout(scrollToButtom, 50)
+    }
 
     useEffect(() => {
-        const sendmsssgae = MyWebSocket
+
+
+        const start = () => {
+            console.log("start successfully")
+        }
+        const stop = () => {
+            ws && ws.current?.close()
+        }
+
+
+        ws.current.onmessage = receiveMessage
+        ws.current.onopen = start
+        return () => {
+            stop()
+        }
     }, [])
 
 
@@ -99,7 +130,7 @@ const ChatHome = () => {
                                 }
                             }}
                         >
-                            <Divider dashed={true}><a>加载更多</a></Divider>
+                            <Divider dashed={true}><a onClick={showMoreMessage}>加载更多</a></Divider>
                         </ConfigProvider>
 
                         <ul>

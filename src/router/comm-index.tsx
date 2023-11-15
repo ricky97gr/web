@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "../view/system/login";
-import Register from "../view/system/register";
-import CustomNav from "../component/base/my-nav";
 import { touristRoutes } from "./routes";
 
 const CommonRouter = () => {
