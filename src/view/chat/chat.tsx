@@ -14,7 +14,7 @@ let allMessage = []
 const ChatHome = () => {
     const ws = useRef<WebSocket>()
     useEffect(() => {
-        ws.current = new WebSocket("ws://localhost:8800/normalUser/ws");
+        ws.current = new WebSocket("ws://10.182.34.112:8800/normalUser/ws");
     }, [ws])
 
 
