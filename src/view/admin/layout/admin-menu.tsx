@@ -42,7 +42,7 @@ const items: MenuItem[] = [
   getItem("分类管理", "/admin/category"),
   getItem("话题管理", "/admin/topic"),
   getItem("文章管理", "/admin/article"),
-  getItem("系统管理", "log", null, true),
+  getItem("系统管理", "/admin/systeminfo", null),
   getItem("日志管理", "log", null, false, [
     getItem("操作日志", "/admin/operationlog"),
     getItem("系统日志", "/admin/systemlog", "", true),
