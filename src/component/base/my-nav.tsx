@@ -42,7 +42,7 @@ const CustomNav = ({ role }) => {
               <Link to="/about">关于本站</Link>
             </span>
           </li>
-          {LoginStatus.ADMIN === role && (
+          {(LoginStatus.ADMIN === role || LoginStatus.SuperAdmin === role) && (
             <li className="nav-menu-li">
               <span>
                 <Link to="/admin">管理员页面</Link>

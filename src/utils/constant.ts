@@ -1,5 +1,5 @@
 export enum LoginStatus {
-  ADMIN = "admin",
-  TOURIST = "tourist",
-  SuperAdmin = "superAdmin"
+  TOURIST = 1,
+  ADMIN = 2,
+  SuperAdmin = 3
 }

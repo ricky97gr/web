@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, ConfigProvider, Drawer, Tabs, TabsProps } from "antd";
+import { Button, Card, ConfigProvider, Drawer, Tabs, TabsProps, Tag, Timeline } from "antd";
 import "./user-info-drawer.css";
 import UserInfoForm from "./usermenu/user-info";
 import UserAccountTable from "./usermenu/user-account";
@@ -89,8 +89,23 @@ const items: TabsProps["items"] = [
     label: "我的积分",
     children: (
       <div className="custom-empty">
-        <CustomEmpty context="好空，加点东西?"></CustomEmpty>
-      </div>
+
+        <Timeline mode="left" items={[
+          {
+            label: "2022-09-12 09:12:11",
+            children: <><Tag color="blue">登录</Tag><Tag color="green">+1</Tag></>
+          },
+          {
+            label: "2023-09-12 09:12:11",
+            children: <><Tag color="blue">登录</Tag><Tag color="green">+1</Tag></>
+          }, {
+            label: "2023-10-12 09:12:11",
+            children: <><Tag color="blue">登录</Tag><Tag color="green">+1</Tag></>
+          }
+        ]}>
+
+        </Timeline>
+      </div >
     ),
   },
   {
@@ -127,7 +142,7 @@ class UserInfoDrawer extends Component<UserInfoDrawerProps> {
           placement="right"
           onClose={this.updateParent}
           open={isOpen}
-          width={640}
+          width={"33%"}
           closable={false}
         >
           <div className="tag-is-left">

@@ -6,6 +6,7 @@ import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
+import { getLocalUserToken } from "../../utils/auth";
 
 
 
@@ -14,7 +15,9 @@ let allMessage = []
 const ChatHome = () => {
     const ws = useRef<WebSocket>()
     useEffect(() => {
-        ws.current = new WebSocket("ws://10.182.34.112:8800/normalUser/ws");
+        let token = getLocalUserToken()
+        console.log(token)
+        ws.current = new WebSocket("ws://localhost:8800/normalUser/ws", token);
     }, [ws])
 
 

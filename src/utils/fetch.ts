@@ -1,3 +1,5 @@
+import { getLocalUserToken } from "./auth";
+
 const config = {
   apiPath: "",
   networkErrorCode: 1000,
@@ -16,10 +18,15 @@ const wrapFetchOptions = (option) => {
   } else {
     options = { ...rest };
   }
+  let token = ""
+  if (getLocalUserToken()) {
+    token = getLocalUserToken()
+  }
   return {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      "token": token
     },
     ...options,
   };

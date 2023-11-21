@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import CustomDropDown from "../base/my-dropdown";
 import type { MenuProps } from "antd";
 import UserInfoDrawer from "./user-info-drawer";
+import { clearLocalUserInfo } from "../../utils/auth";
 
 const items: MenuProps["items"] = [
   {
@@ -14,7 +15,7 @@ const items: MenuProps["items"] = [
   },
   {
     key: "3",
-    label: <a href="/login">退出登录</a>,
+    label: <a href="/login" onClick={clearLocalUserInfo}>退出登录</a>,
   },
 ];
 
@@ -22,39 +23,28 @@ interface UserDropDwonProps {
   children?: any;
 }
 
-class UserDropDwon extends Component<UserDropDwonProps> {
-  state = {
-    isOpen: false,
-  };
+const UserDropDwon = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false)
 
-  onclick = ({ key }) => {
-    console.log(key);
-    if (key === "2") {
-      this.setState(() => ({
-        isOpen: true,
-      }));
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+    if (e.key === '2') {
+      setIsOpen(true);
     }
   };
-  udpateIsOpen = (open) => {
-    this.setState(() => ({
-      isOpen: open,
-    }));
-  };
 
-  render() {
-    return (
-      <>
-        <CustomDropDown
-          items={items}
-          children={this.props.children}
-          onClick={this.onclick}
-        ></CustomDropDown>
-        <UserInfoDrawer
-          isOpen={this.state.isOpen}
-          UpdateValue={this.udpateIsOpen}
-        ></UserInfoDrawer>
-      </>
-    );
-  }
+  return (
+    <>
+      <CustomDropDown
+        items={items}
+        children={children}
+        onClick={handleMenuClick}
+      ></CustomDropDown>
+      <UserInfoDrawer
+        isOpen={isOpen}
+        UpdateValue={setIsOpen}
+      ></UserInfoDrawer>
+    </>
+  );
+
 }
 export default UserDropDwon;

@@ -19,23 +19,10 @@ type CommentInfo = {
 };
 
 const Comment = () => {
-  const [info, setinfo] = useState([
-    // {
-    //     author: "Tom", id: "1", parentID: "", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "", type: 1, child: [
-    //         { author: "Tom2", id: "2", parentID: "1", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "Tom", type: 2, child: [] },
-    //         {
-    //             author: "Tom3", id: "3", parentID: "1", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "Tom", type: 2, child: [
-    //                 { author: "Tom4", id: "4", parentID: "3", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "Tom3", type: 3, child: [] },
-    //                 { author: "Tom5", id: "5", parentID: "3", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "Tom3", type: 3, child: [] },
-    //             ]
-    //         }
-    //     ]
-    // },
-    // { author: "Tom6", id: "6", parentID: "", level: "lv1", ip: "江苏省", creaTime: "一天前", context: "测试数据", replayTo: "", type: 1, child: [] },
-  ]);
+  const [info, setinfo] = useState([]);
 
   const getComment = () => {
-    myFetch({ url: "/normalUser/comment", options: { method: "GET" } }).then(
+    myFetch({ url: "/comment", options: { method: "GET" } }).then(
       (data) => {
         setinfo(data.body.result);
       }
@@ -47,19 +34,16 @@ const Comment = () => {
   }, []);
   return (
     <>
-      {/* <div style={{ height: "5%" }}>
-                <CustomNav></CustomNav>
-            </div> */}
 
       <div className="quanzi-body">
-        <CustomTextArea></CustomTextArea>
+        <CustomTextArea getAllComment={getComment} ></CustomTextArea>
         {info === null
           ? ""
           : info?.map((item) => (
-              <>
-                <CustomComment item={item}></CustomComment>
-              </>
-            ))}
+            <>
+              <CustomComment item={item}></CustomComment>
+            </>
+          ))}
       </div>
     </>
   );

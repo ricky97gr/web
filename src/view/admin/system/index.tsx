@@ -1,77 +1,123 @@
 import { Card, Col, Descriptions, DescriptionsProps, Row, Switch } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { myFetch } from "../../../utils/fetch";
 
 export const SystemInfo = () => {
+    type SystemInfo = {
+        systemName: string
+        version: string
+        commitID: string
+        buildTime: string
+    }
+
+    type MonitorInfo = {
+        cpuCount: number
+        usedMemory: number
+        totalMemory: number
+        usedDisk: number
+        totalDisk: number
+        cpuPercent: number
+    }
+    const [systemInfo, setSystemInfo] = useState<SystemInfo>({ systemName: "", version: "", commitID: "", buildTime: "" })
+
+    const [monitorInfo, setMonitorInfo] = useState<MonitorInfo>({ cpuCount: 0, usedDisk: 0, usedMemory: 0, totalDisk: 0, totalMemory: 0, cpuPercent: 0 })
+    const getVsersion = () => {
+        myFetch({ url: "/admin/version", options: { method: "GET" } }).then((data) => {
+            console.log(data)
+            setSystemInfo(data.body.result)
+        })
+    }
+    const getMonitor = () => {
+        myFetch({ url: "/admin/monitor", options: { method: "GET" } }).then((data) => {
+            console.log(data)
+            setMonitorInfo(data.body.result)
+        })
+    }
+    useEffect(() => {
+        getVsersion()
+        getMonitor()
+    }, [])
     const descriptionItems: DescriptionsProps['items'] = [
         {
-            key: "1",
+            key: "systemName",
             label: "系统名称",
             span: 3,
-            children: <span style={{ float: "right" }}>社区系统</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{systemInfo.systemName}</span>
 
         },
         {
-            key: "2",
+            key: "operationSytem",
+            label: "操作系统",
+            span: 3,
+            children: <span style={{ textAlign: "right", width: "100%" }}>linux</span>
+
+        },
+        {
+            key: "version",
             label: "版本号",
             span: 3,
-            children: <span>betav1</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{systemInfo.version}</span>
 
         },
         {
-            key: "3",
+            key: "commitID",
             label: "CommitID",
             span: 3,
-            children: <span>commitid</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{systemInfo.commitID}</span>
 
         },
         {
-            key: "4",
+            key: "buildTime",
             label: "编译时间",
             span: 3,
-            children: <span>2023-11-17</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{systemInfo.buildTime}</span>
         },
+
     ]
 
     const systemMonitorItems: DescriptionsProps['items'] = [
         {
             key: "1",
-            label: "操作系统",
+            label: "CPU数量",
             span: 3,
-            children: <span>linux</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{monitorInfo.cpuCount}</span>
 
         },
+
         {
             key: "2",
             label: "CPU利用率",
             span: 3,
-            children: <span>10%</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{monitorInfo.cpuPercent.toFixed(2)}%</span>
 
         },
         {
             key: "3",
             label: "内存利用率",
             span: 3,
-            children: <span>1Gb/4GB</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{monitorInfo.usedMemory}GB /{monitorInfo.totalMemory}GB</span>
 
         },
         {
             key: "4",
             label: "磁盘利用率",
             span: 3,
-            children: <span>12GB/40GB</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{monitorInfo.usedDisk}GB /{monitorInfo.totalDisk}GB</span>
         },
         {
             key: "5",
             label: "系统运行时长",
             span: 3,
-            children: <>
-                <span>1</span><span>天</span>
-                <span>2</span><span>小时</span>
-                <span>36</span><span>分钟</span>
-                <span>21</span><span>秒</span>
-            </>
+            children:
+                <div style={{ textAlign: "right", width: "100%" }}>
+                    <span>1</span><span>天</span>
+                    <span>2</span><span>小时</span>
+                    <span>36</span><span>分钟</span>
+                    <span>21</span><span>秒</span></div>
+
         },
     ]
+
 
     return (
         <>
@@ -79,7 +125,7 @@ export const SystemInfo = () => {
             <Row>
                 <Col span={12} style={{ padding: 8 }}>
                     <Card title="系统信息" style={{ height: 300, padding: 10 }}>
-                        <Descriptions items={descriptionItems}>
+                        <Descriptions items={descriptionItems} style={{ paddingRight: 40, paddingLeft: 40 }}>
 
                         </Descriptions>
 
@@ -87,7 +133,7 @@ export const SystemInfo = () => {
                 </Col>
                 <Col span={12} style={{ padding: 8 }}>
                     <Card title="系统监控" style={{ height: 300, padding: 10 }}>
-                        <Descriptions items={systemMonitorItems}>
+                        <Descriptions items={systemMonitorItems} style={{ paddingRight: 40, paddingLeft: 40 }}>
 
                         </Descriptions>
                     </Card>

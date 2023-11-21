@@ -5,7 +5,6 @@ import "./../style/table-layout.css";
 
 import MyQuery from "../../../utils/query";
 import CustomDrawer from "../../../component/base/my-drawer";
-import { getRoles } from "@testing-library/react";
 import { MillTime2Date } from "../../../utils/time";
 
 const AdminUserView = () => {
@@ -15,20 +14,15 @@ const AdminUserView = () => {
       dataIndex: "nickName",
       key: "nickName",
     },
-    // {
-    //   title: "状态",
-    //   dataIndex: "status",
-    //   key: "status",
-    // },
     {
       title: "角色",
       dataIndex: "role",
       key: "role",
     },
     {
-      title: "邮箱",
-      dataIndex: "email",
-      key: "email",
+      title: "积分",
+      dataIndex: "score",
+      key: "score",
     },
     {
       title: "加入时间",
@@ -137,7 +131,7 @@ const AdminUserView = () => {
         <div className="table-body">
           <Table columns={colums} dataSource={dataResource}></Table>
         </div>
-        <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
+        <CustomDrawer title="新增用户" isOpen={isshow} UpdateValue={open}>
           <Form onFinish={addUser}>
             <Form.Item<NewUser>
               label="昵称"
@@ -159,9 +153,9 @@ const AdminUserView = () => {
             <Form.Item<NewUser>
               label="角色"
               name="role"
+              rules={[{ required: true, message: "角色是必填项" }]}
             >
               <Select
-                defaultValue={1}
                 style={{ width: 120 }}
                 options={[
                   { value: 1, label: '普通用户' },

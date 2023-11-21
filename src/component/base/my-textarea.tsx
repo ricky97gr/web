@@ -6,7 +6,7 @@ import { myFetch } from "../../utils/fetch";
 const { TextArea } = Input;
 
 
-const CustomTextArea = () => {
+const CustomTextArea = ({ getAllComment }) => {
     const [topicoptions, settags] = useState<any>()
     type FieldType = {
         context: string
@@ -34,6 +34,7 @@ const CustomTextArea = () => {
                 return
             }
             message.success("发表评论成功")
+            getAllComment()
 
         })
     }

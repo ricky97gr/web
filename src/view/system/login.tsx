@@ -3,6 +3,7 @@ import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import './login.css'
 import { myFetch } from '../../utils/fetch';
+import { storeUserInfo } from '../../utils/auth';
 
 const onFinish = (values: any) => {
 
@@ -12,6 +13,9 @@ const onFinish = (values: any) => {
       return
     }
     message.success("😊 登录成功 😊")
+    window.location.reload()
+    console.log(data.body)
+    storeUserInfo({ userName: data.body.userName, userID: data.body.userID, role: data.body.role, token: data.body.token })
 
   })
 };

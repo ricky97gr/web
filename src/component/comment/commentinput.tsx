@@ -2,7 +2,7 @@ import { Input, Button, Form, message } from "antd";
 import React, { useState } from "react";
 import { myFetch } from "../../utils/fetch";
 
-const CommentInput = ({ topCommentID, parentID, replayTo = "", display, updateParent }) => {
+const CommentInput = ({ topCommentID, parentID, replayTo = "", display, updateParent, replayToUser = "" }) => {
     const { TextArea } = Input;
     const [value, setValue] = useState()
     const onChange = (e) => {
@@ -17,7 +17,8 @@ const CommentInput = ({ topCommentID, parentID, replayTo = "", display, updatePa
             // topic:""
             topCommentID: topCommentID,
             parentID: parentID,
-            replayTo: replayTo
+            replayTo: replayTo,
+            replayToUser: replayToUser
         }
         console.log(body)
         myFetch({ url: "/normalUser/comment", options: { body: body, method: "POST" } }).then((data) => {
