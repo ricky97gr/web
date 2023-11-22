@@ -16,6 +16,7 @@ import Register from "../view/system/register";
 import ChatHome from "../view/chat/chat";
 import CurrentUser from "../view/user/home";
 import { SystemInfo } from "../view/admin/system";
+import PluginView from "../view/admin/plugin";
 
 
 export const touristRoutes = [
@@ -40,6 +41,7 @@ export const adminRouters = (
       <Route path="systemlog" Component={AdminSystemLogView}></Route>
       <Route path="topic" Component={AdminTopicView}></Route>
       <Route path="systeminfo" Component={SystemInfo}></Route>
+      <Route path="plugin" Component={PluginView}></Route>
     </Route>
   </>
 );

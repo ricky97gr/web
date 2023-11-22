@@ -33,10 +33,12 @@ const AdminHome = () => {
     getTagTop5();
     getTopicTop5()
     getCategoryTop5()
+    getUserScoreTop10()
   }, [])
 
   const [statisticUserTrend, setStatisticUserTrend] = useState([])
   const [statisticArticleTrend, setStatisticArticleTrend] = useState([])
+  const [userScoreTop10, setUserScoreTop10] = useState([])
 
   const getUserTrend = () => {
     myFetch({
@@ -79,6 +81,14 @@ const AdminHome = () => {
       options: { method: "GET" }
     }).then((data) => {
       setCategoryTopData(data.body.result)
+    })
+  }
+  const getUserScoreTop10 = () => {
+    myFetch({
+      url: "/admin/statistic/scoretop10",
+      options: { method: "GET" }
+    }).then((data) => {
+      setUserScoreTop10(data.body.result)
     })
   }
 
@@ -188,8 +198,8 @@ const AdminHome = () => {
   const userScoreColums = [
     {
       title: "用户名",
-      dataIndex: "name",
-      key: "name"
+      dataIndex: "nickName",
+      key: "nickName"
     },
     {
       title: "积分",
@@ -197,10 +207,7 @@ const AdminHome = () => {
       key: "score"
     },]
 
-  const userScoreData = [
-    { "name": "超级管理员", score: 10 },
-    { "name": "普通用户", score: 1 }
-  ]
+
 
   const userMonthActiveData = [
     { type: "avtice", value: 8 },
@@ -329,7 +336,7 @@ const AdminHome = () => {
       <Row style={{ padding: 5, }}>
         <Col style={{ padding: 5, }} span={12}>
           <Card title="用户积分排行榜">
-            <Table columns={userScoreColums} dataSource={userScoreData} style={{ height: 160 }} pagination={{ hideOnSinglePage: true }}></Table>
+            <Table columns={userScoreColums} dataSource={userScoreTop10} style={{ height: 160 }} pagination={{ hideOnSinglePage: true }}></Table>
           </Card>
         </Col>
         <Col style={{ padding: 5, }} span={6}>

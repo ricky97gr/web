@@ -1,4 +1,4 @@
-import { Card, Col, Descriptions, DescriptionsProps, Row, Switch } from "antd";
+import { Card, Col, Descriptions, DescriptionsProps, Row, Switch, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 
@@ -37,6 +37,18 @@ export const SystemInfo = () => {
         getVsersion()
         getMonitor()
     }, [])
+
+    const getCpuPercent = (count: number) => {
+        if (count < 60) {
+            return <Tag color="green">{count.toFixed(2)}%</Tag>
+        }
+        if (count >= 60 && count <= 80) {
+            return <Tag color="yellow">{count.toFixed(2)}%</Tag>
+        }
+        if (count > 80) {
+            return <Tag color="red">{count.toFixed(2)}%</Tag>
+        }
+    }
     const descriptionItems: DescriptionsProps['items'] = [
         {
             key: "systemName",
@@ -88,7 +100,7 @@ export const SystemInfo = () => {
             key: "2",
             label: "CPU利用率",
             span: 3,
-            children: <span style={{ textAlign: "right", width: "100%" }}>{monitorInfo.cpuPercent.toFixed(2)}%</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{getCpuPercent(monitorInfo.cpuPercent)}</span>
 
         },
         {
