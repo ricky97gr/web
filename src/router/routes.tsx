@@ -17,12 +17,13 @@ import ChatHome from "../view/chat/chat";
 import CurrentUser from "../view/user/home";
 import { SystemInfo } from "../view/admin/system";
 import PluginView from "../view/admin/plugin";
+import OneArticleView from "../view/article/articleView";
 
 
 export const touristRoutes = [
   <Route path="home" Component={Test}></Route>,
   <Route path="comment" Component={Comment}></Route>,
-  <Route path="log" Component={Register}></Route>,
+  <Route path="uplog" Component={OneArticleView}></Route>,
   <Route path="about" Component={Register}></Route>,
   <Route path="chat" Component={ChatHome}></Route>,
   <Route path="currentUser" Component={CurrentUser}></Route>

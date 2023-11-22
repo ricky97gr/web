@@ -34,7 +34,7 @@ const CustomNav = ({ role }) => {
 
           <li className="nav-menu-li">
             <span>
-              <Link to="/log">更新日志</Link>
+              <Link to="/uplog">更新日志</Link>
             </span>
           </li>
           <li className="nav-menu-li">

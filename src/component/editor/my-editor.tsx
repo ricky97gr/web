@@ -1,18 +1,24 @@
-import React from "react";
-import MDEditor from '@uiw/react-md-editor';
-import './my-editor.css'
+import { Editor } from "@bytemd/react";
+import React, { useState } from "react";
+import gfm from '@bytemd/plugin-gfm'
+import 'bytemd/dist/index.css'
 
+const ByteMd = () => {
+    const [value, setValue] = useState('')
 
-const CustomEditor = () => {
-    const [value, setValue] = React.useState("**Hello world!!!**");
+    const plugins = [
+        gfm(),
+        // Add more plugins here
+    ]
     return (
-        <><MDEditor value={value}
-            onChange={setValue} height={500} tabSize={4}/>
-            {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
-        </>
-
+        <Editor
+            value={value}
+            // plugins={plugins}
+            onChange={(v) => {
+                setValue(v)
+            }}
+        />
     )
-
 }
 
-export default CustomEditor
+export default ByteMd

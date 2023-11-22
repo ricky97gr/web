@@ -1,0 +1,16 @@
+.article-body {
+  text-align: left;
+  width: 60%;
+  margin: auto;
+  background-color: white;
+  margin-top: 20px;
+}
+
+.article-copyright-info {
+  width: 90%;
+  margin: auto;
+  background-color: #ecf8ff;
+  border-left: 5px solid #50bfff;
+  color: #888;
+  font-size: 16px;
+}

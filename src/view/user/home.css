@@ -16,19 +16,19 @@
 .user-info-row {
   background-color: #f8f8f8;
   width: 100%;
-  height: 45px;
+  height: 20%;
   color: #000;
 }
 
 .nickName {
   color: white;
   width: 100%;
-  height: 60;
+  height: 10%;
   margin: 10px 0px 10px 0px;
 }
 
 .level {
-  height: 20px;
+  height: 5%;
   margin: 10px 0px 10px 0px;
 }
 

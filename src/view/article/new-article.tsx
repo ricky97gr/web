@@ -4,6 +4,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import CustomEditor from "../../component/editor/my-editor";
 import { myFetch } from "../../utils/fetch";
+import ByteMd from "../../component/editor/my-editor";
+
 
 
 
@@ -107,7 +109,8 @@ const NewArticleDrawer = ({ isOpen, setIsOpen = function (boolean) { } }) => {
                 <Row>
                     <Col span={22} offset={1}>
                         <Form.Item<FieldType> label="内容" style={{ marginTop: 15 }} name="context" rules={[{ required: true }]}>
-                            <CustomEditor></CustomEditor>
+
+                            <ByteMd></ByteMd>
                         </Form.Item>
                     </Col>
                 </Row>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useId, useState } from "react";
 import CustomNav from "../../component/base/my-nav";
 import './home.css'
-import { Col, Row, Avatar, Tag, Tabs } from "antd";
+import { Col, Row, Avatar, Tag, Tabs, Button } from "antd";
 import type { TabsProps } from "antd"
+import { myFetch } from "../../utils/fetch";
+import { getLocalUserUID } from "../../utils/auth";
 
 const items: TabsProps['items'] = [
     {
@@ -34,65 +36,90 @@ const items: TabsProps['items'] = [
 
 
 
-const CurrentUser = () => (
-    <>
-        {/* <div style={{ height: "5%" }}>
-            <CustomNav></CustomNav>
-        </div> */}
+const CurrentUser = () => {
+    type UserInfo = {
+        nickName: string
+        articleCount: number
+        score: number
+        shortComment: number
+        followCount: number
+        description: string
+    }
 
-        <div className="user-body">
-            <div className="user-info">
-                <div className="user-info-row">
-                    <Row gutter={16}>
-                        <Col className="user-info-col" span={4}>
-                            <div>
+    const [userInfo, setUserInfo] = useState<UserInfo>({ nickName: "", score: 0, articleCount: 0, shortComment: 0, description: "", followCount: 0 })
+    const getUserInfo = (userID) => {
+        let p = new Object()
+        console.log(userID)
+        p["userID"] = userID
+        console.log(p)
+        myFetch({ url: "/normalUser/info", options: { method: "GET" }, params: p }).then((data) => {
+
+            setUserInfo(data.body.result)
+        })
+    }
+    useEffect(() => {
+        getUserInfo(getLocalUserUID())
+    }, [])
+    return (
+        <>
+            <div className="user-body">
+                <div className="user-info" style={{ position: "relative" }}>
+                    <div className="user-info-row">
+                        <Row gutter={16}>
+                            <Col className="user-info-col" span={4}>
+                                <div>
+                                    <span>{userInfo.articleCount}</span>
+                                </div>
+                                <div >文章</div>
+                            </Col>
+                            <Col className="user-info-col" span={4}><div>
                                 <span>0</span>
                             </div>
-                            <div >文章</div>
-                        </Col>
-                        <Col className="user-info-col" span={4}><div>
-                            <span>0</span>
-                        </div>
-                            <div >问答</div></Col>
-                        <Col className="user-info-col" span={4}><div>
-                            <span>0</span>
-                        </div>
-                            <div >粉丝</div></Col>
-                        <Col className="user-info-col" span={4}><div>
-                            <span>0</span>
-                        </div>
-                            <div >关注</div></Col>
-                        <Col className="user-info-col" span={4}><div>
-                            <span>0</span>
-                        </div>
-                            <div >动态</div></Col>
-                        <Col className="user-info-col" span={4}>
-                            <div>
+                                <div >问答</div></Col>
+                            <Col className="user-info-col" span={4}><div>
                                 <span>0</span>
                             </div>
-                            <div >勋章</div>
-                        </Col>
-                    </Row>
+                                <div >粉丝</div></Col>
+                            <Col className="user-info-col" span={4}><div>
+                                <span>0</span>
+                            </div>
+                                <div >关注</div></Col>
+                            <Col className="user-info-col" span={4}><div>
+                                <span>{userInfo.shortComment}</span>
+                            </div>
+                                <div >动态</div></Col>
+                            <Col className="user-info-col" span={4}>
+                                <div>
+                                    <span>0</span>
+                                </div>
+                                <div >勋章</div>
+                            </Col>
+                        </Row>
+                    </div>
+                    <Avatar size="default" src="https://picture.moguit.cn//blog/admin/jpg/2022/6/4/1654350109734.jpg" style={{ marginTop: 20 }}></Avatar>
+                    <div className="nickName">{userInfo.nickName}</div>
+                    <div className="level">
+                        <Tag color="blue">{userInfo.score}</Tag>
+                    </div>
+                    <div className="description">{userInfo.description}</div>
+                    <div>
+                        <Button size="middle" style={{ position: "absolute", bottom: 10, right: 10 }} >添加好友</Button>
+                    </div>
                 </div>
-                <Avatar size={80} src="https://picture.moguit.cn//blog/admin/jpg/2022/6/4/1654350109734.jpg" style={{ marginTop: 20 }}></Avatar>
-                <div className="nickName">微信用户12345</div>
-                <div className="level">
-                    <Tag color="blue">lv.1</Tag>
+                <div className="user-tabs">
+                    <Tabs size="large" items={items}></Tabs>
+                    <div className="user-context">
+
+                    </div>
                 </div>
-                <div className="description">这家伙很懒，什么都没有留下</div>
+
             </div>
-            <div className="user-tabs">
-                <Tabs size="large" items={items}></Tabs>
-                <div className="user-context">
-
-                </div>
-            </div>
-
-        </div>
-    </>
+        </>
 
 
 
-)
+
+    )
+}
 
 export default CurrentUser;
