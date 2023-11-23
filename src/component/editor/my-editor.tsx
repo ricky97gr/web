@@ -5,6 +5,9 @@ import 'bytemd/dist/index.css'
 
 const ByteMd = () => {
     const [value, setValue] = useState('')
+    const print = () => {
+        console.log(value)
+    }
 
     const plugins = [
         gfm(),
@@ -13,9 +16,10 @@ const ByteMd = () => {
     return (
         <Editor
             value={value}
-            // plugins={plugins}
+            plugins={plugins}
             onChange={(v) => {
                 setValue(v)
+                print()
             }}
         />
     )

@@ -1,13 +1,14 @@
-import { Editor, Viewer } from "@bytemd/react";
+import { Viewer } from "@bytemd/react";
 import React, { useState } from "react";
 
 import 'bytemd/dist/index.css'
-import 'github-markdown-css'
+import 'juejin-markdown-themes/dist/devui-blue.css'
 
 const ViewMd = () => {
   const [value, setValue] = useState('')
 
   const context = `## kube-scheduler
+  
   scheduler在k8s中是一个调度者的身份，监听pod和node的信息，来调度具体哪个pod应该在哪个node上。以下图所示，输入为要生成的pod list以及环境中的node list，输出是node 和pod的绑定关系。
   ![](https://www.qikqiak.com/img/posts/kube-scheduler-structrue.jpg)
   

@@ -1,16 +1,7 @@
-.home-body {
-  display: flex;
-  margin: auto;
-  margin-top: 20px;
-  width: 60%;
-  height: 40%;
-
-}
-
 .home-body-buttom {
-
-  margin: auto;
-  margin-top: 50px;
-  width: 65%;
+  background-color: #fff;
+  /* margin: auto; */
+  margin-top: 15px;
+  width: 70%;
 
 }
