@@ -42,6 +42,7 @@ const Comment = () => {
           : info?.map((item) => (
             <>
               <CustomComment item={item}></CustomComment>
+
             </>
           ))}
       </div>

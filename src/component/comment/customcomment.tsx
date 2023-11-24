@@ -1,4 +1,4 @@
-import { Card } from "antd"
+import { Card, Col, Row } from "antd"
 import React, { useState } from "react"
 import './customcomment.css'
 import CommentInput from "./commentinput"
@@ -73,9 +73,19 @@ const CustomComment = (item) => {
                             </div>
                             <div className='right-center'>{first.context}<br /><br /></div>
                             <div className='right-buttom'>
-                                <a><span style={{ margin: 4 }} onClick={show}>回复</span></a>
+                                <Row>
+                                    <Col span={8}>分享
+                                    </Col>
+                                    <Col span={8}>
+                                        评论
+                                    </Col>
+                                    <Col span={8}>
+                                        点赞
+                                    </Col>
+                                </Row>
+                                {/* <a><span style={{ margin: 4 }} onClick={show}>回复</span></a>
                                 <a><span style={{ margin: 4 }} onClick={giveFistLike}>👍赞{first.likeCount}</span></a>
-                                <a><span style={{ margin: 4 }} onClick={giveFistUnLike}>👎踩{first.unLikeCount}</span></a>
+                                <a><span style={{ margin: 4 }} onClick={giveFistUnLike}>👎踩{first.unLikeCount}</span></a> */}
                             </div>
                         </div>
 
