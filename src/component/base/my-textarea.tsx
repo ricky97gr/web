@@ -42,11 +42,11 @@ const CustomTextArea = ({ getAllComment }) => {
 
     }
     return (
-        <Card style={{ width: 850, }}>
+        <Card style={{ margin: 8 }}>
             <div>
                 <Form onFinish={addComment}>
                     <Form.Item rules={[{ required: true, message: "请输入评论" }]} name="context" >
-                        <TextArea showCount maxLength={120} style={{ height: 160, marginBottom: 10, width: 800, }}
+                        <TextArea showCount maxLength={120} style={{ height: 160, marginBottom: 10, maxWidth: 820 }}
                             onChange={onChange}
                             placeholder="分享你的新鲜事吧"
                         />

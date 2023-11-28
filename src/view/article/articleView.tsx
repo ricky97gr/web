@@ -2,7 +2,7 @@ import React from "react";
 import ArticleInfo from "../../component/article/article-info";
 import ViewMd from "../../component/article/articleViewer";
 import './articleView.css'
-import { Affix, Button, Card, FloatButton } from "antd";
+import { Affix, Card, FloatButton } from "antd";
 import { LikeOutlined, MessageOutlined, ShareAltOutlined, StarOutlined, WarningOutlined } from "@ant-design/icons";
 
 const OneArticleView = () => {
@@ -23,11 +23,14 @@ const OneArticleView = () => {
           </Affix>
 
         </div>
-        <div style={{ maxWidth: 1150, marginLeft: 12 }}>
+        <div style={{ maxWidth: 1300, marginLeft: 12 }}>
           <div className="article-right" style={{ width: 260, float: "right" }}>
-            <Card style={{ width: "100%" }}>作者信息</Card>
+            <Card style={{ width: "100%", marginTop: 12 }}>作者信息</Card>
+            <Card style={{ width: "100%", marginTop: 12 }}>目录</Card>
+            <Card style={{ width: "100%", marginTop: 12 }}>相关推荐</Card>
+            <Card style={{ width: "100%", marginTop: 12 }}>广告位1</Card>
           </div>
-          <div className="article-body" style={{ maxWidth: 820, float: "right", marginRight: 10, marginLeft: 30, padding: 12 }}>
+          <div className="article-body" style={{ maxWidth: 850, float: "right", marginRight: 10, marginLeft: 10, padding: 12 }}>
             <div style={{ width: "100%", }}><p>title</p></div>
             <div style={{ width: "100%", }}>
               <span>author</span>
@@ -38,7 +41,7 @@ const OneArticleView = () => {
               <span>纠错</span>
             </div>
             <div className="article-copyright-info"> 版权信息</div>
-            <div style={{ width: "100%", margin: "auto", marginTop: 20 }}>
+            <div style={{ width: "95%", margin: "auto", }}>
               <ViewMd></ViewMd>
             </div>
 

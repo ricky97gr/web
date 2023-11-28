@@ -6,11 +6,13 @@ import SecondCommentMenu from "./second_comment_menu"
 import { myFetch } from "../../utils/fetch"
 import { errorHandle } from "../../utils/response"
 import { MillTime2Date } from "../../utils/time"
+import { MessageOutlined, LikeOutlined, ShareAltOutlined } from "@ant-design/icons"
 
 const CustomComment = (item) => {
     const [display, setDisplay] = useState<string>("none")
     const show = () => {
         setDisplay("")
+        console.log(1111)
     }
 
     const getComment = (item) => {
@@ -51,7 +53,7 @@ const CustomComment = (item) => {
         return (
 
             <>
-                <div style={{ width: "100%" }}>
+                <div style={{}}>
                     <div>
                         <div className='card-left'>
                             <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" style={{ cursor: "pointer", width: "100%", height: "100%" }} />
@@ -73,16 +75,8 @@ const CustomComment = (item) => {
                             </div>
                             <div className='right-center'>{first.context}<br /><br /></div>
                             <div className='right-buttom'>
-                                <Row>
-                                    <Col span={8}>分享
-                                    </Col>
-                                    <Col span={8}>
-                                        评论
-                                    </Col>
-                                    <Col span={8}>
-                                        点赞
-                                    </Col>
-                                </Row>
+
+
                                 {/* <a><span style={{ margin: 4 }} onClick={show}>回复</span></a>
                                 <a><span style={{ margin: 4 }} onClick={giveFistLike}>👍赞{first.likeCount}</span></a>
                                 <a><span style={{ margin: 4 }} onClick={giveFistUnLike}>👎踩{first.unLikeCount}</span></a> */}
@@ -158,12 +152,20 @@ const CustomComment = (item) => {
 
     }
     return (
-        <Card style={{ width: 850, margin: 8 }}>
+        <><Card style={{ marginTop: 8, marginRight: 8, marginLeft: 8 }}
+            actions={[
+                <ShareAltOutlined key="share" />,
+                <MessageOutlined key="message" onClick={show} />,
+                <LikeOutlined key="like" />,
+            ]}>
 
             {getComment(item)}
 
 
         </Card>
+            <Card title="gogogo">hahha</Card>
+        </>
+
     )
 }
 

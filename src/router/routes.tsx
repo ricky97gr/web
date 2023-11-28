@@ -10,18 +10,18 @@ import AdminSystemLogView from "../view/admin/log/systemlog";
 import AdminTopicView from "../view/admin/topic/topic";
 
 import { Admin } from "../view/admin/home";
-import Comment from "../view/comment/comment";
-import Test from "../view/test";
+import Comment from "../view/comment";
 import Register from "../view/system/register";
 import ChatHome from "../view/chat/chat";
 import CurrentUser from "../view/user/home";
 import { SystemInfo } from "../view/admin/system";
 import PluginView from "../view/admin/plugin";
 import OneArticleView from "../view/article/articleView";
+import Home from "../view/home";
 
 
 export const touristRoutes = [
-  <Route path="home" Component={Test}></Route>,
+  <Route path="home" Component={Home}></Route>,
   <Route path="comment" Component={Comment}></Route>,
   <Route path="uplog" Component={OneArticleView}></Route>,
   <Route path="about" Component={Register}></Route>,
