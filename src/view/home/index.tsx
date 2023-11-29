@@ -1,21 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import './index.css'
 import { List, Space, Card, Button, Tag, Affix } from "antd";
 
 import { StarOutlined, LikeOutlined, MessageOutlined } from "@ant-design/icons";
 import HomeNav from "./component/nav";
+import { myFetch } from "../../utils/fetch";
+import MyQuery from "../../utils/query";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const data = Array.from({ length: 23 }).map((_, i) => ({
-    href: 'https://ant.design',
-    title: `ant design part ${i}`,
-    avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  }));
+  const [data, setData] = useState()
 
   const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
     <Space style={{ float: "right" }}>
@@ -29,6 +24,19 @@ const Home = () => {
       {text}
     </Space>
   );
+
+  const getAllArticle = () => {
+    let p = MyQuery({ page: 1, pageSize: 20 })
+    myFetch({ url: "/normalUser/article", options: { method: "GET", }, params: p }).then((data) => {
+      console.log(data)
+      setData(data.body.result)
+    })
+  }
+
+  useEffect(() => {
+    getAllArticle()
+  }, [])
+
 
   return (
     <>
@@ -57,7 +65,7 @@ const Home = () => {
             <Card style={{ marginTop: 12 }}> 广告位2</Card>
             <Card title="推荐话题"></Card>
           </div>
-          <div style={{ maxWidth: 820, backgroundColor: "#fff", float: "left", marginRight: 10, marginLeft: 10 }}>
+          <div style={{ width: 820, backgroundColor: "#fff", float: "left", marginRight: 10, marginLeft: 10 }}>
             <List
               itemLayout="vertical"
               size="default"
@@ -69,14 +77,16 @@ const Home = () => {
               //     pageSize: 3,
               // }}
               dataSource={data}
-              renderItem={(item) => (
+              renderItem={(item: any) => (
                 <List.Item
-                  key={item.title}
+                  key={item.articleID}
+
                   actions={[
                     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                    <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                    <IconText icon={LikeOutlined} text={item.likeCount === 0 ? "" : item.likeCount} key="list-vertical-like-o" />,
                     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                    <Tag style={{ float: "right" }} color="#f2f3f5"><span style={{ color: "#8a919f", fontSize: 13 }}>go</span></Tag>
+
+                    <Tag style={{ float: "right" }} color="#f2f3f5"><span style={{ color: "#8a919f", fontSize: 13 }}>{item.tags[0]}</span></Tag>
                   ]}
                   extra={
                     <img
@@ -89,10 +99,11 @@ const Home = () => {
                   }
                 >
                   <List.Item.Meta
+                    title={<><Link to={"/article/" + item.articleID}>{item.title}</Link></>}
                   />
-                  <p style={{ fontSize: 16, color: "#252933", fontWeight: 600 }}>
-                    {item.title}
-                  </p>
+
+                  {item.introduction}
+
                   <span style={{ color: "#8a919f", fontSize: 13 }}>{item.content}</span>
                 </List.Item>
               )}

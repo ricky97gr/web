@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ArticleInfo from "../../component/article/article-info";
 import ViewMd from "../../component/article/articleViewer";
 import './articleView.css'
-import { Affix, Card, FloatButton } from "antd";
+import { Affix, Card, FloatButton, Tag } from "antd";
 import { LikeOutlined, MessageOutlined, ShareAltOutlined, StarOutlined, WarningOutlined } from "@ant-design/icons";
-
+import { useParams } from 'react-router-dom';
+import { myFetch } from "../../utils/fetch";
 const OneArticleView = () => {
+  type articleInfo = {
+    title: string
+    userName: string
+    tags: string[],
+    category: string,
+    context: string,
+  }
+
+  const params = useParams()
+  let articleID = params["id"]
+
+  const [article, setArticle] = useState<articleInfo>({ title: "", userName: "", tags: [], category: "", context: "" })
+  const getArticleInfo = () => {
+    myFetch({ url: "/normalUser/article/" + articleID, options: { method: "GET", } }).then((data) => {
+      console.log(data.body.result)
+      setArticle(data.body.result)
+    })
+  }
+  useEffect(() => {
+    getArticleInfo()
+  }, [])
   return (
     <>
       <div style={{ maxWidth: 1200, margin: "auto", marginTop: 15 }}>
@@ -31,18 +53,18 @@ const OneArticleView = () => {
             <Card style={{ width: "100%", marginTop: 12 }}>广告位1</Card>
           </div>
           <div className="article-body" style={{ maxWidth: 850, float: "right", marginRight: 10, marginLeft: 10, padding: 12 }}>
-            <div style={{ width: "100%", }}><p>title</p></div>
-            <div style={{ width: "100%", }}>
-              <span>author</span>
-              <span>标签</span>
-              <span>分类</span>
-              <span>阅读量</span>
-              <span>举报</span>
-              <span>纠错</span>
+            <div style={{ width: "100%", }}><p>{article.title}</p></div>
+            <div style={{ width: "100%", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
+              <Tag color="grey" style={{ marginRight: 10 }}><span >{article.userName}</span></Tag>
+              <Tag color="blue" style={{ marginRight: 10 }}><span >{article.tags[0]}</span></Tag>
+              <Tag color="green" style={{ marginRight: 10 }}><span >{article.category}</span></Tag>
+              {/* <span style={{ marginRight: 10 }}>阅读量</span>
+              <span style={{ marginRight: 10 }}>举报</span>
+              <span style={{ marginRight: 10 }}>纠错</span> */}
             </div>
             <div className="article-copyright-info"> 版权信息</div>
             <div style={{ width: "95%", margin: "auto", }}>
-              <ViewMd></ViewMd>
+              <ViewMd context={article.context}></ViewMd>
             </div>
 
           </div>

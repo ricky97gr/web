@@ -23,10 +23,13 @@ import Home from "../view/home";
 export const touristRoutes = [
   <Route path="home" Component={Home}></Route>,
   <Route path="comment" Component={Comment}></Route>,
-  <Route path="uplog" Component={OneArticleView}></Route>,
+  // <Route path="uplog" Component={OneArticleView}></Route>,
   <Route path="about" Component={Register}></Route>,
   <Route path="chat" Component={ChatHome}></Route>,
-  <Route path="currentUser" Component={CurrentUser}></Route>
+  <Route path="currentUser" Component={CurrentUser}></Route>,
+  <Route path="article/:id" element={<OneArticleView />}></Route>,
+  // <Route path="article" Component={OneArticleView}></Route>,
+
 ];
 
 export const adminRouters = (
