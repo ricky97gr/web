@@ -11,6 +11,9 @@ import ByteMd from "../../component/editor/my-editor";
 
 const onFinish = (values: any) => {
     console.log('Success:', values);
+    myFetch({ url: "/normalUser/article", options: { method: "POST", body: values } }).then((data) => {
+        console.log(data)
+    })
 };
 
 const onFinishFailed = (errorInfo: any) => {
@@ -19,12 +22,12 @@ const onFinishFailed = (errorInfo: any) => {
 
 type FieldType = {
     title: string
-    intro: string
+    introduction: string
     category: string
     tags: string[]
-    isoriginal: boolean
+    isOriginal: boolean
 
-    picture: string
+    // picture: string
     context: string
 }
 
@@ -48,7 +51,10 @@ const NewArticleDrawer = ({ isOpen, setIsOpen = function (boolean) { } }) => {
 
         })
     }
-
+    const [value, setValue] = useState(false);
+    const onChange = (e) => {
+        setValue(e.target.value);
+    };
     const getcates = () => {
         myFetch({ url: "/normalUser/category", options: { method: "GET" } }).then((data) => {
             if (data.body.code !== 200) {
@@ -66,13 +72,13 @@ const NewArticleDrawer = ({ isOpen, setIsOpen = function (boolean) { } }) => {
     return (<>
         <Drawer title="写文章" placement="right" open={isOpen} width={"100%"} closable={false}>
 
-            <Form size="large" style={{ width: "100%" }}>
+            <Form size="large" style={{ width: "100%" }} onFinish={onFinish}>
                 <Row style={{ marginTop: 20 }}>
                     <Col span={15} offset={1}>
                         <Form.Item<FieldType> label="标题" rules={[{ required: true, message: "请输入标题" }]} name="title">
                             <Input ></Input>
                         </Form.Item>
-                        <Form.Item<FieldType> label="简介" name="intro">
+                        <Form.Item<FieldType> label="简介" name="introduction">
                             <Input></Input>
                         </Form.Item>
                         <Row>
@@ -87,9 +93,13 @@ const NewArticleDrawer = ({ isOpen, setIsOpen = function (boolean) { } }) => {
                                 </Form.Item>
                             </Col>
                             <Col span={6} offset={3}>
-                                <Form.Item<FieldType> label="是否原创" name="isoriginal" rules={[{ required: true }]}>
-                                    <Radio>原创</Radio>
-                                    <Radio>转载</Radio>
+                                <Form.Item<FieldType> label="是否原创" name="isOriginal" rules={[{ required: false }]}>
+                                    <Radio.Group onChange={onChange} value={value}>
+                                        <Radio value={true}>原创</Radio>
+                                        <Radio value={false}>转载</Radio>
+
+                                    </Radio.Group>
+
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -108,19 +118,18 @@ const NewArticleDrawer = ({ isOpen, setIsOpen = function (boolean) { } }) => {
                 </Row>
                 <Row>
                     <Col span={22} offset={1}>
-                        <Form.Item<FieldType> label="内容" style={{ marginTop: 15 }} name="context" rules={[{ required: true }]}>
-
+                        <Form.Item<FieldType> label="内容" style={{ marginTop: 15 }} name="context" rules={[{ required: false }]}>
                             <ByteMd></ByteMd>
                         </Form.Item>
                     </Col>
                 </Row>
-
+                <div style={{ float: "right" }}>
+                    <Button onClick={updateParent} size="large" style={{ margin: 10 }}>取消</Button>
+                    <Button size="large" style={{ margin: 10, backgroundColor: "#909399" }} >保存草稿</Button>
+                    <Button size="large" style={{ margin: 10 }} type="primary" htmlType="submit">提交审核</Button>
+                </div>
             </Form>
-            <div style={{ float: "right" }}>
-                <Button onClick={updateParent} size="large" style={{ margin: 10 }}>取消</Button>
-                <Button size="large" style={{ margin: 10, backgroundColor: "#909399" }} >保存草稿</Button>
-                <Button size="large" style={{ margin: 10 }} type="primary">提交审核</Button>
-            </div>
+
 
 
 

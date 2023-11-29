@@ -45,8 +45,6 @@ const ParentComment = ({ item }) => {
       if (errorHandle(data)) {
         return
       }
-
-
     })
   }
 

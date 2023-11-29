@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import gfm from '@bytemd/plugin-gfm'
 import 'bytemd/dist/index.css'
 
-const ByteMd = () => {
+const ByteMd = (props) => {
     const [value, setValue] = useState('')
     const print = () => {
-        console.log(value)
+        props.onChange(value)
     }
 
     const plugins = [

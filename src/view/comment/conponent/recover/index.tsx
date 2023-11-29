@@ -56,11 +56,11 @@ const CommentRecover = ({ commentID, data }) => {
             ]}>
             <List.Item.Meta
               avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-              title={<a href="https://ant.design">{item.user}</a>}
+              title={item.replayToUser === "" ? <a href="https://ant.design">{item.user}</a> : <><a href="https://ant.design">{item.user}</a>@<a>{item.replayToUser}</a></>}
               description={item.context}
 
             />
-            <CommentInput topCommentID={undefined} parentID={undefined} display={recoverDisplay} />
+            <CommentInput topCommentID={commentID} parentID={item.commentID} display={recoverDisplay} replayToUser={item.user} replayTo={""} />
           </List.Item>
         )}
       >
