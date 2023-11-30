@@ -29,15 +29,15 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("chatGPT", "", null, true),
-  getItem("综合", ""),
-  getItem("后端", ""),
-  getItem("前端", ""),
-  getItem("算法", ""),
-  getItem("操作系统", ""),
-  getItem("网络", "", null),
-  getItem("工具", "", null),
-  getItem("人生百态", "", null),
+  getItem("chatGPT", "1", null, true),
+  getItem("综合", "2"),
+  getItem("后端", "3"),
+  getItem("前端", "4"),
+  getItem("算法", "5"),
+  getItem("操作系统", "6"),
+  getItem("网络", "7", null),
+  getItem("工具", "8", null),
+  getItem("人生百态", "9", null),
 
 ];
 

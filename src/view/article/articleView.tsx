@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import ArticleInfo from "../../component/article/article-info";
-import ViewMd from "../../component/article/articleViewer";
-import './articleView.css'
-import { Affix, Card, FloatButton, Tag } from "antd";
 import { LikeOutlined, MessageOutlined, ShareAltOutlined, StarOutlined, WarningOutlined } from "@ant-design/icons";
+import { Affix, Card, FloatButton, Tag } from "antd";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import ViewMd from "../../component/article/articleViewer";
 import { myFetch } from "../../utils/fetch";
+import './articleView.css';
 const OneArticleView = () => {
   type articleInfo = {
     title: string
@@ -18,7 +17,7 @@ const OneArticleView = () => {
   const params = useParams()
   let articleID = params["id"]
 
-  const [article, setArticle] = useState<articleInfo>({ title: "", userName: "", tags: [], category: "", context: "" })
+  const [article, setArticle] = useState<articleInfo>({ title: "", userName: "", tags: [""], category: "", context: "" })
   const getArticleInfo = () => {
     myFetch({ url: "/normalUser/article/" + articleID, options: { method: "GET", } }).then((data) => {
       console.log(data.body.result)

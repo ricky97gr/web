@@ -1,7 +1,6 @@
 
 
-import { LikeOutlined, StarOutlined, MessageOutlined, ShareAltOutlined, WarningOutlined } from "@ant-design/icons";
-import { Affix, FloatButton, Menu, MenuProps } from "antd";
+import { Affix, Menu, MenuProps } from "antd";
 import React, { useState } from "react";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -29,15 +28,15 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("chatGPT", "", null, true),
-  getItem("综合", ""),
-  getItem("后端", ""),
-  getItem("前端", ""),
-  getItem("算法", ""),
-  getItem("操作系统", ""),
-  getItem("网络", "", null),
-  getItem("工具", "", null),
-  getItem("人生百态", "", null),
+  getItem("chatGPT", "1", null, true),
+  getItem("最新", "2"),
+  getItem("最热", "3"),
+  getItem("上班摸鱼", "4"),
+  getItem("书影音", "5"),
+  getItem("吃喝玩乐", "6"),
+  getItem("许愿池", "7", null),
+  getItem("资讯", "8", null),
+  getItem("理财", "9", null),
 
 ];
 

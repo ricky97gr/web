@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import './index.css'
-import { List, Space, Card, Button, Tag, Affix } from "antd";
+import { Button, Card, List, Space, Tag } from "antd";
+import './index.css';
 
-import { StarOutlined, LikeOutlined, MessageOutlined } from "@ant-design/icons";
-import HomeNav from "./component/nav";
+import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import { myFetch } from "../../utils/fetch";
 import MyQuery from "../../utils/query";
-import { Link } from "react-router-dom";
+import HomeNav from "./component/nav";
 
 const Home = () => {
   const [data, setData] = useState()
@@ -63,7 +63,7 @@ const Home = () => {
 
             <Card style={{ marginTop: 12 }} > 广告位1</Card>
             <Card style={{ marginTop: 12 }}> 广告位2</Card>
-            <Card title="推荐话题"></Card>
+            <Card title="推荐标签"></Card>
           </div>
           <div style={{ width: 820, backgroundColor: "#fff", float: "left", marginRight: 10, marginLeft: 10 }}>
             <List
