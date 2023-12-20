@@ -336,7 +336,7 @@ const AdminHome = () => {
       <Row style={{ padding: 5, }}>
         <Col style={{ padding: 5, }} span={12}>
           <Card title="用户积分排行榜">
-            <Table columns={userScoreColums} dataSource={userScoreTop10} style={{ height: 160 }} pagination={{ hideOnSinglePage: true }}></Table>
+            <Table columns={userScoreColums} dataSource={userScoreTop10} style={{ height: 160 }} pagination={{ hideOnSinglePage: true }} size="small"></Table>
           </Card>
         </Col>
         <Col style={{ padding: 5, }} span={6}>

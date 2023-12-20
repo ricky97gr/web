@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space, Switch, Table, message } from "antd";
+import { Button, Card, Form, Input, Space, Switch, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import "./../style/table-layout.css";
 
@@ -164,32 +164,34 @@ const AdminTagView = () => {
   }, []);
   return (
     <>
-      <div className="table-context-body">
-        <div className="table-add-button">
-          <Button size="large" onClick={open}>
-            新增
-          </Button>
+      <Card>
+        <div className="table-context-body">
+          <div className="table-add-button">
+            <Button size="large" onClick={open}>
+              新增
+            </Button>
+          </div>
+          <div className="table-body">
+            <Table columns={colums} dataSource={dataResource} size="small"></Table>
+          </div>
         </div>
-        <div className="table-body">
-          <Table columns={colums} dataSource={dataResource}></Table>
-        </div>
-      </div>
-      <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
-        <Form onFinish={addTag}>
-          <Form.Item<NewTag>
-            label="名称"
-            name="name"
-            rules={[{ required: true, message: "请输入标签名称" }]}
-          >
-            <Input></Input>
-          </Form.Item>
-          <Form.Item<NewTag> label="启用" name="isShow" valuePropName="checked">
-            <Switch defaultChecked></Switch>
-          </Form.Item>
-          <Button htmlType="submit">确定</Button>
-          <Button onClick={close}>取消</Button>
-        </Form>
-      </CustomDrawer>
+        <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
+          <Form onFinish={addTag}>
+            <Form.Item<NewTag>
+              label="名称"
+              name="name"
+              rules={[{ required: true, message: "请输入标签名称" }]}
+            >
+              <Input></Input>
+            </Form.Item>
+            <Form.Item<NewTag> label="启用" name="isShow" valuePropName="checked">
+              <Switch defaultChecked></Switch>
+            </Form.Item>
+            <Button htmlType="submit">确定</Button>
+            <Button onClick={close}>取消</Button>
+          </Form>
+        </CustomDrawer>
+      </Card>
     </>
   );
 };

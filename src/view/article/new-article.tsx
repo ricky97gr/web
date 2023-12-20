@@ -11,6 +11,7 @@ import ByteMd from "../../component/editor/my-editor";
 
 const onFinish = (values: any) => {
     console.log('Success:', values);
+    values["isShow"] = 2
     myFetch({ url: "/normalUser/article", options: { method: "POST", body: values } }).then((data) => {
         console.log(data)
     })

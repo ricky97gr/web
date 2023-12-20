@@ -18,6 +18,17 @@ const AdminUserView = () => {
       title: "角色",
       dataIndex: "role",
       key: "role",
+      render: (_, record) => {
+        switch (record.role) {
+          case 1:
+            return <span>普通用户</span>
+          case 2:
+            return <span>普通管理员</span>
+          case 3:
+            return <span style={{ color: "green" }}>超级管理员</span>
+        }
+
+      }
     },
     {
       title: "积分",
@@ -35,15 +46,30 @@ const AdminUserView = () => {
       key: "lastLoginTime",
     },
     {
+      title: "状态",
+      dataIndex: "status",
+    },
+    {
       title: "操作",
       dataIndex: "action",
       key: "action",
       render: (_, record) => {
-        console.log(1111, record)
+        const banUser = () => {
+          let body = {}
+          myFetch({ url: "/admin/user", options: { method: "PUT", body: body } }).then((data) => {
+
+          })
+        }
+        const deleteUser = () => {
+          let body = {}
+          myFetch({ url: "/admin/user", options: { method: "DELETE", body: body } }).then((data) => {
+
+          })
+        }
         return (
           <>
-            {record.role !== 2 ? <a style={{ marginRight: 8, color: "#1677ff" }}>封禁</a> : <span style={{ marginLeft: 8 }}>封禁</span>}
-            {record.role !== 2 ? <a style={{ marginRight: 8, color: "#1677ff" }}>删除</a> : <span style={{ marginLeft: 8 }}>删除</span>}
+            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={banUser}>封禁</a> : <></>}
+            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={deleteUser}>删除</a> : <></>}
           </>
         )
       }
@@ -62,19 +88,6 @@ const AdminUserView = () => {
       }
 
       for (let i = 0; i < data.body.result.length; i++) {
-        const getRoles = (role) => {
-          switch (role) {
-            case 1:
-              return <span>普通用户</span>
-            case 2:
-              return <span>普通管理员</span>
-            case 3:
-              return <span style={{ color: "green" }}>超级管理员</span>
-          }
-
-        }
-
-        data.body.result[i].role = getRoles(data.body.result[i].role)
         data.body.result[i].createTime = MillTime2Date(
           data.body.result[i].createTime
         );
