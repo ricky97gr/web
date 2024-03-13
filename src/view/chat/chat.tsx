@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import './chat.css'
-import { Button, Card, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message, notification } from "antd";
+import { Avatar, Button, Card, ConfigProvider, Divider, Form, Input, List, Skeleton, Tabs, TabsProps, message, notification } from "antd";
 import ChatMessage from "./component/message";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
 import SessionList from "./component/Session";
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 import { getLocalUserToken } from "../../utils/auth";
+import InfiniteScroll from "react-infinite-scroll-component";
+import GroupMember from "./component/group/group_member";
 
 
 
@@ -33,6 +35,8 @@ const ChatHome = () => {
     }
 
     const [messages, setMessages] = useState<MessageInfo[]>([])
+    const [isShowGroupMember, setShowGroupMember] = useState("none")
+    const [groupUID, setGroupUID] = useState("")
 
 
 
@@ -93,10 +97,6 @@ const ChatHome = () => {
         }
     }, [])
 
-
-
-
-
     const items: TabsProps['items'] = [
         {
             key: '1',
@@ -111,14 +111,14 @@ const ChatHome = () => {
         {
             key: '3',
             label: '群聊',
-            children: <GroupList />,
+            children: <GroupList setGroupUID={setGroupUID} showGroupMemberFunc={setShowGroupMember}/>,
         },
     ];
     return (
 
         <div className="chat-body">
             <div style={{ height: "100%", width: "100%", backgroundColor: "white" }}>
-                <div style={{ width: "25%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
+                <div style={{ width: "23%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
                     <div style={{ height: "12%", borderBottomStyle: "solid", boxSizing: "border-box" }}></div>
                     <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}>
                         <Input style={{ height: "100%", width: "100%", backgroundColor: "#eee" }} size="large" bordered={false} placeholder="请输入查找内容"></Input>
@@ -136,8 +136,15 @@ const ChatHome = () => {
 
                     </div>
                 </div>
-                <div style={{ width: "75%", height: "100%", float: "right", backgroundColor: "white" }}>
-                    <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}>title</div>
+
+                <div style={{ width: "17%", backgroundColor: "white", float: "right", height: "100%", borderLeftStyle: "solid", boxSizing: "border-box" }}>
+                   
+                <GroupMember groupUID={groupUID} display={isShowGroupMember}></GroupMember>
+
+
+                </div>
+                <div style={{ width: "60%", height: "100%", float: "right", backgroundColor: "white" }}>
+                    <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}><span style={{textAlign:"center"}}>title</span></div>
                     <div id="chat-msg-contex" style={{ height: "70%", borderBottomStyle: "solid", boxSizing: "border-box", overflowY: "scroll" }}>
                         <ConfigProvider
                             theme={{
@@ -173,6 +180,8 @@ const ChatHome = () => {
 
                     </div>
                 </div>
+
+                
 
             </div>
 

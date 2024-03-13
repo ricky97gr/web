@@ -42,7 +42,8 @@ const CustomTextArea = ({ getAllComment }) => {
 
     }
     return (
-        <Card style={{ margin: 8 }}>
+       
+        <Card style={{ margin: 8}}>
             <div>
                 <Form onFinish={addComment}>
                     <Form.Item rules={[{ required: true, message: "请输入评论" }]} name="context" >

@@ -70,12 +70,7 @@ const Home = () => {
               itemLayout="vertical"
               size="default"
               style={{ padding: 20 }}
-              // pagination={{
-              //     onChange: (page) => {
-              //         console.log(page);
-              //     },
-              //     pageSize: 3,
-              // }}
+            
               dataSource={data}
               renderItem={(item: any) => (
                 <List.Item
@@ -103,7 +98,6 @@ const Home = () => {
                   />
 
                   {item.introduction}
-
                   <span style={{ color: "#8a919f", fontSize: 13 }}>{item.content}</span>
                 </List.Item>
               )}
@@ -111,16 +105,9 @@ const Home = () => {
 
           </div>
 
-
         </div>
 
-
-
       </div>
-
-
-
-
 
     </>
 

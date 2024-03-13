@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Radio, Select, Switch, Table, message } from "antd";
+import { Button, Card, Form, Input, Radio, Select, Switch, Table, Tag, message } from "antd";
 import React, { Component, useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 import "./../style/table-layout.css";
@@ -48,6 +48,16 @@ const AdminUserView = () => {
     {
       title: "状态",
       dataIndex: "status",
+      key:"status",
+      render: (_, record) => {
+        switch (record.status) {
+          case 1:
+            return <Tag color="green">正常</Tag>
+          case 2:
+            return <Tag color="red">封禁</Tag>
+        }
+
+      }
     },
     {
       title: "操作",
@@ -55,20 +65,26 @@ const AdminUserView = () => {
       key: "action",
       render: (_, record) => {
         const banUser = () => {
-          let body = {}
+          let body = {
+            userID: record.userID,
+            isShow: record.status==1?false:true
+          }
           myFetch({ url: "/admin/user", options: { method: "PUT", body: body } }).then((data) => {
 
           })
         }
         const deleteUser = () => {
-          let body = {}
+        
+          let body = {
+            userID: record.userID
+          }
           myFetch({ url: "/admin/user", options: { method: "DELETE", body: body } }).then((data) => {
 
           })
         }
         return (
           <>
-            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={banUser}>封禁</a> : <></>}
+            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={banUser}>{record.status === 2?<>解封</>:<>封禁</>}</a> : <></>}
             {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={deleteUser}>删除</a> : <></>}
           </>
         )
