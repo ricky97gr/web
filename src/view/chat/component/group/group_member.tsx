@@ -3,30 +3,11 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { myFetch } from "../../../../utils/fetch";
 
-const GroupMember = ({ groupUID, display }) => {
+const GroupMember = ({ data, display }) => {
 
     const [resoutceData, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [once, setonce] = useState(2);
-
-    const listGroupMember = (groupUID) => {
-
-        myFetch({ url: "/normalUser/groupmember/" + groupUID, options: { method: "GET" } }).then((data) => {
-
-            var result = []
-            for (let i = 0; i < data.body.result.length; i++) {
-                let tmp = {
-                    name: data.body.result[i].name,
-                    description: data.body.result[i].description,
-                }
-                result.push(tmp)
-
-            }
-            setData([...resoutceData, ...result])
-
-
-        })
-    }
 
     const loadMoreData = () => {
         if (loading) {
@@ -34,7 +15,7 @@ const GroupMember = ({ groupUID, display }) => {
         }
         setLoading(true);
         if (once === 1) {
-            listGroupMember(groupUID)
+
             setLoading(false);
             setonce(2)
             return
@@ -44,13 +25,9 @@ const GroupMember = ({ groupUID, display }) => {
 
     };
 
-    useEffect(()=>{
-        console.log(groupUID)
-        if (groupUID === ""){
-            return
-        }
-        listGroupMember(groupUID)
-    },[])
+    useEffect(() => {
+        setData(data)
+    })
 
     return (
         <>
