@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import './chat.css'
-import { Avatar, Button, Card, ConfigProvider, Divider, Form, Input, List, Skeleton, Tabs, TabsProps, message, notification } from "antd";
-import ChatMessage from "./component/message";
+import { Button, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message, notification } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { getLocalUserToken, getLocalUserUID } from "../../utils/auth";
+import { getCurrentChatType, getCurrnetChatUID } from "../../utils/chat";
+import './chat.css';
+import SessionList from "./component/Session";
 import FrientList from "./component/friend";
 import GroupList from "./component/group";
-import SessionList from "./component/Session";
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
-import { getLocalUserToken } from "../../utils/auth";
-import InfiniteScroll from "react-infinite-scroll-component";
 import GroupMember from "./component/group/group_member";
+import ChatMessage from "./component/message";
 
 
 
@@ -36,7 +35,7 @@ const ChatHome = () => {
 
     const [messages, setMessages] = useState<MessageInfo[]>([])
     const [isShowGroupMember, setShowGroupMember] = useState("none")
-    const [groupUID, setGroupUID] = useState("")
+    const [groupMember, setGroupMember] = useState([])
 
 
 
@@ -53,6 +52,10 @@ const ChatHome = () => {
         }
         allMessage = messages
         allMessage = [...allMessage, e]
+        console.log(e)
+        e.fromUID = getLocalUserUID()
+        e.type = getCurrentChatType()
+        e.groupID = getCurrnetChatUID()
 
         ws.current.send(JSON.stringify(e))
         setMessages(allMessage)
@@ -67,6 +70,7 @@ const ChatHome = () => {
     }
 
     const receiveMessage = (e) => {
+        console.log(1111, e)
         let msg = JSON.parse(e.data)
         if (msg.type === 1) {
             notification.info({
@@ -111,14 +115,14 @@ const ChatHome = () => {
         {
             key: '3',
             label: '群聊',
-            children: <GroupList setGroupUID={setGroupUID} showGroupMemberFunc={setShowGroupMember}/>,
+            children: <GroupList setGroupMember={setGroupMember} showGroupMemberFunc={setShowGroupMember} />,
         },
     ];
     return (
 
         <div className="chat-body">
             <div style={{ height: "100%", width: "100%", backgroundColor: "white" }}>
-                <div style={{ width: "23%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
+                <div style={{ width: "22%", backgroundColor: "white", float: "left", height: "100%", borderRightStyle: "solid", boxSizing: "border-box" }}>
                     <div style={{ height: "12%", borderBottomStyle: "solid", boxSizing: "border-box" }}></div>
                     <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}>
                         <Input style={{ height: "100%", width: "100%", backgroundColor: "#eee" }} size="large" bordered={false} placeholder="请输入查找内容"></Input>
@@ -137,14 +141,14 @@ const ChatHome = () => {
                     </div>
                 </div>
 
-                <div style={{ width: "17%", backgroundColor: "white", float: "right", height: "100%", borderLeftStyle: "solid", boxSizing: "border-box" }}>
-                   
-                <GroupMember groupUID={groupUID} display={isShowGroupMember}></GroupMember>
+                <div style={{ width: "18%", backgroundColor: "white", float: "right", height: "100%", borderLeftStyle: "solid", boxSizing: "border-box" }}>
+
+                    <GroupMember data={groupMember} display={isShowGroupMember}></GroupMember>
 
 
                 </div>
                 <div style={{ width: "60%", height: "100%", float: "right", backgroundColor: "white" }}>
-                    <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}><span style={{textAlign:"center"}}>title</span></div>
+                    <div style={{ height: "8%", borderBottomStyle: "solid", boxSizing: "border-box" }}><span style={{ textAlign: "center" }}>title</span></div>
                     <div id="chat-msg-contex" style={{ height: "70%", borderBottomStyle: "solid", boxSizing: "border-box", overflowY: "scroll" }}>
                         <ConfigProvider
                             theme={{
@@ -169,7 +173,7 @@ const ChatHome = () => {
 
                     </div>
                     <div style={{ height: "22%", position: "relative" }}>
-                        <Form<MessageInfo> onFinish={sendMessage}>
+                        <Form<MessageInfo> onFinish={(e) => sendMessage(e)}>
                             <Form.Item<MessageInfo> name="context">
                                 <Input.TextArea bordered={false}>
                                 </Input.TextArea>
@@ -181,7 +185,7 @@ const ChatHome = () => {
                     </div>
                 </div>
 
-                
+
 
             </div>
 
