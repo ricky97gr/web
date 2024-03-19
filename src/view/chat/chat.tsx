@@ -1,6 +1,6 @@
 import { Button, ConfigProvider, Divider, Form, Input, Tabs, TabsProps, message, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { getLocalUserToken, getLocalUserUID } from "../../utils/auth";
+import { getLocalUserName, getLocalUserToken, getLocalUserUID } from "../../utils/auth";
 import { getCurrentChatType, getCurrnetChatUID } from "../../utils/chat";
 import './chat.css';
 import SessionList from "./component/Session";
@@ -56,6 +56,7 @@ const ChatHome = () => {
         e.fromUID = getLocalUserUID()
         e.type = getCurrentChatType()
         e.groupID = getCurrnetChatUID()
+        e.fromName = getLocalUserName()
 
         ws.current.send(JSON.stringify(e))
         setMessages(allMessage)
@@ -163,7 +164,7 @@ const ChatHome = () => {
                         <ul>
                             {messages.map((item) => (
                                 <>
-                                    <ChatMessage msgid={"asfw"} userid={"111"} userName={"超级管理员"} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={item.context}></ChatMessage>
+                                    <ChatMessage msgid={"asfw"} userid={item.fromUID} userName={item.fromName} level={"Lv6"} sex={"男"} ip={"江苏省"} lastLoginTime={"一天前"} context={item.context}></ChatMessage>
                                 </>
                             ))}
 
