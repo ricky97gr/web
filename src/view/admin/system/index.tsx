@@ -8,6 +8,7 @@ export const SystemInfo = () => {
         version: string
         commitID: string
         buildTime: string
+        goVersion: string
     }
 
     type MonitorInfo = {
@@ -17,10 +18,11 @@ export const SystemInfo = () => {
         usedDisk: number
         totalDisk: number
         cpuPercent: number
+        runningTime: number
     }
-    const [systemInfo, setSystemInfo] = useState<SystemInfo>({ systemName: "", version: "", commitID: "", buildTime: "" })
+    const [systemInfo, setSystemInfo] = useState<SystemInfo>({ systemName: "", version: "", commitID: "", buildTime: "", goVersion: "" })
 
-    const [monitorInfo, setMonitorInfo] = useState<MonitorInfo>({ cpuCount: 0, usedDisk: 0, usedMemory: 0, totalDisk: 0, totalMemory: 0, cpuPercent: 0 })
+    const [monitorInfo, setMonitorInfo] = useState<MonitorInfo>({ cpuCount: 0, usedDisk: 0, usedMemory: 0, totalDisk: 0, totalMemory: 0, cpuPercent: 0, runningTime: 0 })
     const getVsersion = () => {
         myFetch({ url: "/admin/version", options: { method: "GET" } }).then((data) => {
             console.log(data)
@@ -61,7 +63,7 @@ export const SystemInfo = () => {
             key: "operationSytem",
             label: "操作系统",
             span: 3,
-            children: <span style={{ textAlign: "right", width: "100%" }}>linux</span>
+            children: <span style={{ textAlign: "right", width: "100%" }}>{systemInfo.goVersion}</span>
 
         },
         {
@@ -122,10 +124,10 @@ export const SystemInfo = () => {
             span: 3,
             children:
                 <div style={{ textAlign: "right", width: "100%" }}>
-                    <span>1</span><span>天</span>
+                    {/* <span>1</span><span>天</span>
                     <span>2</span><span>小时</span>
-                    <span>36</span><span>分钟</span>
-                    <span>21</span><span>秒</span></div>
+                    <span>36</span><span>分钟</span> */}
+                    <span>{(monitorInfo.runningTime / 1000).toFixed(0)}</span><span>秒</span></div>
 
         },
     ]
