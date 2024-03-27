@@ -153,7 +153,7 @@ export const SystemInfo = () => {
                     </Card>
                 </Col>
             </Row>
-            <Row style={{ marginTop: 10, padding: 8 }}>
+            {/* <Row style={{ marginTop: 10, padding: 8 }}>
                 <Col span={24}>
                     <Card title="功能控制面板" style={{ padding: 10 }}>
                         <Row>
@@ -194,7 +194,7 @@ export const SystemInfo = () => {
 
                     </Card>
                 </Col>
-            </Row>
+            </Row> */}
         </>
     )
 

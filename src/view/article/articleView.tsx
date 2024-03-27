@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import ViewMd from "../../component/article/articleViewer";
 import { myFetch } from "../../utils/fetch";
 import './articleView.css';
+import { QueryOperation } from "../../utils/constant";
+import MyQuery from "../../utils/query";
 const OneArticleView = () => {
   type articleInfo = {
     title: string

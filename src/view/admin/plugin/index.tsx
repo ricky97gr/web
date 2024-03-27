@@ -96,10 +96,14 @@ const PluginView = () => {
     }]
 
     const data = [
-        { name: "系统状态", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 1 },
-        { name: "数据分析", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 2 },
-        { name: "数据分析", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 3 },
-        { name: "数据分析", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 }
+        { name: "评论服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "对文章评论", author: "forgocode", status: 1 },
+        { name: "文章服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "新建文章", author: "forgocode", status: 2 },
+        { name: "聊天室服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "聊天室功能", author: "forgocode", status: 3 },
+        { name: "好友服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
+        { name: "短评服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
+        { name: "群组服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
+        { name: "商城服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
+        { name: "问答服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
     ]
 
     return (

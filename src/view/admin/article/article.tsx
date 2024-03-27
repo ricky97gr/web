@@ -1,9 +1,9 @@
 import { Card, Table, Tag } from "antd";
-import React, { Component, useEffect, useState } from "react";
-import "./../style/table-layout.css";
+import React, { useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
 import { MillTime2Date } from "../../../utils/time";
+import "./../style/table-layout.css";
 
 
 
@@ -124,6 +124,7 @@ const AdminArticleView = () => {
   const [dataResource, setDtataResource] = useState()
   const getallarticle = () => {
     let p = MyQuery({ page: 1, pageSize: 20 })
+    // let p = MyQuery({ page: 1, pageSize: 20, cons: [{ field: "isShow", value: 2, operation: QueryOperation.Equal }], sorts: [{ field: "createTime", orderBy: 1 }] })
     myFetch({ url: "/admin/article", options: { method: "GET" }, params: p }).then((data) => {
       for (let i = 0; i < data.body.result.length; i++) {
         data.body.result[i].createTime = MillTime2Date(
