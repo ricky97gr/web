@@ -1,5 +1,8 @@
 import { Badge, Card, Space, Table, Tag } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { myFetch } from "../../../utils/fetch";
+import MyQuery from "../../../utils/query";
+import { MillTime2Date } from "../../../utils/time";
 
 const PluginView = () => {
     const colums = [{
@@ -95,20 +98,32 @@ const PluginView = () => {
         }
     }]
 
-    const data = [
-        { name: "评论服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "对文章评论", author: "forgocode", status: 1 },
-        { name: "文章服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "新建文章", author: "forgocode", status: 2 },
-        { name: "聊天室服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "聊天室功能", author: "forgocode", status: 3 },
-        { name: "好友服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
-        { name: "短评服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
-        { name: "群组服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
-        { name: "商城服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
-        { name: "问答服务", version: "v.0.0.1", md5sum: "acmfankjfalkjtqer", description: "用于获取系统状态", author: "forgocode", status: 4 },
-    ]
+
+    const [dataResource, setDataResource] = useState();
+    const getAllPlugin = () => {
+        let param = MyQuery({});
+        myFetch({
+            url: "/admin/plugin",
+            options: { method: "GET" },
+            params: param,
+        }).then((data) => {
+            // for (let i = 0; i < data.body.result.length; i++) {
+            //     data.body.result[i].createTime = MillTime2Date(
+            //         data.body.result[i].createTime
+            //     );
+            // }
+            console.log(data.body.result)
+            setDataResource(data.body.result);
+        });
+    };
+
+    useEffect(() => {
+        getAllPlugin();
+    }, []);
 
     return (
         <Card style={{ marginTop: 20 }}>
-            <Table columns={colums} dataSource={data} size="middle">
+            <Table columns={colums} dataSource={dataResource} size="middle">
 
             </Table>
         </Card>
