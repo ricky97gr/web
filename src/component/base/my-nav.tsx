@@ -19,7 +19,7 @@ const CustomNav = ({ role }) => {
           style={{ cursor: "pointer", width: "100%", height: "100%" }}
         />
       </div>
-      <div>
+      <div style={{ width: "30%" }}>
         <ul className="nav-menu">
           <li className="nav-menu-li">
             <span>
@@ -51,26 +51,27 @@ const CustomNav = ({ role }) => {
           )}
         </ul>
       </div>
-
-      <div className="login-down">
-        <UserDropDwon>
-          <UserOutlined />
-        </UserDropDwon>
-      </div>
-      <div className="notice">
-        <NoticeDropDwon>
-          <BellOutlined />
-        </NoticeDropDwon>
-      </div>
-      <div className="search-box">
-        <CustomSearch></CustomSearch>
-      </div>
-      <div style={{ float: "right", marginTop: 0, width: "5%" }}>
-        <NewArticleDropDwon>
-          <Button size="large" style={{ margin: 0 }}>
-            创作
-          </Button>
-        </NewArticleDropDwon>
+      <div style={{ width: "60%", paddingRight: "15px" }}>
+        <div className="login-down">
+          <UserDropDwon>
+            <UserOutlined />
+          </UserDropDwon>
+        </div>
+        <div className="notice">
+          <NoticeDropDwon>
+            <BellOutlined height={"100%"} />
+          </NoticeDropDwon>
+        </div>
+        <div className="search-box">
+          <CustomSearch></CustomSearch>
+        </div>
+        <div style={{ float: "right", marginTop: 0, width: "5%" }}>
+          <NewArticleDropDwon>
+            <Button size="large" style={{ margin: 0 }}>
+              创作
+            </Button>
+          </NewArticleDropDwon>
+        </div>
       </div>
     </div>
   );

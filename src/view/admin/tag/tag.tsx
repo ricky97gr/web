@@ -8,7 +8,6 @@ import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
 import { MillTime2Date } from "../../../utils/time";
 
-
 const AdminTagView = () => {
   const colums = [
     {
@@ -69,8 +68,6 @@ const AdminTagView = () => {
         };
 
         const del = () => {
-          console.log("del");
-          console.log("del");
           let body = {
             uuid: record.uuid,
             name: record.name,
@@ -172,7 +169,11 @@ const AdminTagView = () => {
             </Button>
           </div>
           <div className="table-body">
-            <Table columns={colums} dataSource={dataResource} size="small"></Table>
+            <Table
+              columns={colums}
+              dataSource={dataResource}
+              size="small"
+            ></Table>
           </div>
         </div>
         <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
@@ -184,7 +185,11 @@ const AdminTagView = () => {
             >
               <Input></Input>
             </Form.Item>
-            <Form.Item<NewTag> label="启用" name="isShow" valuePropName="checked">
+            <Form.Item<NewTag>
+              label="启用"
+              name="isShow"
+              valuePropName="checked"
+            >
               <Switch defaultChecked></Switch>
             </Form.Item>
             <Button htmlType="submit">确定</Button>

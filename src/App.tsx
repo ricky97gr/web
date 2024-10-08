@@ -15,7 +15,6 @@ const App = () => {
 
   return (
     <div className="App">
-
       <CustomNav role={getLocalRole()}></CustomNav>
       {(getLocalRole() === LoginStatus.ADMIN || getLocalRole() === LoginStatus.SuperAdmin) ? <AdminRouter /> : <CommonRouter />}
       <FloatButton
