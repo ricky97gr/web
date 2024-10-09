@@ -1,45 +1,143 @@
 import React, { useEffect, useId, useState } from "react";
 import CustomNav from "../../component/base/my-nav";
 import "./home.css";
-import { Col, Row, Avatar, Tag, Tabs, Button, Card } from "antd";
+import { Col, Row, Avatar, Tag, Tabs, Button, Card, Space } from "antd";
 import type { TabsProps } from "antd";
 import { myFetch } from "../../utils/fetch";
-import { getLocalUserUID } from "../../utils/auth";
-
-const items: TabsProps["items"] = [
-  {
-    key: "1",
-    label: "文章",
-    children: (
-      <div style={{ width: "100%" }}>
-        <Card></Card>
-        <Card></Card>
-      </div>
-    ),
-  },
-  {
-    key: "2",
-    label: "回答",
-    children: "2",
-  },
-  {
-    key: "3",
-    label: "动态",
-    children: "",
-  },
-  {
-    key: "4",
-    label: "关注",
-    children: "",
-  },
-  {
-    key: "5",
-    label: "问题",
-    children: "",
-  },
-];
+import { getLocalUserName, getLocalUserUID } from "../../utils/auth";
+import { useParams } from "react-router-dom";
+import { MillTime2Date } from "../../utils/time";
 
 const CurrentUser = () => {
+  const [articleInfos, setArticleInfos] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [follows, setFollows] = useState([]);
+
+  const items: TabsProps["items"] = [
+    {
+      key: "1",
+      label: "文章",
+      children: (
+        <div style={{ width: "100%" }}>
+          {articleInfos.map((item, index) => (
+            <Card>
+              <div>
+                <div className="card-left">
+                  <img
+                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    alt=""
+                    style={{ cursor: "pointer", width: "100%", height: "100%" }}
+                  />
+                </div>
+                <div className="card-right">
+                  <div className="right-top">
+                    <a>
+                      <span style={{ margin: 10 }}>{getLocalUserName()}</span>
+                    </a>
+
+                    <span
+                      className="userField"
+                      style={{ margin: 5, color: "blue" }}
+                    >
+                      #{item.topic}
+                    </span>
+                    <span className="userField" style={{ margin: 5 }}>
+                      ip属地:{item.address}
+                    </span>
+                    <span className="userField" style={{ margin: 5 }}>
+                      {MillTime2Date(item.createTime)}
+                    </span>
+
+                    <span style={{ float: "right" }}>举报</span>
+                    <span style={{ float: "right", marginRight: "10px" }}>
+                      收藏
+                    </span>
+                  </div>
+                  <div className="right-center">
+                    {item.title}
+                    <br />
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: "回答",
+      children: "2",
+    },
+    {
+      key: "3",
+      label: "动态",
+      children: (
+        <div style={{ width: "100%" }}>
+          {comments.map((item, index) => (
+            <div style={{ margin: "5px" }}>
+              <Card>
+                <div>
+                  <div className="card-left">
+                    <img
+                      src="https://picture.moguit.cn//blog/admin/webp/2022/5/1/1651414702900.webp"
+                      alt=""
+                      style={{
+                        cursor: "pointer",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  </div>
+                  <div className="card-right">
+                    <div className="right-top">
+                      <a>
+                        <span style={{ margin: 10 }}>{item.user}</span>
+                      </a>
+
+                      <span
+                        className="userField"
+                        style={{ margin: 5, color: "blue" }}
+                      >
+                        #{item.topic}
+                      </span>
+                      <span className="userField" style={{ margin: 5 }}>
+                        ip属地:{item.address}
+                      </span>
+                      <span className="userField" style={{ margin: 5 }}>
+                        {MillTime2Date(item.createTime)}
+                      </span>
+
+                      <span style={{ float: "right" }}>举报</span>
+                      <span style={{ float: "right", marginRight: "10px" }}>
+                        收藏
+                      </span>
+                    </div>
+                    <div className="right-center">
+                      {item.context}
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "4",
+      label: "关注",
+      children: "",
+    },
+    {
+      key: "5",
+      label: "问题",
+      children: "",
+    },
+  ];
   type UserInfo = {
     nickName: string;
     articleCount: number;
@@ -70,8 +168,46 @@ const CurrentUser = () => {
       setUserInfo(data.body.result);
     });
   };
+
+  const getUserArticle = () => {
+    myFetch({
+      url: "/normalUser/articleList/" + getLocalUserUID(),
+      options: { method: "GET" },
+    }).then((data) => {
+      setArticleInfos(data.body.result);
+    });
+  };
+
+  const getUserComments = () => {
+    myFetch({
+      url: "/normalUser/commentList/" + getLocalUserUID(),
+      options: { method: "GET" },
+    }).then((data) => {
+      setComments(data.body.result);
+    });
+  };
+
+  const getInfo = (key) => {
+    if (key == "1") {
+      return;
+    }
+    if (key == "2") {
+      return;
+    }
+    if (key == "3") {
+      getUserComments();
+      return;
+    }
+    if (key == "4") {
+      return;
+    }
+    if (key == "5") {
+      return;
+    }
+  };
   useEffect(() => {
     getUserInfo(getLocalUserUID());
+    getUserArticle();
   }, []);
   return (
     <>
@@ -132,7 +268,7 @@ const CurrentUser = () => {
               size="middle"
               style={{ position: "absolute", bottom: 10, right: 10 }}
             >
-              添加好友
+              关注TA
             </Button>
           </div>
         </div>
@@ -142,6 +278,7 @@ const CurrentUser = () => {
             items={items}
             style={{ width: "60%" }}
             centered={true}
+            onTabClick={getInfo}
           ></Tabs>
           <div className="user-context"></div>
         </div>
