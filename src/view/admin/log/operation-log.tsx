@@ -12,7 +12,7 @@ const colums = [
   },
   {
     title: "操作者",
-    dataIndex: "user",
+    dataIndex: "userID",
     key: "user",
   },
   {
