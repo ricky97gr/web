@@ -22,8 +22,7 @@ function getItem(
   icon?: React.ReactNode,
   disabled?: boolean,
   children?: MenuItem[],
-  type?: "group",
-
+  type?: "group"
 ): MenuItem {
   return {
     key,
@@ -63,7 +62,7 @@ const AdminMenu = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div style={{ width: "100%", height: "100%", textAlign: "center" }}>
       <Menu
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["1"]}
@@ -72,7 +71,6 @@ const AdminMenu = () => {
         style={{ width: "100%", height: "100%" }}
         items={items}
         onClick={onclick}
-
       />
     </div>
   );

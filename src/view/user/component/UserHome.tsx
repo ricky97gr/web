@@ -1,15 +1,16 @@
-import React, { useEffect, useId, useState } from "react";
-import CustomNav from "../../component/base/my-nav";
-import "./home.css";
-import { Col, Row, Avatar, Tag, Tabs, Button, Card, Space } from "antd";
-import type { TabsProps } from "antd";
-import { myFetch } from "../../utils/fetch";
-import { getLocalUserName, getLocalUserUID } from "../../utils/auth";
+import { Card, Row, Col, Avatar, Tag, Button, Tabs, TabsProps } from "antd";
 
-import UserHome from "./component/UserHome";
-import { MillTime2Date } from "../../utils/time";
+import React, { useEffect, useState } from "react";
 
-const CurrentUser = () => {
+import { myFetch } from "../../../utils/fetch";
+import { MillTime2Date } from "../../../utils/time";
+import { useParams } from "react-router-dom";
+
+const UserHome = () => {
+  const params = useParams();
+  let userID = params["id"];
+  let userName = params["name"];
+
   const [articleInfos, setArticleInfos] = useState([]);
   const [comments, setComments] = useState([]);
   const [follows, setFollows] = useState([]);
@@ -37,7 +38,7 @@ const CurrentUser = () => {
                 <div className="card-right">
                   <div className="right-top">
                     <a>
-                      <span style={{ margin: 10 }}>{getLocalUserName()}</span>
+                      <span style={{ margin: 10 }}>{userName}</span>
                     </a>
 
                     <span
@@ -176,7 +177,7 @@ const CurrentUser = () => {
 
   const getUserArticle = () => {
     myFetch({
-      url: "/normalUser/articleList/" + getLocalUserUID(),
+      url: "/normalUser/articleList/" + userID,
       options: { method: "GET" },
     }).then((data) => {
       setArticleInfos(data.body.result);
@@ -185,7 +186,7 @@ const CurrentUser = () => {
 
   const getUserComments = () => {
     myFetch({
-      url: "/normalUser/commentList/" + getLocalUserUID(),
+      url: "/normalUser/commentList/" + userID,
       options: { method: "GET" },
     }).then((data) => {
       setComments(data.body.result);
@@ -211,7 +212,7 @@ const CurrentUser = () => {
     }
   };
   useEffect(() => {
-    getUserInfo(getLocalUserUID);
+    getUserInfo(userID);
     getUserArticle();
   }, []);
   return (
@@ -292,4 +293,4 @@ const CurrentUser = () => {
   );
 };
 
-export default CurrentUser;
+export default UserHome;

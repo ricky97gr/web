@@ -18,7 +18,7 @@ import { SystemInfo } from "../view/admin/system";
 import PluginView from "../view/admin/plugin";
 import OneArticleView from "../view/article/articleView";
 import Home from "../view/home";
-
+import UserHome from "../view/user/component/UserHome";
 
 export const touristRoutes = [
   <Route path="home" Component={Home}></Route>,
@@ -28,8 +28,8 @@ export const touristRoutes = [
   <Route path="chat" Component={ChatHome}></Route>,
   <Route path="currentUser" Component={CurrentUser}></Route>,
   <Route path="article/:id" element={<OneArticleView />}></Route>,
+  <Route path="user/:id/:name" element={<UserHome />}></Route>,
   // <Route path="article" Component={OneArticleView}></Route>,
-
 ];
 
 export const adminRouters = (
