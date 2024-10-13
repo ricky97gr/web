@@ -25,49 +25,57 @@ const Comment = () => {
   const [info, setinfo] = useState([]);
 
   const getComment = () => {
-    myFetch({ url: "/comment", options: { method: "GET" } }).then(
-      (data) => {
-        setinfo(data.body.result);
-      }
-    );
+    myFetch({ url: "/comment", options: { method: "GET" } }).then((data) => {
+      setinfo(data.body.result);
+    });
   };
 
   useEffect(() => {
-    getComment();
+    // getComment();
   }, []);
   return (
-
-    
     <>
- <div style={{ maxWidth: 1300, margin: "auto", height: "100%", marginTop: 15, display: "flex" }}>
-        <div style={{ width: 180, float: "left", textAlign: "center" }} className="categoryNav">
-        <CommentNav></CommentNav>
+      <div
+        style={{
+          maxWidth: 1300,
+          margin: "auto",
+          height: "100%",
+          marginTop: 15,
+          display: "flex",
+        }}
+      >
+        <div
+          style={{ width: 180, float: "left", textAlign: "center" }}
+          className="categoryNav"
+        >
+          <CommentNav updateData={setinfo}></CommentNav>
         </div>
         <div style={{ maxWidth: 1100, float: "right" }}>
-          <div className="inside" style={{ width: 260, float: "right", }}>
-
-          <Card title="用户信息"></Card>
+          <div className="inside" style={{ width: 260, float: "right" }}>
+            <Card title="用户信息"></Card>
             <Card title="精选短评" style={{ marginTop: 12 }}></Card>
             <Card title="推荐话题" style={{ marginTop: 12 }}></Card>
           </div>
-          <div style={{ width: 820, backgroundColor: "#fff", float: "left", marginRight: 10, marginLeft: 10 }}>
-          <CustomTextArea getAllComment={getComment} ></CustomTextArea>
+          <div
+            style={{
+              width: 820,
+              backgroundColor: "#fff",
+              float: "left",
+              marginRight: 10,
+              marginLeft: 10,
+            }}
+          >
+            <CustomTextArea getAllComment={getComment}></CustomTextArea>
             {info === null
               ? ""
               : info?.map((item) => (
-                <>
-                  <ParentComment item={item}></ParentComment>
-
-                </>
-              ))}
-
+                  <>
+                    <ParentComment item={item}></ParentComment>
+                  </>
+                ))}
           </div>
-
         </div>
-
       </div>
-    
-
     </>
   );
 };

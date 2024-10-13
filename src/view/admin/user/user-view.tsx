@@ -1,4 +1,15 @@
-import { Button, Card, Form, Input, Radio, Select, Switch, Table, Tag, message } from "antd";
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Radio,
+  Select,
+  Switch,
+  Table,
+  Tag,
+  message,
+} from "antd";
 import React, { Component, useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 import "./../style/table-layout.css";
@@ -21,14 +32,13 @@ const AdminUserView = () => {
       render: (_, record) => {
         switch (record.role) {
           case 1:
-            return <span>普通用户</span>
+            return <span>普通用户</span>;
           case 2:
-            return <span>普通管理员</span>
+            return <span>普通管理员</span>;
           case 3:
-            return <span style={{ color: "green" }}>超级管理员</span>
+            return <span style={{ color: "green" }}>超级管理员</span>;
         }
-
-      }
+      },
     },
     {
       title: "积分",
@@ -48,16 +58,15 @@ const AdminUserView = () => {
     {
       title: "状态",
       dataIndex: "status",
-      key:"status",
+      key: "status",
       render: (_, record) => {
         switch (record.status) {
           case 1:
-            return <Tag color="green">正常</Tag>
+            return <Tag color="green">正常</Tag>;
           case 2:
-            return <Tag color="red">封禁</Tag>
+            return <Tag color="red">封禁</Tag>;
         }
-
-      }
+      },
     },
     {
       title: "操作",
@@ -67,28 +76,44 @@ const AdminUserView = () => {
         const banUser = () => {
           let body = {
             userID: record.userID,
-            isShow: record.status==1?false:true
-          }
-          myFetch({ url: "/admin/user", options: { method: "PUT", body: body } }).then((data) => {
-
-          })
-        }
+            isShow: record.status == 1 ? false : true,
+          };
+          myFetch({
+            url: "/admin/user",
+            options: { method: "PUT", body: body },
+          }).then((data) => {});
+        };
         const deleteUser = () => {
-        
           let body = {
-            userID: record.userID
-          }
-          myFetch({ url: "/admin/user", options: { method: "DELETE", body: body } }).then((data) => {
-
-          })
-        }
+            userID: record.userID,
+          };
+          myFetch({
+            url: "/admin/user",
+            options: { method: "DELETE", body: body },
+          }).then((data) => {});
+        };
         return (
           <>
-            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={banUser}>{record.status === 2?<>解封</>:<>封禁</>}</a> : <></>}
-            {record.role !== 3 ? <a style={{ marginRight: 8, color: "#1677ff" }} onClick={deleteUser}>删除</a> : <></>}
+            {record.role !== 3 ? (
+              <a style={{ marginRight: 8, color: "#1677ff" }} onClick={banUser}>
+                {record.status === 2 ? <>解封</> : <>封禁</>}
+              </a>
+            ) : (
+              <></>
+            )}
+            {record.role !== 3 ? (
+              <a
+                style={{ marginRight: 8, color: "#1677ff" }}
+                onClick={deleteUser}
+              >
+                删除
+              </a>
+            ) : (
+              <></>
+            )}
           </>
-        )
-      }
+        );
+      },
     },
   ];
 
@@ -120,13 +145,13 @@ const AdminUserView = () => {
   }, []);
 
   type NewUser = {
-    nickName: string
-    sex: number
-    role: number
-    phone: string
-    email: string
-    password: string
-  }
+    nickName: string;
+    sex: number;
+    role: number;
+    phone: string;
+    email: string;
+    password: string;
+  };
   const [isshow, setShow] = useState<boolean>(false);
 
   const open = () => {
@@ -137,7 +162,6 @@ const AdminUserView = () => {
   };
 
   const addUser = (values: any) => {
-
     console.log(values);
 
     myFetch({
@@ -150,7 +174,7 @@ const AdminUserView = () => {
       }
       message.success("成功用户");
       close();
-      getAllUser()
+      getAllUser();
     });
   };
 
@@ -163,14 +187,18 @@ const AdminUserView = () => {
   return (
     <>
       <Card>
-
-
         <div className="table-context-body">
           <div className="table-add-button">
-            <Button size="large" onClick={open}>新增用户</Button>
+            <Button size="large" onClick={open}>
+              新增用户
+            </Button>
           </div>
           <div className="table-body">
-            <Table columns={colums} dataSource={dataResource}></Table>
+            <Table
+              columns={colums}
+              dataSource={dataResource}
+              size="small"
+            ></Table>
           </div>
           <CustomDrawer title="新增用户" isOpen={isshow} UpdateValue={open}>
             <Form onFinish={addUser}>
@@ -199,9 +227,9 @@ const AdminUserView = () => {
                 <Select
                   style={{ width: 120 }}
                   options={[
-                    { value: 1, label: '普通用户' },
-                    { value: 2, label: '普通管理员' },
-                    { value: 3, label: '超级管理员' },
+                    { value: 1, label: "普通用户" },
+                    { value: 2, label: "普通管理员" },
+                    { value: 3, label: "超级管理员" },
                   ]}
                 />
               </Form.Item>

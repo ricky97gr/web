@@ -180,7 +180,7 @@ const PluginView = () => {
 
   return (
     <Card style={{ marginTop: 20 }}>
-      <Table columns={colums} dataSource={dataResource} size="middle"></Table>
+      <Table columns={colums} dataSource={dataResource} size="small"></Table>
     </Card>
   );
 };

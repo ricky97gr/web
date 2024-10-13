@@ -53,7 +53,11 @@ const AdminOperationLogView = () => {
     <>
       <div className="table-context-body">
         <div className="table-body">
-          <Table columns={colums} dataSource={dataResource}></Table>
+          <Table
+            columns={colums}
+            dataSource={dataResource}
+            size="small"
+          ></Table>
         </div>
       </div>
     </>
