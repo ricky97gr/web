@@ -28,35 +28,48 @@ const colums = [
 ];
 
 const AdminOperationLogView = () => {
-  let param = MyQuery({ page: 1, pageSize: 20 });
-
   const [dataResource, setDataResource] = useState();
+  const [totalCount, setTotalCount] = useState(0);
+
   useEffect(() => {
-    getOperationLog();
+    getOperationLog(1, 20);
   }, []);
 
-  const getOperationLog = () => {
+  const getOperationLog = (page, pageSize) => {
+    let param = MyQuery({ page: page, pageSize: pageSize });
     myFetch({ url: "/admin/operationLog", options: {}, params: param }).then(
       (data) => {
-        console.log(data);
         for (let i = 0; i < data.body.result.length; i++) {
           data.body.result[i].createTime = MillTime2Date(
             data.body.result[i].createTime
           );
         }
         setDataResource(data.body.result);
+        setTotalCount(data.body.total);
       }
     );
+  };
+  const handleTableChange = (page, pageSize) => {
+    getOperationLog(page, pageSize);
   };
 
   return (
     <>
       <div className="table-context-body">
-        <div className="table-body">
+        <div style={{ marginTop: "0px" }}>
           <Table
             columns={colums}
             dataSource={dataResource}
             size="small"
+            bordered={true}
+            pagination={{
+              total: totalCount,
+              showSizeChanger: true,
+              showTotal: (total) => `总计 ${total} 条`,
+              onChange: handleTableChange,
+              defaultPageSize: 20,
+              locale: { items_per_page: "条/页", page: "页" },
+            }}
           ></Table>
         </div>
       </div>

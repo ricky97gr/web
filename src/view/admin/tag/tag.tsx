@@ -113,11 +113,12 @@ const AdminTagView = () => {
     isShow: boolean;
   };
 
+  const [form] = Form.useForm();
+
   const [isshow, setShow] = useState<boolean>(false);
   const [isOpenModal, setIsModalOpen] = useState<boolean>(false);
   const open = () => {
     setShow(true);
-    
   };
   const close = () => {
     setShow(false);
@@ -135,6 +136,7 @@ const AdminTagView = () => {
         return;
       }
       message.success("成功新建标签");
+      form.resetFields();
       close();
       getAllTag();
     });
@@ -165,7 +167,7 @@ const AdminTagView = () => {
       <Card>
         <div className="table-context-body">
           <div className="table-add-button">
-            <Button size="large" onClick={open}>
+            <Button size="small" onClick={open}>
               新增
             </Button>
           </div>
@@ -174,27 +176,30 @@ const AdminTagView = () => {
               columns={colums}
               dataSource={dataResource}
               size="small"
+              bordered={true}
             ></Table>
           </div>
         </div>
         <CustomDrawer title="新增标签" isOpen={isshow} UpdateValue={open}>
-          <Form onFinish={addTag}>
-            <Form.Item<NewTag>
+          <Form onFinish={addTag} form={form}>
+            <Form.Item
               label="名称"
               name="name"
               rules={[{ required: true, message: "请输入标签名称" }]}
             >
               <Input></Input>
             </Form.Item>
-            <Form.Item<NewTag>
-              label="启用"
-              name="isShow"
-              valuePropName="checked"
-            >
-              <Switch defaultChecked></Switch>
+            <Form.Item label="启用" name="isShow" valuePropName="checked">
+              <Switch></Switch>
             </Form.Item>
-            <Button htmlType="submit">确定</Button>
-            <Button onClick={close}>取消</Button>
+            <div style={{ marginTop: "120px" }}>
+              <Button htmlType="submit" style={{ float: "left" }} size="middle">
+                确定
+              </Button>
+              <Button onClick={close} style={{ float: "right" }} size="middle">
+                取消
+              </Button>
+            </div>
           </Form>
         </CustomDrawer>
       </Card>

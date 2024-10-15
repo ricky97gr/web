@@ -7,20 +7,25 @@ import AdminRouter from "./router/admin-index";
 import CommonRouter from "./router/comm-index";
 import CustomNav from "./component/base/my-nav";
 import { LoginStatus } from "./utils/constant";
-import { CommentOutlined } from "@ant-design/icons";
+import { CommentOutlined, FileTextOutlined } from "@ant-design/icons";
 import { getLocalRole } from "./utils/auth";
+import FeedbackModal from "./component/feedback/feedback";
 
 const App = () => {
-
-
   return (
     <div className="App">
       <CustomNav role={getLocalRole()}></CustomNav>
-      {(getLocalRole() === LoginStatus.ADMIN || getLocalRole() === LoginStatus.SuperAdmin) ? <AdminRouter /> : <CommonRouter />}
+      {getLocalRole() === LoginStatus.ADMIN ||
+      getLocalRole() === LoginStatus.SuperAdmin ? (
+        <AdminRouter />
+      ) : (
+        <CommonRouter />
+      )}
+      <FeedbackModal></FeedbackModal>
       <FloatButton
         shape="circle"
         href="/chat"
-        style={{ right: 50 }}
+        style={{ right: 50, bottom: 50, position: "fixed" }}
         icon={<CommentOutlined />}
       />
     </div>

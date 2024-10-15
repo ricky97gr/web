@@ -173,7 +173,7 @@ const AdminCategoryView = () => {
       <Card>
         <div className="table-context-body">
           <div className="table-add-button">
-            <Button size="large" onClick={open}>
+            <Button size="small" onClick={open}>
               新增
             </Button>
           </div>
@@ -198,12 +198,17 @@ const AdminCategoryView = () => {
             <Form.Item<NewCategory> label="启用" name="isShow">
               <Switch defaultChecked></Switch>
             </Form.Item>
-            <Button htmlType="submit">确定</Button>
-            <Button onClick={close}>取消</Button>
+            <div style={{ marginTop: "120px" }}>
+              <Button htmlType="submit" style={{ float: "left" }} size="middle">
+                确定
+              </Button>
+              <Button onClick={close} style={{ float: "right" }} size="middle">
+                取消
+              </Button>
+            </div>
           </Form>
         </CustomDrawer>
       </Card>
-
     </>
   );
 };

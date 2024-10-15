@@ -8,7 +8,6 @@ import MyQuery from "../../../utils/query";
 import CustomModal from "../../../component/base/my-modal";
 import { MillTime2Date } from "../../../utils/time";
 
-
 const AdminTopicView = () => {
   const colums = [
     {
@@ -170,12 +169,17 @@ const AdminTopicView = () => {
       <Card>
         <div className="table-context-body">
           <div className="table-add-button">
-            <Button size="large" onClick={open}>
+            <Button size="small" onClick={open}>
               新增
             </Button>
           </div>
           <div className="table-body">
-            <Table columns={colums} dataSource={dataResource} size="small"></Table>
+            <Table
+              columns={colums}
+              dataSource={dataResource}
+              size="small"
+              bordered={true}
+            ></Table>
           </div>
         </div>
         <CustomDrawer title="新增话题" isOpen={isshow} UpdateValue={open}>
@@ -194,12 +198,17 @@ const AdminTopicView = () => {
             >
               <Switch defaultChecked></Switch>
             </Form.Item>
-            <Button htmlType="submit">确定</Button>
-            <Button onClick={close}>取消</Button>
+            <div style={{ marginTop: "120px" }}>
+              <Button htmlType="submit" style={{ float: "left" }} size="middle">
+                确定
+              </Button>
+              <Button onClick={close} style={{ float: "right" }} size="middle">
+                取消
+              </Button>
+            </div>
           </Form>
         </CustomDrawer>
       </Card>
-
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Badge, Card, Space, Table, Tag } from "antd";
+import { Badge, Card, Descriptions, Modal, Space, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { myFetch } from "../../../utils/fetch";
 import MyQuery from "../../../utils/query";
@@ -6,13 +6,110 @@ import { MillTime2Date } from "../../../utils/time";
 import { bold } from "@uiw/react-md-editor";
 
 const PluginView = () => {
+  const getPluginStatus = (status) => {
+    switch (status) {
+      case 1:
+        return (
+          <Space>
+            <Badge
+              status="success"
+              text={<span style={{ color: "rgb(52, 170, 68)" }}>运行中</span>}
+            ></Badge>
+          </Space>
+        );
+      case 2:
+        return (
+          <Space>
+            <Space>
+              <Badge status="default" text={<span>已停用</span>}></Badge>
+            </Space>
+          </Space>
+        );
+      case 3:
+        return (
+          <Space>
+            <Space>
+              <Badge
+                status="processing"
+                text={<span style={{ color: "#249cec" }}>升级中</span>}
+              ></Badge>
+            </Space>
+          </Space>
+        );
+      case 4:
+        return (
+          <Space>
+            <Space>
+              <Badge
+                status="processing"
+                text={<span style={{ color: "#249cec" }}>校验中</span>}
+              ></Badge>
+            </Space>
+          </Space>
+        );
+    }
+  };
   const colums = [
     {
       title: "名称",
       dataIndex: "name",
       key: "name",
+
       render: (_, record) => {
-        return <a style={{ color: "#1665d8" }}>{record.name}</a>;
+        const showPluginInfo = () => {
+          Modal.info({
+            // title: (
+            //   <>
+            //     <p>{record.nickName}详细信息</p>
+            //   </>
+            // ),
+            content: (
+              <>
+                <Descriptions
+                  size="small"
+                  title={`插件信息`}
+                  bordered
+                  items={[
+                    {
+                      key: "1",
+                      label: "名称",
+                      children: `${record.name}`,
+                    },
+                    {
+                      key: "2",
+                      label: "版本",
+                      children: record.version,
+                    },
+                    {
+                      key: "4",
+                      label: "作者",
+                      children: `${record.author}`,
+                    },
+                    {
+                      key: "3",
+                      label: "描述",
+                      children: `${record.description}`,
+                    },
+
+                    {
+                      key: "5",
+                      label: "状态",
+                      children: getPluginStatus(record.status),
+                    },
+                  ]}
+                ></Descriptions>
+              </>
+            ),
+            width: "800px",
+            centered: true,
+            okText: "确定",
+          });
+        };
+        return (
+          <a style={{ color: "#1665d8" }} onClick={showPluginInfo}>
+            {record.name}
+          </a>
+        );
       },
     },
     {
@@ -27,11 +124,7 @@ const PluginView = () => {
         );
       },
     },
-    {
-      title: "md5校验",
-      dataIndex: "md5sum",
-      key: "md5sum",
-    },
+
     {
       title: "描述",
       dataIndex: "description",
@@ -47,49 +140,7 @@ const PluginView = () => {
       dataIndex: "status",
       key: "status",
       render: (_, record) => {
-        switch (record.status) {
-          case 1:
-            return (
-              <Space>
-                <Badge
-                  status="success"
-                  text={
-                    <span style={{ color: "rgb(52, 170, 68)" }}>运行中</span>
-                  }
-                ></Badge>
-              </Space>
-            );
-          case 2:
-            return (
-              <Space>
-                <Space>
-                  <Badge status="default" text={<span>已停用</span>}></Badge>
-                </Space>
-              </Space>
-            );
-          case 3:
-            return (
-              <Space>
-                <Space>
-                  <Badge
-                    status="processing"
-                    text={<span style={{ color: "#249cec" }}>升级中</span>}
-                  ></Badge>
-                </Space>
-              </Space>
-            );
-          case 4:
-            return (
-              <Space>
-                <Space>
-                  <Badge
-                    status="processing"
-                    text={<span style={{ color: "#249cec" }}>校验中</span>}
-                  ></Badge>
-                </Space>
-              </Space>
-            );
-        }
+        return getPluginStatus(record.status);
       },
     },
     {
@@ -145,8 +196,6 @@ const PluginView = () => {
         };
         return (
           <>
-            <a onClick={checkPlugin}>校验</a>
-            <a>检查新版本</a>
             <a onClick={upgradePlugin}>升级</a>
             <a onClick={startPlugin}>启用</a>
             <a onClick={stopPlugin}>停用</a>
@@ -180,7 +229,12 @@ const PluginView = () => {
 
   return (
     <Card style={{ marginTop: 20 }}>
-      <Table columns={colums} dataSource={dataResource} size="small"></Table>
+      <Table
+        columns={colums}
+        dataSource={dataResource}
+        size="small"
+        bordered
+      ></Table>
     </Card>
   );
 };
