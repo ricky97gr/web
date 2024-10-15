@@ -117,6 +117,7 @@ const AdminTagView = () => {
   const [isOpenModal, setIsModalOpen] = useState<boolean>(false);
   const open = () => {
     setShow(true);
+    
   };
   const close = () => {
     setShow(false);
