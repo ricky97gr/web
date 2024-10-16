@@ -44,11 +44,6 @@ const FeedbackModal = () => {
         onClick={showModal}
       ></FloatButton>
       <div>
-        {/* 打开模态框按钮 */}
-        <Button type="primary" onClick={showModal}>
-          提交反馈
-        </Button>
-
         {/* 反馈模态框 */}
         <Modal
           title="用户反馈"

@@ -42,6 +42,8 @@ const items: MenuItem[] = [
   getItem("话题管理", "/admin/topic"),
   getItem("文章管理", "/admin/article"),
   getItem("广告管理",""),
+  getItem("用户反馈","/admin/feedback"),
+  getItem("配置备份","/admin/backup"),
   getItem("服务管理系统", "/admin/plugin", null),
   getItem("系统管理", "/admin/systeminfo", null),
   getItem("日志管理", "log", null, false, [

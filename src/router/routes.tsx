@@ -19,6 +19,8 @@ import PluginView from "../view/admin/plugin";
 import OneArticleView from "../view/article/articleView";
 import Home from "../view/home";
 import UserHome from "../view/user/component/UserHome";
+import AdminFeedbackPage from "../view/admin/feedback";
+import BackupConfigPage from "../view/admin/backup/backup";
 
 export const touristRoutes = [
   <Route path="home" Component={Home}></Route>,
@@ -46,6 +48,9 @@ export const adminRouters = (
       <Route path="topic" Component={AdminTopicView}></Route>
       <Route path="systeminfo" Component={SystemInfo}></Route>
       <Route path="plugin" Component={PluginView}></Route>
+      <Route path="feedback" Component={AdminFeedbackPage}></Route>
+      <Route path="backup" Component={BackupConfigPage}></Route>
+    
     </Route>
   </>
 );
