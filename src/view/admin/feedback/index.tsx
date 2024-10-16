@@ -1,38 +1,49 @@
 import React, { useState } from "react";
-import { Table, Tag, Button, Modal, Select, message, Space, Popconfirm } from "antd";
-import moment from "moment";  // 用于格式化日期时间
+import {
+  Table,
+  Tag,
+  Button,
+  Modal,
+  Select,
+  message,
+  Space,
+  Popconfirm,
+  Card,
+  Descriptions,
+} from "antd";
+import moment from "moment"; // 用于格式化日期时间
 
 // 示例反馈数据，增加了 username 和 feedbackTime
 const feedbackData = [
   {
-    key: '1',
-    username: 'user1',
-    type: '建议',
-    content: '希望增加更多的功能选项。',
+    key: "1",
+    username: "user1",
+    type: "建议",
+    content: "希望增加更多的功能选项。",
     rating: 5,
-    contact: 'user1@example.com',
-    feedbackTime: '2024-10-15T10:20:00',
-    status: '待处理',
+    contact: "user1@example.com",
+    feedbackTime: "2024-10-15T10:20:00",
+    status: "待处理",
   },
   {
-    key: '2',
-    username: 'user2',
-    type: '问题报告',
-    content: '某些页面加载速度较慢。',
+    key: "2",
+    username: "user2",
+    type: "问题报告",
+    content: "某些页面加载速度较慢。",
     rating: 3,
-    contact: 'user2@example.com',
-    feedbackTime: '2024-10-14T09:15:00',
-    status: '已处理',
+    contact: "user2@example.com",
+    feedbackTime: "2024-10-14T09:15:00",
+    status: "已处理",
   },
   {
-    key: '3',
-    username: 'user3',
-    type: '其他',
-    content: '其他反馈内容。',
+    key: "3",
+    username: "user3",
+    type: "其他",
+    content: "其他反馈内容。",
     rating: 4,
-    contact: 'user3@example.com',
-    feedbackTime: '2024-10-13T11:45:00',
-    status: '待处理',
+    contact: "user3@example.com",
+    feedbackTime: "2024-10-13T11:45:00",
+    status: "待处理",
   },
 ];
 
@@ -79,7 +90,9 @@ const AdminFeedbackPage = () => {
       title: "反馈类型",
       dataIndex: "type",
       key: "type",
-      render: (text) => <Tag color={text === "问题报告" ? "volcano" : "geekblue"}>{text}</Tag>,
+      render: (text) => (
+        <Tag color={text === "问题报告" ? "volcano" : "geekblue"}>{text}</Tag>
+      ),
     },
     {
       title: "反馈内容",
@@ -124,17 +137,9 @@ const AdminFeedbackPage = () => {
       render: (text, record) => (
         <Space>
           {/* 查看详情按钮 */}
-          <Button type="link" onClick={() => showModal(record)}>查看详情</Button>
-
-          {/* 删除确认按钮 */}
-          <Popconfirm
-            title="确定删除该反馈吗？"
-            onConfirm={() => handleDelete(record.key)}
-            okText="是"
-            cancelText="否"
-          >
-            <Button type="link" danger>删除</Button>
-          </Popconfirm>
+          <Button type="link" onClick={() => showModal(record)}>
+            查看详情
+          </Button>
         </Space>
       ),
     },
@@ -142,34 +147,55 @@ const AdminFeedbackPage = () => {
 
   return (
     <div>
-      <h2>管理员反馈查看页面</h2>
-
-      {/* 反馈表格 */}
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        rowKey="key"
-        pagination={{ pageSize: 5 }}
-        size="small"
-      />
-
-      {/* 查看反馈详情的模态框 */}
+      <>
+        <Card>
+          <div className="table-context-body">
+            <div className="table-body">
+              <Table
+                dataSource={dataSource}
+                columns={columns}
+                rowKey="key"
+                pagination={{ pageSize: 5 }}
+                size="small"
+                bordered
+              />
+            </div>
+          </div>
+        </Card>
+      </>
       {currentFeedback && (
         <Modal
-          title="反馈详情"
-          visible={visible}
+          open={visible}
           onCancel={handleCancel}
           footer={[
-            <Button key="close" onClick={handleCancel}>关闭</Button>,
+            <Button key="close" onClick={handleCancel}>
+              关闭
+            </Button>,
           ]}
         >
-          <p><strong>用户名：</strong> {currentFeedback.username}</p>
-          <p><strong>反馈类型：</strong> {currentFeedback.type}</p>
-          <p><strong>反馈内容：</strong> {currentFeedback.content}</p>
-          <p><strong>评分：</strong> {currentFeedback.rating} / 5</p>
-          <p><strong>联系方式：</strong> {currentFeedback.contact}</p>
-          <p><strong>反馈时间：</strong> {moment(currentFeedback.feedbackTime).format("YYYY-MM-DD HH:mm")}</p>
-          <p><strong>状态：</strong> {currentFeedback.status}</p>
+          <Descriptions bordered column={1} title="反馈详情">
+            <Descriptions.Item label="用户名">
+              {currentFeedback.username}
+            </Descriptions.Item>
+            <Descriptions.Item label="反馈类型">
+              {currentFeedback.type}
+            </Descriptions.Item>
+            <Descriptions.Item label="反馈内容">
+              {currentFeedback.content}
+            </Descriptions.Item>
+            <Descriptions.Item label="评分">
+              {currentFeedback.rating} / 5
+            </Descriptions.Item>
+            <Descriptions.Item label="联系方式">
+              {currentFeedback.contact}
+            </Descriptions.Item>
+            <Descriptions.Item label="反馈时间">
+              {moment(currentFeedback.feedbackTime).format("YYYY-MM-DD HH:mm")}
+            </Descriptions.Item>
+            <Descriptions.Item label="状态">
+              {currentFeedback.status}
+            </Descriptions.Item>
+          </Descriptions>
         </Modal>
       )}
     </div>

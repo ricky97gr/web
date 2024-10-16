@@ -21,6 +21,7 @@ import Home from "../view/home";
 import UserHome from "../view/user/component/UserHome";
 import AdminFeedbackPage from "../view/admin/feedback";
 import BackupConfigPage from "../view/admin/backup/backup";
+import AdManagementPage from "../view/admin/adv";
 
 export const touristRoutes = [
   <Route path="home" Component={Home}></Route>,
@@ -50,7 +51,7 @@ export const adminRouters = (
       <Route path="plugin" Component={PluginView}></Route>
       <Route path="feedback" Component={AdminFeedbackPage}></Route>
       <Route path="backup" Component={BackupConfigPage}></Route>
-    
+      <Route path="ad" Component={AdManagementPage}></Route>
     </Route>
   </>
 );

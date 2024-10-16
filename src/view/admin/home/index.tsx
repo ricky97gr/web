@@ -5,7 +5,6 @@ import React from "react";
 import { Content } from "antd/es/layout/layout";
 import { Outlet, Route } from "react-router-dom";
 
-
 export const Admin = () => {
   const {
     token: { colorBgContainer },
@@ -13,7 +12,10 @@ export const Admin = () => {
 
   return (
     <Layout style={{ height: "95%" }}>
-      <Sider width={256} style={{ background: colorBgContainer, height: "100%" }} >
+      <Sider
+        width={256}
+        style={{ background: colorBgContainer, height: "100%" }}
+      >
         <AdminMenu></AdminMenu>
       </Sider>
       <Layout style={{ padding: "8px" }}>
